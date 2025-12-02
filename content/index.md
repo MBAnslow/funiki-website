@@ -1,7 +1,7 @@
 ---
 title: Funiki project
-permalink: /
 summary: Notes distilled from Sony CSL's Funiki research write-up.
+draft: false
 tags:
   - funiki
   - research
