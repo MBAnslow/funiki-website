@@ -1,15 +1,15 @@
 {
   "name": "funiki-website",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "description": "Obsidian-first home for the Funiki knowledge garden",
   "private": true,
   "version": "4.5.2",
   "type": "module",
-  "author": "jackyzha0 <j.zhao2k19@gmail.com>",
+  "author": "Michael Anslow",
   "license": "MIT",
-  "homepage": "https://quartz.jzhao.xyz",
+  "homepage": "https://mbanslow.github.io/funiki-website",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jackyzha0/quartz.git"
+    "url": "https://github.com/MBAnslow/funiki-website.git"
   },
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
