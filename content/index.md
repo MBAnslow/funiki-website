@@ -6,6 +6,7 @@ tags:
   - funiki
   - research
 ---
+
 Funiki is a Sony CSL research project exploring how physical spaces can become
 responsive "stages" that blend light and sound to support activities ranging
 from collaborative tabletop play to restorative solo moments. The engine keeps a
