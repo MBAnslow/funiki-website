@@ -1,9 +1,6 @@
 ---
 title: Funiki project
 permalink: /
-aliases:
-  - funiki
-  - /funiki
 summary: Notes distilled from Sony CSL's Funiki research write-up.
 tags:
   - funiki
