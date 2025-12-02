@@ -1,6 +1,6 @@
 {
   "name": "funiki-website",
-  "description": "Obsidian-first home for the Funiki knowledge garden",
+  "description": "Obsidian-first home for the Funiki website",
   "private": true,
   "version": "4.5.2",
   "type": "module",
