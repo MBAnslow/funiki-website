@@ -8,4 +8,4 @@ tags:
 publishDate: 02/12/2025
 ---
 
-HEre is some front matter.
+Here is some front matter.

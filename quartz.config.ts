@@ -9,7 +9,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Funiki",
-    pageTitleSuffix: " · Knowledge Garden",
+    pageTitleSuffix: "Project Website",
     enableSPA: true,
     enablePopovers: true,
     analytics: null,
@@ -21,8 +21,8 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        header: "Alfa Slab",
+        body: "Source Code Pro",
         code: "IBM Plex Mono",
       },
       colors: {
