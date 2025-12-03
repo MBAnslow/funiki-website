@@ -1,7 +1,7 @@
 ---
-title: Ourt first experiment
-permalink: /experiments1
-summary: Notes distilled from Sony CSL's Funiki research write-up.
+title: Markdown Examples
+permalink: /markdown-examples
+summary: Markdown examples
 tags:
   - funiki
   - experiment
