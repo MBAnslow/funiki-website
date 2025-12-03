@@ -46,6 +46,10 @@ ul,
   fill: var(--darkgray);
   overflow-wrap: break-word;
   text-wrap: pretty;
+
+  & li::marker {
+    color: var(--tertiary);
+  }
 }
 
 .math {
@@ -516,6 +520,7 @@ p {
     margin: 1rem;
     padding: 1.5rem;
     border-collapse: collapse;
+    width: 100%;
 
     th,
     td {
@@ -524,6 +529,15 @@ p {
 
     & > * {
       line-height: 2rem;
+    }
+
+    thead {
+      background-color: var(--tableHeader);
+      color: var(--dark);
+    }
+
+    tbody {
+      background-color: var(--tableBody);
     }
   }
 }
@@ -562,7 +576,14 @@ hr {
   margin: 2rem auto;
   height: 1px;
   border: none;
-  background-color: var(--lightgray);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--lightgray) 15%, transparent) 2%,
+    color-mix(in srgb, var(--darkgray) 60%, transparent) 50%,
+    color-mix(in srgb, var(--lightgray) 15%, transparent) 98%,
+    transparent 100%
+  );
 }
 
 audio,

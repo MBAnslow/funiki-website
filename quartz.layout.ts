@@ -42,6 +42,7 @@ export const defaultContentPageLayout: PageLayout = {
       ],
       gap: "0.5rem",
     }),
+    Component.HeaderImage(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
