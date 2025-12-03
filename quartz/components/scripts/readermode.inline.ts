@@ -1,4 +1,4 @@
-let isReaderMode = false
+let isReaderMode = true
 
 const emitReaderModeChangeEvent = (mode: "on" | "off") => {
   const event: CustomEventMap["readermodechange"] = new CustomEvent("readermodechange", {
@@ -7,12 +7,18 @@ const emitReaderModeChangeEvent = (mode: "on" | "off") => {
   document.dispatchEvent(event)
 }
 
+const applyReaderModeState = () => {
+  const mode = isReaderMode ? "on" : "off"
+  document.documentElement.setAttribute("reader-mode", mode)
+  emitReaderModeChangeEvent(mode)
+}
+
+applyReaderModeState()
+
 document.addEventListener("nav", () => {
   const switchReaderMode = () => {
     isReaderMode = !isReaderMode
-    const newMode = isReaderMode ? "on" : "off"
-    document.documentElement.setAttribute("reader-mode", newMode)
-    emitReaderModeChangeEvent(newMode)
+    applyReaderModeState()
   }
 
   for (const readerModeButton of document.getElementsByClassName("readermode")) {
@@ -21,5 +27,5 @@ document.addEventListener("nav", () => {
   }
 
   // Set initial state
-  document.documentElement.setAttribute("reader-mode", isReaderMode ? "on" : "off")
+  applyReaderModeState()
 })

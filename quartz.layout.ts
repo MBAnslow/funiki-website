@@ -17,9 +17,30 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.ConditionalRender({
-      component: Component.Breadcrumbs(),
-      condition: (page) => page.fileData.slug !== "index",
+    Component.Flex({
+      components: [
+        {
+          Component: Component.ConditionalRender({
+            component: Component.Breadcrumbs(),
+            condition: (page) => page.fileData.slug !== "index",
+          }),
+          grow: true,
+          align: "start",
+          justify: "start",
+        },
+        {
+          Component: Component.Flex({
+            components: [
+              { Component: Component.Darkmode() },
+              { Component: Component.ReaderMode() },
+            ],
+            gap: "0.5rem",
+          }),
+          align: "center",
+          justify: "end",
+        },
+      ],
+      gap: "0.5rem",
     }),
     Component.ArticleTitle(),
     Component.ContentMeta(),
@@ -34,8 +55,6 @@ export const defaultContentPageLayout: PageLayout = {
           Component: Component.Search(),
           grow: true,
         },
-        { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
       ],
     }),
     Component.Explorer(),
@@ -49,7 +68,32 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Breadcrumbs(),
+          grow: true,
+          align: "start",
+          justify: "start",
+        },
+        {
+          Component: Component.Flex({
+            components: [
+              { Component: Component.Darkmode() },
+              { Component: Component.ReaderMode() },
+            ],
+            gap: "0.5rem",
+          }),
+          align: "center",
+          justify: "end",
+        },
+      ],
+      gap: "0.5rem",
+    }),
+    Component.ArticleTitle(),
+    Component.ContentMeta(),
+  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
@@ -59,7 +103,6 @@ export const defaultListPageLayout: PageLayout = {
           Component: Component.Search(),
           grow: true,
         },
-        { Component: Component.Darkmode() },
       ],
     }),
     Component.Explorer(),

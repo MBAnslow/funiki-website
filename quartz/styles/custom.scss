@@ -1,3 +1,48 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+:root {
+  .sidebar.left {
+    background-color: color-mix(in srgb, var(--lightgray) 60%, transparent);
+    border-radius: 1rem;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .sidebar.left:hover {
+    background-color: color-mix(in srgb, var(--lightgray) 80%, transparent);
+  }
+
+  /* give the main column breathing room */
+  #quartz-body {
+    & > .page-header,
+    & > .center,
+    & > .page-footer,
+    & > footer {
+      padding-left: clamp(1rem, 4vw, 2.5rem);
+      padding-right: clamp(1rem, 4vw, 2.5rem);
+      box-sizing: border-box;
+    }
+
+    @media all and ($mobile) {
+      & > .page-header,
+      & > .center,
+      & > .page-footer,
+      & > footer {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+:root[saved-theme="dark"] {
+  .sidebar.left {
+    background-color: color-mix(in srgb, var(--lightgray) 35%, transparent);
+  }
+
+  .sidebar.left:hover {
+    background-color: color-mix(in srgb, var(--lightgray) 55%, transparent);
+  }
+}
