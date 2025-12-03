@@ -7,4 +7,4 @@ tags:
 publishDate: 02/12/2025
 ---
 
-# Light Object
+Light objects are lights positioned in space.

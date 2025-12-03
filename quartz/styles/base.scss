@@ -218,7 +218,7 @@ a {
       gap: 1.2rem;
       top: 0;
       box-sizing: border-box;
-      padding: $topSpacing 2rem 2rem 2rem;
+      padding: 3rem 2rem 2rem 2rem;
       display: flex;
       height: 100vh;
       position: sticky;
@@ -270,7 +270,7 @@ a {
 
     & .page-header {
       grid-area: grid-header;
-      margin: $topSpacing 0 0 0;
+      margin: 3rem 0 0 0;
       @media all and ($mobile) {
         margin-top: 0;
         padding: 0;

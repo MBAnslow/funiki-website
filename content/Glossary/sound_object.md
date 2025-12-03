@@ -7,4 +7,4 @@ tags:
 publishDate: 02/12/2025
 ---
 
-# Sound Object
+Sound objects are objects positioned in space. 
