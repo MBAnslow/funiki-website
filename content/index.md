@@ -6,7 +6,7 @@ permalink: /
 tags:
   - funiki
   - research
-headerImage: /static/og-image.png
+headerImage: ./static/funiki-header.png
 headerImageAlt: Funiki ambient collage of light and sound
 ---
 
