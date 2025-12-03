@@ -1,6 +1,8 @@
+
 .content-meta {
   margin-top: 0;
   color: var(--darkgray);
+  font-family: var(--dateFont), var(--bodyFont), cursive;
 
   &[show-comma="true"] {
     > *:not(:last-child) {

@@ -6,6 +6,7 @@
   overflow-y: hidden;
   min-height: 1.4rem;
   flex: 0 0.5 auto;
+  font-family: var(--tocFont), var(--bodyFont), sans-serif;
   &:has(button.toc-header.collapsed) {
     flex: 0 1 1.4rem;
   }

@@ -21,9 +21,11 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Alfa Slab",
+        header: { name: "Abril Fatface", weights: [400] },
         body: "Source Code Pro",
         code: "IBM Plex Mono",
+        toc: { name: "Bad Script", weights: [200] },
+        date: { name: "Bad Script", weights: [200] },
       },
       colors: {
         lightMode: {
@@ -43,7 +45,7 @@ const config: QuartzConfig = {
           gray: "#646464",
           darkgray: "#d4d4d4",
           dark: "#ebebec",
-          secondary: "#7b97aa",
+          secondary: "#ff7c47",
           tertiary: "#84a59d",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "#b3aa0288",

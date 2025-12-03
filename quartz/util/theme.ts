@@ -29,6 +29,8 @@ export interface Theme {
     header: FontSpecification
     body: FontSpecification
     code: FontSpecification
+    toc?: FontSpecification
+    date?: FontSpecification
   }
   cdnCaching: boolean
   colors: Colors
@@ -49,16 +51,17 @@ export function getFontSpecificationName(spec: FontSpecification): string {
   return spec.name
 }
 
-function formatFontSpecification(
-  type: "title" | "header" | "body" | "code",
-  spec: FontSpecification,
-) {
+type FontVariant = "title" | "header" | "body" | "code" | "toc" | "date"
+
+function formatFontSpecification(type: FontVariant, spec: FontSpecification) {
   if (typeof spec === "string") {
     spec = { name: spec }
   }
 
-  const defaultIncludeWeights = type === "header" ? [400, 700] : [400, 600]
-  const defaultIncludeItalic = type === "body"
+  const isHeader = type === "header"
+  const isBody = type === "body"
+  const defaultIncludeWeights = isHeader ? [400, 700] : [400, 600]
+  const defaultIncludeItalic = isBody
   const weights = spec.weights ?? defaultIncludeWeights
   const italic = spec.includeItalic ?? defaultIncludeItalic
 
@@ -86,12 +89,16 @@ function formatFontSpecification(
 }
 
 export function googleFontHref(theme: Theme) {
-  const { header, body, code } = theme.typography
-  const headerFont = formatFontSpecification("header", header)
-  const bodyFont = formatFontSpecification("body", body)
-  const codeFont = formatFontSpecification("code", code)
+  const { header, body, code, toc, date } = theme.typography
+  const families = [
+    formatFontSpecification("header", header),
+    formatFontSpecification("body", body),
+    formatFontSpecification("code", code),
+    toc ? formatFontSpecification("toc", toc) : undefined,
+    date ? formatFontSpecification("date", date) : undefined,
+  ].filter((family): family is string => typeof family === "string")
 
-  return `https://fonts.googleapis.com/css2?family=${headerFont}&family=${bodyFont}&family=${codeFont}&display=swap`
+  return `https://fonts.googleapis.com/css2?family=${families.join("&family=")}&display=swap`
 }
 
 export function googleFontSubsetHref(theme: Theme, text: string) {
@@ -159,6 +166,8 @@ ${stylesheet.join("\n\n")}
   --headerFont: "${getFontSpecificationName(theme.typography.header)}", ${DEFAULT_SANS_SERIF};
   --bodyFont: "${getFontSpecificationName(theme.typography.body)}", ${DEFAULT_SANS_SERIF};
   --codeFont: "${getFontSpecificationName(theme.typography.code)}", ${DEFAULT_MONO};
+  --tocFont: "${getFontSpecificationName(theme.typography.toc || theme.typography.body)}", ${DEFAULT_SANS_SERIF};
+  --dateFont: "${getFontSpecificationName(theme.typography.date || theme.typography.body)}", ${DEFAULT_SANS_SERIF};
 }
 
 :root[saved-theme="dark"] {
