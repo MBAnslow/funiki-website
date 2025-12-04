@@ -5,6 +5,19 @@
 
 :root {
   .page {
+    position: relative;
+  }
+
+  #control-buttons {
+    position: absolute;
+    top: 0.5rem;
+    right: clamp(1rem, 4vw, 2.5rem);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  .page {
     max-width: 100%;
     width: 100%;
     margin: 0;

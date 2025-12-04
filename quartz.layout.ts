@@ -17,22 +17,19 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
+    Component.HeaderImage(),
     Component.Flex({
       components: [
         {
-          Component: Component.ConditionalRender({
-            component: Component.Breadcrumbs(),
-            condition: (page) => page.fileData.slug !== "index",
-          }),
+          Component: Component.Spacer(),
           grow: true,
-          align: "start",
-          justify: "start",
         },
         {
           Component: Component.Flex({
             components: [
               { Component: Component.Darkmode() },
               { Component: Component.ReaderMode() },
+              { Component: Component.Search({ iconOnly: true }) },
             ],
             gap: "0.5rem",
           }),
@@ -42,7 +39,6 @@ export const defaultContentPageLayout: PageLayout = {
       ],
       gap: "0.5rem",
     }),
-    Component.HeaderImage(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -50,14 +46,6 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-      ],
-    }),
     Component.Explorer(),
   ],
   right: [
@@ -73,16 +61,15 @@ export const defaultListPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: Component.Breadcrumbs(),
+          Component: Component.Spacer(),
           grow: true,
-          align: "start",
-          justify: "start",
         },
         {
           Component: Component.Flex({
             components: [
               { Component: Component.Darkmode() },
               { Component: Component.ReaderMode() },
+              { Component: Component.Search({ iconOnly: true }) },
             ],
             gap: "0.5rem",
           }),
@@ -98,14 +85,6 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-      ],
-    }),
     Component.Explorer(),
   ],
   right: [],

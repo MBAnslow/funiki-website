@@ -6,6 +6,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .breadcrumb-element {
@@ -14,6 +15,7 @@
     margin-left: 0.5rem;
     padding: 0;
     line-height: normal;
+    font-size: inherit;
   }
   display: flex;
   flex-direction: row;
