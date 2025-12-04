@@ -29,6 +29,18 @@ At its core, the Funiki engine keeps a **virtual stage** in sync with **real-wor
 
 Instead of treating light and sound as static effects, Funiki treats them as **living elements of a shared environment**.
 
+<div class="video-embed">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/i7riCaAyB6A"
+    title="Funiki overview"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+</div>
+
 ---
 
 ## Why It Matters
