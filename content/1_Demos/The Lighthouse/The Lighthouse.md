@@ -1,7 +1,7 @@
 ---
 title: Overview
 permalink: /the-lighthouse-overview
-summary: Summarising the lighthouse demo sessions. 
+summary: Summarising the lighthouse demo sessions.
 tags:
   - funiki
   - lightouse
@@ -10,4 +10,3 @@ publishDate: 04/12/2025
 ---
 
 # One sunny day
-

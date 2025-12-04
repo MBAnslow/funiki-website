@@ -16,7 +16,7 @@ export interface Options {
   folderDefaultState: "collapsed" | "open"
   folderClickBehavior: "collapse" | "link"
   useSavedState: boolean
-  sortFn: (a: FileTrieNode, b: FileTrieNode) => number
+  sortFn?: (a: FileTrieNode, b: FileTrieNode) => number
   filterFn: (node: FileTrieNode) => boolean
   mapFn: (node: FileTrieNode) => void
   order: OrderEntries[]
@@ -29,23 +29,7 @@ const defaultOptions: Options = {
   mapFn: (node) => {
     return node
   },
-  sortFn: (a, b) => {
-    // Sort order: folders first, then files. Sort folders and files alphabeticall
-    if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-      // numeric: true: Whether numeric collation should be used, such that "1" < "2" < "10"
-      // sensitivity: "base": Only strings that differ in base letters compare as unequal. Examples: a ≠ b, a = á, a = A
-      return a.displayName.localeCompare(b.displayName, undefined, {
-        numeric: true,
-        sensitivity: "base",
-      })
-    }
-
-    if (!a.isFolder && b.isFolder) {
-      return 1
-    } else {
-      return -1
-    }
-  },
+  sortFn: undefined,
   filterFn: (node) => node.slugSegment !== "tags",
   order: ["filter", "map", "sort"],
 }
@@ -71,7 +55,7 @@ export default ((userOpts?: Partial<Options>) => {
         data-savestate={opts.useSavedState}
         data-data-fns={JSON.stringify({
           order: opts.order,
-          sortFn: opts.sortFn.toString(),
+          sortFn: opts.sortFn ? opts.sortFn.toString() : undefined,
           filterFn: opts.filterFn.toString(),
           mapFn: opts.mapFn.toString(),
         })}

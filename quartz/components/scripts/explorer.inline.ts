@@ -8,10 +8,38 @@ interface ParsedOptions {
   folderClickBehavior: "collapse" | "link"
   folderDefaultState: "collapsed" | "open"
   useSavedState: boolean
-  sortFn: (a: FileTrieNode, b: FileTrieNode) => number
+  sortFn?: (a: FileTrieNode, b: FileTrieNode) => number
   filterFn: (node: FileTrieNode) => boolean
   mapFn: (node: FileTrieNode) => void
   order: "sort" | "filter" | "map"[]
+}
+
+const numericPrefixSort = (a: FileTrieNode, b: FileTrieNode) => {
+  const prefixFor = (node: FileTrieNode) => {
+    const source = node.slugSegment || node.displayName || ""
+    const match = source.match(/^(\d+)_/)
+    return match ? Number(match[1]) : null
+  }
+
+  const aPrefix = prefixFor(a)
+  const bPrefix = prefixFor(b)
+
+  if (aPrefix !== null || bPrefix !== null) {
+    if (aPrefix === null) return 1
+    if (bPrefix === null) return -1
+    if (aPrefix !== bPrefix) {
+      return aPrefix - bPrefix
+    }
+  }
+
+  if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
+    return a.displayName.localeCompare(b.displayName, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    })
+  }
+
+  return a.isFolder ? -1 : 1
 }
 
 type FolderState = {
@@ -86,7 +114,7 @@ function createFileNode(currentSlug: FullSlug, node: FileTrieNode): HTMLLIElemen
   const a = li.querySelector("a") as HTMLAnchorElement
   a.href = resolveRelative(currentSlug, node.slug)
   a.dataset.for = node.slug
-  a.textContent = node.displayName
+  a.textContent = node.displayName.replace(/^\d+_/, "")
 
   if (currentSlug === node.slug) {
     a.classList.add("active")
@@ -118,11 +146,11 @@ function createFolderNode(
     a.href = resolveRelative(currentSlug, folderPath)
     a.dataset.for = folderPath
     a.className = "folder-title"
-    a.textContent = node.displayName
+    a.textContent = node.displayName.replace(/^\d+_/, "")
     button.replaceWith(a)
   } else {
     const span = titleContainer.querySelector(".folder-title") as HTMLElement
-    span.textContent = node.displayName
+    span.textContent = node.displayName.replace(/^\d+_/, "")
   }
 
   // if the saved state is collapsed or the default state is collapsed
@@ -160,7 +188,7 @@ async function setupExplorer(currentSlug: FullSlug) {
       folderDefaultState: (explorer.dataset.collapsed || "collapsed") as "collapsed" | "open",
       useSavedState: explorer.dataset.savestate === "true",
       order: dataFns.order || ["filter", "map", "sort"],
-      sortFn: new Function("return " + (dataFns.sortFn || "undefined"))(),
+      sortFn: dataFns.sortFn ? new Function("return " + dataFns.sortFn)() : undefined,
       filterFn: new Function("return " + (dataFns.filterFn || "undefined"))(),
       mapFn: new Function("return " + (dataFns.mapFn || "undefined"))(),
     }
@@ -186,7 +214,7 @@ async function setupExplorer(currentSlug: FullSlug) {
           if (opts.mapFn) trie.map(opts.mapFn)
           break
         case "sort":
-          if (opts.sortFn) trie.sort(opts.sortFn)
+          trie.sort(opts.sortFn ?? numericPrefixSort)
           break
       }
     }
