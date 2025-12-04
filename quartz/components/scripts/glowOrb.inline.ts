@@ -1,5 +1,5 @@
 const FADE_IN_HOLD_MS = 350
-const MAX_TRAJECTORY_POINTS = 8
+const MAX_TRAJECTORY_POINTS = 10
 const HOLD_SEGMENT_DURATION = 1000
 const FIRST_MOVE_DURATION = 1500
 const UNDERLINE_SEGMENT_DURATION = 1500
@@ -218,6 +218,8 @@ const animateOrb = (orb: HTMLElement) => {
       : undefined
 
   const anchorStartPoint = firstIEntry ? anchorPointFor(firstIEntry.rect) : null
+  const secondAnchorPoint =
+    lastIEntry && lastIEntry.el !== firstIEntry?.el ? anchorPointFor(lastIEntry.rect) : null
 
   const underlineStartPoint =
     (lastIEntry && baselinePointFor(lastIEntry.rect)) ||
@@ -286,11 +288,16 @@ const animateOrb = (orb: HTMLElement) => {
     }
   }
 
+  const reservedTailPoints = secondAnchorPoint ? 2 : 1
   let guard = 0
-  while (debugPoints.length < MAX_TRAJECTORY_POINTS - 1 && guard < 200) {
+  while (debugPoints.length < MAX_TRAJECTORY_POINTS - reservedTailPoints && guard < 200) {
     const before = debugPoints.length
     pushPoint(randomHoverPoint())
     guard = debugPoints.length === before ? guard + 1 : 0
+  }
+
+  if (secondAnchorPoint) {
+    pushPoint(secondAnchorPoint)
   }
 
   const lastPoint = debugPoints[debugPoints.length - 1]
