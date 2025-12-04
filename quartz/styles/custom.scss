@@ -49,11 +49,35 @@
       0 0 55px rgba(255, 255, 210, 0.4);
     mix-blend-mode: screen;
     pointer-events: none;
-    animation: glow-orb-drift 9s ease-in-out infinite;
+    animation: none;
     opacity: 0.85;
     z-index: 3;
     border: 1px solid rgba(255, 0, 0, 0.65);
     transition: opacity 0.4s ease;
+  }
+
+  .orb-debug-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .orb-debug-point {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.55rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
   }
 
   .glow-orb::after {
