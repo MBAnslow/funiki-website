@@ -24,12 +24,71 @@
   }
 
   .sidebar.left {
+    position: sticky;
+    overflow: visible;
+    isolation: isolate;
     background-color: color-mix(in srgb, var(--lightgray) 60%, transparent);
     transition: background-color 0.2s ease, opacity 0.2s ease;
   }
 
   .sidebar.left:hover {
     background-color: color-mix(in srgb, var(--lightgray) 80%, transparent);
+  }
+
+  .glow-orb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 210, 0.95), rgba(255, 232, 70, 0.8), rgba(255, 200, 0, 0.25));
+    box-shadow:
+      0 0 20px rgba(255, 232, 70, 0.75),
+      0 0 35px rgba(255, 200, 0, 0.5),
+      0 0 55px rgba(255, 255, 210, 0.4);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: glow-orb-drift 9s ease-in-out infinite;
+    opacity: 0.85;
+    z-index: 3;
+    border: 1px solid rgba(255, 0, 0, 0.65);
+    transition: opacity 0.4s ease;
+  }
+
+  .glow-orb::after {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle, rgba(255, 255, 210, 0.9), transparent 75%);
+    mix-blend-mode: screen;
+    filter: blur(10px);
+  }
+
+  @keyframes glow-orb-drift {
+    0% {
+      transform: translate(0, 0) scale(0.85);
+    }
+    25% {
+      transform: translate(-25px, -30px) scale(1);
+      box-shadow:
+        0 0 40px rgba(132, 165, 157, 0.7),
+        0 0 80px rgba(40, 75, 99, 0.45),
+        0 0 120px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+      transform: translate(-10px, 35px) scale(0.95);
+    }
+    75% {
+      transform: translate(-45px, 5px) scale(1.05);
+      box-shadow:
+        0 0 35px rgba(132, 165, 157, 0.6),
+        0 0 70px rgba(40, 75, 99, 0.35),
+        0 0 110px rgba(255, 255, 255, 0.35);
+    }
+    100% {
+      transform: translate(0, 0) scale(0.9);
+    }
   }
 
   /* give the main column breathing room */
@@ -53,6 +112,34 @@
       }
     }
   }
+
+}
+
+.sidebar.left .glow-letter {
+  transition:
+    color 0.6s ease,
+    text-shadow 0.6s ease;
+  display: inline-block;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
+}
+
+.sidebar.left .orb-illuminated {
+  text-shadow:
+    0 0 4px rgba(255, 235, 120, 0.4),
+    0 0 8px rgba(255, 210, 70, 0.3),
+    0 0 12px rgba(255, 200, 0, 0.2);
+  color: color-mix(in srgb, var(--darkgray) 60%, var(--secondary));
+}
+
+:root[saved-theme="dark"] .sidebar.left .orb-illuminated {
+  text-shadow:
+    0 0 10px rgba(255, 240, 150, 0.7),
+    0 0 18px rgba(255, 210, 70, 0.6),
+    0 0 26px rgba(255, 200, 0, 0.55);
+  color: color-mix(in srgb, #fff 85%, var(--tertiary));
 }
 
 :root[saved-theme="dark"] {

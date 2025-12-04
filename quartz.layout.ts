@@ -44,6 +44,10 @@ export const defaultContentPageLayout: PageLayout = {
     Component.TagList(),
   ],
   left: [
+    Component.ConditionalRender({
+      component: Component.GlowingOrb(),
+      condition: (page) => page.fileData.slug === "index",
+    }),
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
@@ -83,6 +87,10 @@ export const defaultListPageLayout: PageLayout = {
     Component.ContentMeta(),
   ],
   left: [
+    Component.ConditionalRender({
+      component: Component.GlowingOrb(),
+      condition: (page) => page.fileData.slug === "index",
+    }),
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
