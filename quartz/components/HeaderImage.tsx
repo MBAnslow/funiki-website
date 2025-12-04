@@ -3,12 +3,18 @@ import { classNames } from "../util/lang"
 
 const HeaderImage: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const headerImage = fileData.frontmatter?.headerImage
-  if (!headerImage) {
+  if (typeof headerImage !== "string" || headerImage.length === 0) {
     return null
   }
 
+  const headerImageAlt = fileData.frontmatter?.headerImageAlt
+  const fallbackTitle = fileData.frontmatter?.title
   const altText =
-    fileData.frontmatter?.headerImageAlt ?? fileData.frontmatter?.title ?? "Header image"
+    (typeof headerImageAlt === "string" && headerImageAlt.length > 0
+      ? headerImageAlt
+      : typeof fallbackTitle === "string" && fallbackTitle.length > 0
+        ? fallbackTitle
+        : "Header image") ?? "Header image"
 
   return (
     <figure class={classNames(displayClass, "header-image")}>
