@@ -1,9 +1,10 @@
 const FADE_IN_HOLD_MS = 350
 const MAX_TRAJECTORY_POINTS = 8
-const FIRST_SEGMENT_DURATION = 800
-const SECOND_SEGMENT_DURATION = 1500
-const RANDOM_SEGMENT_MIN_DURATION = 500
-const RANDOM_SEGMENT_MAX_DURATION = 800
+const HOLD_SEGMENT_DURATION = 1000
+const FIRST_MOVE_DURATION = 1500
+const UNDERLINE_SEGMENT_DURATION = 1500
+const RANDOM_SEGMENT_MIN_DURATION = 800
+const RANDOM_SEGMENT_MAX_DURATION = 1200
 
 type Point = { x: number; y: number }
 type PathSegment = {
@@ -15,6 +16,10 @@ type PathSegment = {
 }
 
 const randomBetween = (min: number, max: number) => min + Math.random() * (max - min)
+const DEFAULT_ORB_HUE = 48
+const DYNAMIC_HUE_START_POINT = 2
+const MIN_HUE_VARIATION = 15
+const randomHue = () => Math.floor(randomBetween(0, 360))
 
 const evaluateCubic = (segment: PathSegment, t: number): Point => {
   const { start, control1, control2, end } = segment
@@ -115,6 +120,52 @@ const animateOrb = (orb: HTMLElement) => {
   const sidebar = orb.closest<HTMLElement>(".sidebar.left")
   if (!sidebar) return
 
+  const normalizeHue = (value: number) => {
+    if (!Number.isFinite(value)) return DEFAULT_ORB_HUE
+    const normalized = value % 360
+    return normalized < 0 ? normalized + 360 : normalized
+  }
+
+  const parseHue = (value: string) => {
+    const parsed = Number.parseFloat(value)
+    return Number.isFinite(parsed) ? parsed : DEFAULT_ORB_HUE
+  }
+
+  const initialHue = (() => {
+    const inlineValue = sidebar.style.getPropertyValue("--glow-orb-hue")
+    if (inlineValue) return parseHue(inlineValue)
+    const computedValue = getComputedStyle(sidebar).getPropertyValue("--glow-orb-hue")
+    return parseHue(computedValue)
+  })()
+
+  let currentHue = normalizeHue(initialHue)
+
+  const commitHue = (hue: number) => {
+    currentHue = normalizeHue(hue)
+    sidebar.style.setProperty("--glow-orb-hue", currentHue.toFixed(2))
+  }
+
+  const hueDistance = (a: number, b: number) => {
+    const diff = Math.abs(a - b)
+    return Math.min(diff, 360 - diff)
+  }
+
+  const pickNextHue = () => {
+    let nextHue = randomHue()
+    if (hueDistance(nextHue, currentHue) < MIN_HUE_VARIATION) {
+      nextHue = (nextHue + MIN_HUE_VARIATION * 2) % 360
+    }
+    return nextHue
+  }
+
+  const handlePointReached = (pointIndex: number) => {
+    if (pointIndex >= DYNAMIC_HUE_START_POINT) {
+      commitHue(pickNextHue())
+    }
+  }
+
+  commitHue(currentHue)
+
   const sidebarRect = sidebar.getBoundingClientRect()
   const targets = Array.from(sidebar.querySelectorAll<HTMLElement>(".glow-letter"))
   const letterEntries = targets
@@ -137,7 +188,7 @@ const animateOrb = (orb: HTMLElement) => {
 
   const anchorPointFor = (rect: DOMRect): Point => ({
     x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
-    y: rect.top + rect.height / 2 - sidebarRect.top - orb.offsetHeight / 2,
+    y: rect.top - sidebarRect.top - orb.offsetHeight / 2 + 7,
   })
 
   const rightmostLetter =
@@ -166,7 +217,7 @@ const animateOrb = (orb: HTMLElement) => {
       ? iLetterEntries.reduce((prev, curr) => (prev.rect.left > curr.rect.left ? prev : curr))
       : undefined
 
-  const anchorStartPoint = firstIEntry ? anchorPointFor(firstIEntry.anchorRect) : null
+  const anchorStartPoint = firstIEntry ? anchorPointFor(firstIEntry.rect) : null
 
   const underlineStartPoint =
     (lastIEntry && baselinePointFor(lastIEntry.rect)) ||
@@ -206,20 +257,28 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const anchorIndex = pushPoint(anchorStartPoint ?? fallbackStart)
-  const underlineStartIndex = pushPoint(underlineStartPoint)
+  const referencePoint = underlineEndPoint ?? underlineStartPoint ?? debugPoints[debugPoints.length - 1]
+  const shiftedUnderlineStart =
+    underlineStartPoint && referencePoint
+      ? { ...underlineStartPoint, x: underlineStartPoint.x + 12 }
+      : underlineStartPoint
+  const underlineStartIndex = pushPoint(shiftedUnderlineStart)
   const underlineEndIndex = pushPoint(underlineEndPoint)
 
-  const referencePoint = underlineEndPoint ?? underlineStartPoint ?? debugPoints[debugPoints.length - 1]
   if (referencePoint) {
     pushPoint({ x: referencePoint.x - 30, y: referencePoint.y - 25 })
   }
 
   const randomHoverPoint = (): Point => {
     const maxX = sidebarRect.width
-    const minX = 0
-    const centerX = randomBetween(minX, Math.max(minX + 1, maxX))
-    const topLimit = -orb.offsetHeight * 2
-    const bottomLimit = (underlineStartPoint ?? referencePoint ?? { y: 60 }).y - 20
+    const minX = Math.max(0, (leftmostLetter?.rect.left ?? sidebarRect.left) - sidebarRect.left - 20)
+    const maxClampX =
+      Math.min(maxX, (rightmostLetter?.rect.right ?? sidebarRect.left + maxX) - sidebarRect.left + 20) -
+      orb.offsetWidth
+    const centerX = randomBetween(minX, Math.max(minX + 1, maxClampX))
+    const topLimit =
+      (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? sidebarRect.top) - sidebarRect.top - 30
+    const bottomLimit = (underlineStartPoint ?? referencePoint ?? { y: 60 }).y - 10
     const centerY = randomBetween(topLimit, bottomLimit)
     return {
       x: centerX - orb.offsetWidth / 2,
@@ -252,27 +311,33 @@ const animateOrb = (orb: HTMLElement) => {
 
   const initialPosition = debugPoints[0]
   const segments: PathSegment[] = []
+  segments.push(createLinearSegment(initialPosition, initialPosition, HOLD_SEGMENT_DURATION))
+  let movementIndex = 0
   for (let i = 0; i < debugPoints.length - 1; i++) {
     const from = debugPoints[i]
     const to = debugPoints[i + 1]
-    const segmentIndex = segments.length
     let duration: number
-    if (segmentIndex === 0) {
-      duration = FIRST_SEGMENT_DURATION
-    } else if (segmentIndex === 1) {
-      duration = SECOND_SEGMENT_DURATION
+    if (movementIndex === 0) {
+      duration = FIRST_MOVE_DURATION
+    } else if (movementIndex === 1) {
+      duration = UNDERLINE_SEGMENT_DURATION
     } else {
       duration = randomBetween(RANDOM_SEGMENT_MIN_DURATION, RANDOM_SEGMENT_MAX_DURATION)
     }
     const isUnderlineSegment =
-      (i === anchorIndex && i + 1 === underlineStartIndex && anchorIndex !== -1) ||
-      (i === underlineStartIndex && i + 1 === underlineEndIndex && underlineStartIndex !== -1)
-    if (isUnderlineSegment) {
+      movementIndex !== 0 &&
+      ((i === anchorIndex && i + 1 === underlineStartIndex && anchorIndex !== -1) ||
+        (i === underlineStartIndex && i + 1 === underlineEndIndex && underlineStartIndex !== -1))
+    if (movementIndex === 0) {
+      const bias = to.y >= from.y ? "down" : "up"
+      segments.push(createCurvedSegment(from, to, bias, duration))
+    } else if (isUnderlineSegment) {
       segments.push(createLinearSegment(from, to, duration))
     } else {
       const bias = to.y >= from.y ? "down" : "up"
       segments.push(createCurvedSegment(from, to, bias, duration))
     }
+    movementIndex += 1
   }
 
   renderDebugPoints(sidebar, orb, debugPoints)
@@ -307,6 +372,10 @@ const animateOrb = (orb: HTMLElement) => {
     highlightTargets(targets, orbRect)
 
     if (t >= 1) {
+      if (segmentIndex >= 1) {
+        const reachedPointIndex = Math.min(segmentIndex, debugPoints.length - 1)
+        handlePointReached(reachedPointIndex)
+      }
       segmentIndex += 1
       segmentStart = null
     }
