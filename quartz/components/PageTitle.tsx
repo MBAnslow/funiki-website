@@ -5,21 +5,22 @@ import { i18n } from "../i18n"
 
 const HIGHLIGHT_TITLE = "funiki"
 
-const glowLetters = (title: string) => title.split("").map((char, idx) => {
-  if (char.toLowerCase() === "i") {
+const glowLetters = (title: string) =>
+  title.split("").map((char, idx) => {
+    if (char.toLowerCase() === "i") {
+      return (
+        <span key={idx} class="page-title__i glow-letter">
+          {char}
+          <span class="funiki-idot-anchor" aria-hidden="true"></span>
+        </span>
+      )
+    }
     return (
-      <span key={idx} class="page-title__i glow-letter">
+      <span key={idx} class="glow-letter">
         {char}
-        <span class="funiki-idot-anchor" aria-hidden="true"></span>
       </span>
     )
-  }
-  return (
-    <span key={idx} class="glow-letter">
-      {char}
-    </span>
-  )
-})
+  })
 
 const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzComponentProps) => {
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title

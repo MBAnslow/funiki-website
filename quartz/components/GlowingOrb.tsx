@@ -10,4 +10,3 @@ const GlowingOrb: QuartzComponent = ({ displayClass }: QuartzComponentProps) => 
 GlowingOrb.afterDOMLoaded = glowOrbScript
 
 export default (() => GlowingOrb) satisfies QuartzComponentConstructor
-

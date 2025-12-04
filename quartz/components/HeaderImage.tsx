@@ -38,4 +38,3 @@ HeaderImage.css = `
 `
 
 export default (() => HeaderImage) satisfies QuartzComponentConstructor
-

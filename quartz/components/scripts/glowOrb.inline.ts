@@ -96,11 +96,7 @@ const highlightTargets = (targets: Element[], orbRect: DOMRect) => {
   }
 }
 
-const renderDebugPoints = (
-  sidebar: HTMLElement,
-  orb: HTMLElement,
-  points: Point[],
-) => {
+const renderDebugPoints = (sidebar: HTMLElement, orb: HTMLElement, points: Point[]) => {
   const existing = sidebar.querySelector(".orb-debug-overlay")
   existing?.remove()
   if (!ENABLE_ORB_DEBUG) {
@@ -186,17 +182,11 @@ const animateOrb = (orb: HTMLElement) => {
     .filter(({ rect }) => rect.width > 0 && rect.height > 0)
 
   const baselineY =
-    letterEntries.length > 0
-      ? Math.max(...letterEntries.map(({ rect }) => rect.bottom))
-      : undefined
+    letterEntries.length > 0 ? Math.max(...letterEntries.map(({ rect }) => rect.bottom)) : undefined
 
   const baselinePointFor = (rect: DOMRect): Point => ({
     x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
-    y:
-      (baselineY ?? rect.bottom) +
-      4 -
-      sidebarRect.top -
-      orb.offsetHeight / 2,
+    y: (baselineY ?? rect.bottom) + 4 - sidebarRect.top - orb.offsetHeight / 2,
   })
 
   const anchorPointFor = (rect: DOMRect): Point => ({
@@ -238,15 +228,15 @@ const animateOrb = (orb: HTMLElement) => {
     (lastIEntry && baselinePointFor(lastIEntry.rect)) ||
     (rightmostLetter && baselinePointFor(rightmostLetter.rect)) ||
     null
-  const underlineEndPoint = leftmostLetter ? baselinePointFor(leftmostLetter.rect) : underlineStartPoint
+  const underlineEndPoint = leftmostLetter
+    ? baselinePointFor(leftmostLetter.rect)
+    : underlineStartPoint
 
   const selectStartPoint = (): Point | null => {
     const iLetters = Array.from(sidebar.querySelectorAll<HTMLElement>(".page-title__i"))
     const fallback = sidebar.querySelector<HTMLElement>(".funiki-idot-anchor")
     const source =
-      iLetters.length > 0
-        ? iLetters[Math.floor(Math.random() * iLetters.length)]
-        : fallback
+      iLetters.length > 0 ? iLetters[Math.floor(Math.random() * iLetters.length)] : fallback
     if (!source) {
       return null
     }
@@ -272,7 +262,8 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const anchorIndex = pushPoint(anchorStartPoint ?? fallbackStart)
-  const referencePoint = underlineEndPoint ?? underlineStartPoint ?? debugPoints[debugPoints.length - 1]
+  const referencePoint =
+    underlineEndPoint ?? underlineStartPoint ?? debugPoints[debugPoints.length - 1]
   const shiftedUnderlineStart =
     underlineStartPoint && referencePoint
       ? { ...underlineStartPoint, x: underlineStartPoint.x + 12 }
@@ -286,13 +277,20 @@ const animateOrb = (orb: HTMLElement) => {
 
   const randomHoverPoint = (): Point => {
     const maxX = sidebarRect.width
-    const minX = Math.max(0, (leftmostLetter?.rect.left ?? sidebarRect.left) - sidebarRect.left - 20)
+    const minX = Math.max(
+      0,
+      (leftmostLetter?.rect.left ?? sidebarRect.left) - sidebarRect.left - 20,
+    )
     const maxClampX =
-      Math.min(maxX, (rightmostLetter?.rect.right ?? sidebarRect.left + maxX) - sidebarRect.left + 20) -
-      orb.offsetWidth
+      Math.min(
+        maxX,
+        (rightmostLetter?.rect.right ?? sidebarRect.left + maxX) - sidebarRect.left + 20,
+      ) - orb.offsetWidth
     const centerX = randomBetween(minX, Math.max(minX + 1, maxClampX))
     const topLimit =
-      (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? sidebarRect.top) - sidebarRect.top - 30
+      (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? sidebarRect.top) -
+      sidebarRect.top -
+      30
     const bottomLimit = (underlineStartPoint ?? referencePoint ?? { y: 60 }).y - 10
     const centerY = randomBetween(topLimit, bottomLimit)
     return {
@@ -421,4 +419,3 @@ document.addEventListener("nav", () => {
   if (slug !== "" && slug !== "index") return
   animateOrb(orb)
 })
-

@@ -56,6 +56,6 @@ Below is a live preview of the main callouts taken from the [Quartz feature guid
 > Aliases: `quote`, `cite`
 
 > [!info] Nested callouts?
->> [!tip] Yes!
->> Callouts can nest and even be collapsible (use `> [!note]-` to start collapsed).
-
+>
+> > [!tip] Yes!
+> > Callouts can nest and even be collapsible (use `> [!note]-` to start collapsed).

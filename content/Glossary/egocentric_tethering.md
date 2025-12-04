@@ -7,4 +7,4 @@ tags:
 publishDate: 02/12/2025
 ---
 
-Egocentric tethering is tethering the lights the physical space as close as possible to the virtual space. 
+Egocentric tethering is tethering the lights the physical space as close as possible to the virtual space.

@@ -29,7 +29,9 @@
     overflow: visible;
     isolation: isolate;
     background-color: color-mix(in srgb, var(--lightgray) 60%, transparent);
-    transition: background-color 0.2s ease, opacity 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      opacity 0.2s ease;
   }
 
   .sidebar.left:hover {
@@ -49,7 +51,12 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, var(--orb-core), var(--orb-mid), var(--orb-edge));
+    background: radial-gradient(
+      circle at 30% 30%,
+      var(--orb-core),
+      var(--orb-mid),
+      var(--orb-edge)
+    );
     box-shadow:
       0 0 20px var(--orb-shadow-bright),
       0 0 35px var(--orb-shadow-mid),
@@ -157,7 +164,6 @@
       column-gap: clamp(1.1rem, 2.2vw, 2.5rem);
     }
   }
-
 }
 
 .sidebar.left .glow-letter {
