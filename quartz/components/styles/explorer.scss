@@ -120,23 +120,20 @@ button.desktop-explorer {
   overflow-y: auto;
   margin-top: 1rem;
 
-  & > ul {
-    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
-  }
-
   & ul {
     list-style: none;
     margin: 0;
-    margin-left: 0.5rem;
+    margin-left: 0;
     padding: 0;
     overscroll-behavior: contain;
+    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
 
     & li > a {
       opacity: 0.75;
       pointer-events: all;
-      font-size: 0.85em;
-      line-height: 1.45em;
-      margin-left: 0.5rem;
+      font-size: 0.8em;
+      line-height: 1.35em;
+      margin-left: 0;
       color: var(--gray);
 
       &.active {
@@ -165,7 +162,7 @@ button.desktop-explorer {
     margin-left: 6px;
     padding-left: 0.8rem;
     border-left: 1px solid var(--lightgray);
-    font-size: 0.92em;
+    font-size: 0.8em;
   }
 }
 
