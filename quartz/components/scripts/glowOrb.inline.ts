@@ -105,6 +105,11 @@ const animateOrb = (orb: HTMLElement) => {
       orb.offsetHeight / 2,
   })
 
+  const anchorPointFor = (rect: DOMRect): Point => ({
+    x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
+    y: rect.top + rect.height / 2 - sidebarRect.top - orb.offsetHeight / 2,
+  })
+
   const rightmostLetter =
     letterEntries.length > 0
       ? letterEntries.reduce((prev, curr) => (prev.rect.left > curr.rect.left ? prev : curr))
@@ -113,11 +118,28 @@ const animateOrb = (orb: HTMLElement) => {
     letterEntries.length > 0
       ? letterEntries.reduce((prev, curr) => (prev.rect.left < curr.rect.left ? prev : curr))
       : undefined
-  const rightmostI = letterEntries
+  const iLetterEntries = letterEntries
     .filter(({ el }) => el.textContent?.trim().toLowerCase() === "i")
-    .sort((a, b) => b.rect.left - a.rect.left)[0]
+    .map((entry) => {
+      const anchor = entry.el.querySelector<HTMLElement>(".funiki-idot-anchor")
+      const anchorRect = anchor?.getBoundingClientRect()
+      return { ...entry, anchorRect }
+    })
+    .filter((entry): entry is typeof entry & { anchorRect: DOMRect } => Boolean(entry.anchorRect))
+
+  const firstIEntry =
+    iLetterEntries.length > 0
+      ? iLetterEntries.reduce((prev, curr) => (prev.rect.left < curr.rect.left ? prev : curr))
+      : undefined
+  const lastIEntry =
+    iLetterEntries.length > 0
+      ? iLetterEntries.reduce((prev, curr) => (prev.rect.left > curr.rect.left ? prev : curr))
+      : undefined
+
+  const anchorStartPoint = firstIEntry ? anchorPointFor(firstIEntry.anchorRect) : null
+
   const underlineStartPoint =
-    (rightmostI && baselinePointFor(rightmostI.rect)) ||
+    (lastIEntry && baselinePointFor(lastIEntry.rect)) ||
     (rightmostLetter && baselinePointFor(rightmostLetter.rect)) ||
     null
   const underlineEndPoint = leftmostLetter ? baselinePointFor(leftmostLetter.rect) : underlineStartPoint
@@ -141,21 +163,27 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const fallbackStart = selectStartPoint()
-  const initialPosition = underlineStartPoint ?? fallbackStart
+  const initialPosition = anchorStartPoint ?? underlineStartPoint ?? fallbackStart
   if (!initialPosition) return
-  let start: Point = underlineEndPoint ?? initialPosition
+  let start: Point = underlineEndPoint ?? underlineStartPoint ?? initialPosition
 
-  const buildUnderlineSegments = (): PathSegment[] => {
+  const buildIntroSegments = (): PathSegment[] => {
+    const segments: PathSegment[] = []
+    if (anchorStartPoint && underlineStartPoint) {
+      segments.push(createPath(anchorStartPoint, underlineStartPoint, "down"))
+    }
     if (!underlineStartPoint || !underlineEndPoint) {
-      return []
+      return segments
     }
     const distance = Math.abs(underlineEndPoint.x - underlineStartPoint.x)
     if (distance < 2) {
-      return []
+      start = underlineStartPoint
+      return segments
     }
     const duration = Math.max(4000, distance * 18)
+    segments.push(createLinearSegment(underlineStartPoint, underlineEndPoint, duration))
     start = underlineEndPoint
-    return [createLinearSegment(underlineStartPoint, underlineEndPoint, duration)]
+    return segments
   }
 
   const buildFlowSegments = (): PathSegment[] => {
@@ -170,9 +198,9 @@ const animateOrb = (orb: HTMLElement) => {
     return [createPath(start, sweep, "down"), createPath(sweep, exitPoint, "up")]
   }
 
-  const underlineSegments = buildUnderlineSegments()
+  const introSegments = buildIntroSegments()
   const flowSegments = buildFlowSegments()
-  const segments = [...underlineSegments, ...flowSegments]
+  const segments = [...introSegments, ...flowSegments]
 
   let segmentIndex = 0
   let segmentStart: number | null = null
