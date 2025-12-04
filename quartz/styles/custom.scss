@@ -158,9 +158,9 @@
   @media all and ($desktop) {
     #quartz-body {
       grid-template-columns:
-        minmax(220px, 17vw)
-        minmax(760px, 1fr)
-        minmax(220px, 17vw);
+        minmax(190px, 15vw)
+        minmax(780px, 1fr)
+        minmax(230px, 18vw);
       column-gap: clamp(1.1rem, 2.2vw, 2.5rem);
     }
   }
