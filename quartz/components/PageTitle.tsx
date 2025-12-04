@@ -36,9 +36,10 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
 
 PageTitle.css = `
 .page-title {
-  font-size: 1.75rem;
+  font-size: clamp(2.35rem, 6vw, 4rem);
   margin: 0;
   font-family: var(--titleFont);
+  line-height: 1.05;
 }
 
 .page-title__i {
@@ -53,10 +54,10 @@ PageTitle.css = `
 
 .funiki-idot-anchor {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: clamp(6px, 0.28em, 12px);
+  height: clamp(6px, 0.28em, 12px);
   border-radius: 50%;
-  top: -0.65rem;
+  top: -0.6em;
   left: 50%;
   transform: translate(-50%, 0);
   pointer-events: none;

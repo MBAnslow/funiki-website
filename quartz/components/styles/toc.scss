@@ -53,9 +53,17 @@ ul.toc-content.overflow {
     opacity: 0.35;
     transition:
       0.5s ease opacity,
-      0.3s ease color;
+      0.3s ease color,
+      0.3s ease font-size;
     &.in-view {
       opacity: 0.75;
+      font-weight: 650;
+      font-size: 1.05em;
+    }
+    &.is-current {
+      font-weight: 750;
+      font-size: 1.5em;
+      color: color-mix(in srgb, var(--secondary) 65%, var(--dark) 35%);
     }
   }
 

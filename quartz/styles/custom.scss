@@ -46,8 +46,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 8px;
-    height: 8px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, var(--orb-core), var(--orb-mid), var(--orb-edge));
     box-shadow:
@@ -145,6 +145,16 @@
         padding-left: 0;
         padding-right: 0;
       }
+    }
+  }
+
+  @media all and ($desktop) {
+    #quartz-body {
+      grid-template-columns:
+        minmax(220px, 17vw)
+        minmax(760px, 1fr)
+        minmax(220px, 17vw);
+      column-gap: clamp(1.1rem, 2.2vw, 2.5rem);
     }
   }
 

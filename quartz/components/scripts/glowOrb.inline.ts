@@ -1,5 +1,5 @@
 const FADE_IN_HOLD_MS = 350
-const MAX_TRAJECTORY_POINTS = 10
+const MAX_TRAJECTORY_POINTS = 8
 const HOLD_SEGMENT_DURATION = 1000
 const FIRST_MOVE_DURATION = 1500
 const UNDERLINE_SEGMENT_DURATION = 1500
@@ -19,6 +19,8 @@ const randomBetween = (min: number, max: number) => min + Math.random() * (max -
 const DEFAULT_ORB_HUE = 48
 const DYNAMIC_HUE_START_POINT = 2
 const MIN_HUE_VARIATION = 15
+const READER_MODE_LOCK_CLASS = "orb-reader-lock"
+const ENABLE_ORB_DEBUG = false
 const randomHue = () => Math.floor(randomBetween(0, 360))
 
 const evaluateCubic = (segment: PathSegment, t: number): Point => {
@@ -101,6 +103,9 @@ const renderDebugPoints = (
 ) => {
   const existing = sidebar.querySelector(".orb-debug-overlay")
   existing?.remove()
+  if (!ENABLE_ORB_DEBUG) {
+    return
+  }
   const overlay = document.createElement("div")
   overlay.className = "orb-debug-overlay"
   points.forEach((point, idx) => {
@@ -119,6 +124,14 @@ const animateOrb = (orb: HTMLElement) => {
   orb.dataset.orbAnimated = "true"
   const sidebar = orb.closest<HTMLElement>(".sidebar.left")
   if (!sidebar) return
+
+  sidebar.classList.add(READER_MODE_LOCK_CLASS)
+  let readerLockReleased = false
+  const releaseReaderLock = () => {
+    if (readerLockReleased) return
+    sidebar.classList.remove(READER_MODE_LOCK_CLASS)
+    readerLockReleased = true
+  }
 
   const normalizeHue = (value: number) => {
     if (!Number.isFinite(value)) return DEFAULT_ORB_HUE
@@ -188,7 +201,7 @@ const animateOrb = (orb: HTMLElement) => {
 
   const anchorPointFor = (rect: DOMRect): Point => ({
     x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
-    y: rect.top - sidebarRect.top - orb.offsetHeight / 2 + 7,
+    y: rect.top - sidebarRect.top - orb.offsetHeight / 2 + 16,
   })
 
   const rightmostLetter =
@@ -312,7 +325,10 @@ const animateOrb = (orb: HTMLElement) => {
     pushPoint(fallbackStart)
   }
 
-  if (debugPoints.length < 2) return
+  if (debugPoints.length < 2) {
+    releaseReaderLock()
+    return
+  }
 
   debugPoints.splice(MAX_TRAJECTORY_POINTS)
 
@@ -362,6 +378,7 @@ const animateOrb = (orb: HTMLElement) => {
     if (!segment) {
       orb.style.opacity = "0"
       targets.forEach((el) => el.classList.remove("orb-illuminated"))
+      releaseReaderLock()
       return
     }
 
