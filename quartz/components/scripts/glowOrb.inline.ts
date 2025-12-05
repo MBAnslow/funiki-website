@@ -180,9 +180,7 @@ const renderDebugPoints = (
       pathData += `C${formatPoint(segment.control1)} ${formatPoint(segment.control2)} ${formatPoint(segment.end)} `
     })
   } else if (points.length > 0) {
-    pathData = points
-      .map((point, idx) => `${idx === 0 ? "M" : "L"}${formatPoint(point)}`)
-      .join(" ")
+    pathData = points.map((point, idx) => `${idx === 0 ? "M" : "L"}${formatPoint(point)}`).join(" ")
   }
   const normalizedPathData = pathData.trim()
   pathElement.setAttribute("d", normalizedPathData.length > 0 ? normalizedPathData : "M0 0")
@@ -226,7 +224,9 @@ const initLandingRipples = (container: HTMLElement) => {
   if (landingRippleRegistry.has(container)) return
   const { field, isSynthetic } = ensureRippleField(container)
   const timeouts = new Set<number>()
-  const letterTargets = Array.from(container.querySelectorAll<HTMLElement>(".landing-title .glow-letter"))
+  const letterTargets = Array.from(
+    container.querySelectorAll<HTMLElement>(".landing-title .glow-letter"),
+  )
   const letterReleaseTimers = new WeakMap<HTMLElement, number>()
   let disposed = false
 
@@ -348,7 +348,13 @@ const initLandingRipples = (container: HTMLElement) => {
       field.append(ripple)
       storeTimeout(() => ripple.remove(), RIPPLE_DURATION_MS + i * RIPPLE_STAGGER_MS + 200)
       if (letterPositions.length > 0) {
-        impactLettersFromRipple(letterPositions, originPoint, baseSize, rippleScale, i * RIPPLE_STAGGER_MS)
+        impactLettersFromRipple(
+          letterPositions,
+          originPoint,
+          baseSize,
+          rippleScale,
+          i * RIPPLE_STAGGER_MS,
+        )
       }
     }
     return true
@@ -371,7 +377,8 @@ const initLandingRipples = (container: HTMLElement) => {
 const animateOrb = (orb: HTMLElement) => {
   if (orb.dataset.orbAnimated === "true") return
   orb.dataset.orbAnimated = "true"
-  const container = orb.closest<HTMLElement>(".sidebar.left") ?? orb.closest<HTMLElement>(".landing-shell")
+  const container =
+    orb.closest<HTMLElement>(".sidebar.left") ?? orb.closest<HTMLElement>(".landing-shell")
   if (!container) return
   const isSidebar = container.classList.contains("sidebar")
   const shouldLoop = !isSidebar
@@ -485,7 +492,8 @@ const animateOrb = (orb: HTMLElement) => {
 
   const lastIArcPeak = lastIEntry
     ? {
-        x: lastIEntry.rect.left + lastIEntry.rect.width / 2 - contextRect.left - orb.offsetWidth / 2,
+        x:
+          lastIEntry.rect.left + lastIEntry.rect.width / 2 - contextRect.left - orb.offsetWidth / 2,
         y: lastIEntry.rect.top - contextRect.top - orb.offsetHeight * 1.4,
       }
     : null
@@ -701,7 +709,14 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const debugEnabled = ENABLE_ORB_DEBUG || container.dataset.orbDebug === "true"
-  const debugArtifacts = renderDebugPoints(container, orb, debugPoints, segments, debugEnabled, contextRect)
+  const debugArtifacts = renderDebugPoints(
+    container,
+    orb,
+    debugPoints,
+    segments,
+    debugEnabled,
+    contextRect,
+  )
   const setActiveDebugMarker = (index: number) => {
     if (!debugArtifacts) return
     debugArtifacts.markers.forEach((marker, idx) => {

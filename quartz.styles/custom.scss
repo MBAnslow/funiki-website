@@ -6,9 +6,9 @@
 
 /* Landing page overrides */
 body[data-slug="index"] {
-  background: radial-gradient(circle at 20% 20%, var(--tertiary), transparent 55%),
-    radial-gradient(circle at 80% 30%, var(--secondary), transparent 60%),
-    var(--dark);
+  background:
+    radial-gradient(circle at 20% 20%, var(--tertiary), transparent 55%),
+    radial-gradient(circle at 80% 30%, var(--secondary), transparent 60%), var(--dark);
   color: var(--light);
   min-height: 100vh;
 }
@@ -121,7 +121,10 @@ body[data-slug="index"] .landing-link {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 0.95rem;
-  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
 }
 
 body[data-slug="index"] .landing-link::after {
@@ -163,5 +166,8 @@ body[data-slug="index"] .landing-link:hover::after {
   }
   50% {
     transform: translateY(-6px);
-    text-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 30px rgba(255, 255, 255, 0.35);
+    text-shadow:
+      0 10px 25px rgba(0, 0, 0, 0.25),
+      0 0 30px rgba(255, 255, 255, 0.35);
   }
+}

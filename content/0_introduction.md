@@ -38,13 +38,13 @@ Instead of treating light and sound as static effects, Funiki treats them as **l
 ## Why It Matters
 
 **Interpretive ambience, not literal scenes**  
-Funiki does not try to recreate environments pixel-perfectly. Instead, it captures the *emotional essence* of a setting, leaving room for imagination to complete the experience.
+Funiki does not try to recreate environments pixel-perfectly. Instead, it captures the _emotional essence_ of a setting, leaving room for imagination to complete the experience.
 
 **Everyday hardware, not specialized rigs**  
 Lights are not mapped one-to-one to simulated candles or torches. Like Dolby Atmos for sound, Funiki maps **object-based light and audio** onto whatever fixtures happen to be available.
 
 **Non-technical creativity**  
-Long term, the goal is for anyone to define a *vibe* using multimodal prompts (text plus image palettes) and let the engine render it live. No lighting desk. No audio workstation.
+Long term, the goal is for anyone to define a _vibe_ using multimodal prompts (text plus image palettes) and let the engine render it live. No lighting desk. No audio workstation.
 
 ---
 
@@ -52,12 +52,12 @@ You can read the project overview [here](/0_Funiki%20Overview).
 
 ---
 
-### What is a Digital Garden? 
+### What is a Digital Garden?
 
 This site is a **digital garden**: a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
 
-* The 'explorer' 👈 
-* The concept graph 👉
-* Back links 👉
+- The 'explorer' 👈
+- The concept graph 👉
+- Back links 👉
 
 Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
