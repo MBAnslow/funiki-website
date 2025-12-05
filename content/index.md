@@ -29,8 +29,7 @@ cssclasses:
   </div>
 
   <p class="landing-text">
-    Funiki is a Sony CSL Paris project exploring how light and sound can feel alive,
-    adaptive, and playful inside everyday spaces.
+    Supporting audio-visual ambient experiences for everyone, in everyday spaces.
   </p>
 
   <a class="landing-link internal" href="/0_introduction">

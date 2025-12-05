@@ -322,6 +322,42 @@ body[data-slug="index"] .landing-shell::before {
   animation: landingGlow 12s ease-in-out infinite;
 }
 
+body[data-slug="index"] .landing-ripple-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.25;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 18px rgba(44, 43, 43, 0.12));
+}
+
+body[data-slug="index"] .landing-ripple {
+  --ripple-size: 240px;
+  --ripple-scale: 3;
+  --ripple-duration: 4600ms;
+  --ripple-delay: 0ms;
+  --ripple-opacity: 0.28;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--ripple-size);
+  height: var(--ripple-size);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.35);
+  border: 5px solid rgba(107, 104, 104, 0.45);
+  background: radial-gradient(circle, rgba(23, 22, 22, 0.502), rgba(200, 200, 200, 0.12) 55%, transparent 75%);
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  box-shadow:
+    0 0 25px rgba(45, 45, 45, 0.968),
+    0 0 45px rgb(62, 61, 61);
+  filter: blur(0.1rem);
+  animation: landingRipple var(--ripple-duration) ease-out forwards;
+  animation-delay: var(--ripple-delay);
+}
+
 body[data-slug="index"] .landing-title {
   font-size: clamp(4rem, 12vw, 8rem);
   letter-spacing: 0.15em;
@@ -362,6 +398,13 @@ body[data-slug="index"] .landing-title::after {
 
 body[data-slug="index"] .landing-title span {
   display: inline-block;
+  animation: letterPulse 16s ease-in-out infinite;
+}
+
+body[data-slug="index"] .landing-title .glow-letter.landing-letter-ripple {
+  animation:
+    letterPulse 16s ease-in-out infinite,
+    landingLetterRipple 1.2s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 
 body[data-slug="index"] .landing-text {
@@ -448,21 +491,42 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
   }
 }
 
+@keyframes landingRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.35);
+    opacity: var(--ripple-opacity);
+  }
+  55% {
+    opacity: calc(var(--ripple-opacity) * 0.55);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(var(--ripple-scale));
+    opacity: 0;
+  }
+}
+
+@keyframes landingLetterRipple {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-3px) scale(1.015);
+  }
+  65% {
+    transform: translateY(1px) scale(0.995);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes letterPulse {
   0%,
   100% {
     transform: translateY(0);
-    text-shadow:
-      0 0 20px var(--landing-orb-shadow-bright),
-      0 0 35px var(--landing-orb-shadow-mid),
-      0 0 55px var(--landing-orb-shadow-soft);
   }
   50% {
-    transform: translateY(-6px);
-    text-shadow:
-      0 0 15px rgba(255, 255, 255, 0.75),
-      0 0 35px rgba(255, 255, 255, 0.35),
-      0 20px 35px rgba(0, 0, 0, 0.35);
+    transform: translateY(-3px);
   }
 }
 

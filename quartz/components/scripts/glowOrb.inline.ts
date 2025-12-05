@@ -6,6 +6,19 @@ const FIRST_MOVE_DURATION = 1500
 const UNDERLINE_SEGMENT_DURATION = 1500
 const RANDOM_SEGMENT_MIN_DURATION = 800
 const RANDOM_SEGMENT_MAX_DURATION = 1200
+const RIPPLE_GROUP_INTERVAL_MIN = 4200
+const RIPPLE_GROUP_INTERVAL_MAX = 6200
+const RIPPLE_GROUP_REST_MS = 1400
+const RIPPLE_INITIAL_DELAY_MS = 1600
+const RIPPLE_RETRY_DELAY_MS = 600
+const RIPPLE_GROUP_SIZE = 4
+const RIPPLE_STAGGER_MS = 320
+const RIPPLE_DURATION_MS = 4600
+const RIPPLE_EDGE_PADDING = 140
+const RIPPLE_MIN_SCALE = 2.8
+const RIPPLE_MAX_SCALE = 3.8
+const RIPPLE_INITIAL_SCALE = 0.35
+const RIPPLE_LETTER_EFFECT_MS = 900
 
 type Point = { x: number; y: number }
 type PathSegment = {
@@ -24,6 +37,21 @@ const READER_MODE_LOCK_CLASS = "orb-reader-lock"
 const ENABLE_ORB_DEBUG = false
 const SVG_NS = "http://www.w3.org/2000/svg"
 const randomHue = () => Math.floor(randomBetween(0, 360))
+
+const registerCleanup = (fn: () => void) => {
+  if (typeof window === "undefined") return
+  if (typeof window.addCleanup === "function") {
+    window.addCleanup(fn)
+  } else {
+    window.addEventListener(
+      "beforeunload",
+      () => {
+        fn()
+      },
+      { once: true },
+    )
+  }
+}
 
 const evaluateCubic = (segment: PathSegment, t: number): Point => {
   const { start, control1, control2, end } = segment
@@ -103,6 +131,12 @@ type DebugArtifacts = {
   markers: HTMLElement[]
 }
 
+type LetterPosition = {
+  el: HTMLElement
+  x: number
+  y: number
+}
+
 const renderDebugPoints = (
   container: HTMLElement,
   orb: HTMLElement,
@@ -168,6 +202,172 @@ const renderDebugPoints = (
   return { overlay, markers }
 }
 
+const landingRippleRegistry = new WeakMap<HTMLElement, () => void>()
+
+type RippleFieldResult = {
+  field: HTMLElement
+  isSynthetic: boolean
+}
+
+const ensureRippleField = (container: HTMLElement): RippleFieldResult => {
+  const existing = container.querySelector<HTMLElement>(".landing-ripple-field")
+  if (existing) {
+    return { field: existing, isSynthetic: false }
+  }
+  const field = document.createElement("div")
+  field.className = "landing-ripple-field"
+  field.setAttribute("aria-hidden", "true")
+  field.dataset.rippleAuto = "true"
+  container.prepend(field)
+  return { field, isSynthetic: true }
+}
+
+const initLandingRipples = (container: HTMLElement) => {
+  if (landingRippleRegistry.has(container)) return
+  const { field, isSynthetic } = ensureRippleField(container)
+  const timeouts = new Set<number>()
+  const letterTargets = Array.from(container.querySelectorAll<HTMLElement>(".landing-title .glow-letter"))
+  const letterReleaseTimers = new WeakMap<HTMLElement, number>()
+  let disposed = false
+
+  const storeTimeout = (callback: () => void, delay: number) => {
+    const handle = window.setTimeout(() => {
+      timeouts.delete(handle)
+      callback()
+    }, delay)
+    timeouts.add(handle)
+    return handle
+  }
+
+  const cancelTimeout = (handle?: number) => {
+    if (handle === undefined) return
+    window.clearTimeout(handle)
+    timeouts.delete(handle)
+  }
+
+  const queueLetterImpact = (letter: HTMLElement, delay: number) => {
+    const safeDelay = Math.max(0, delay)
+    storeTimeout(() => {
+      cancelTimeout(letterReleaseTimers.get(letter))
+      letter.classList.remove("landing-letter-ripple")
+      void letter.offsetWidth
+      letter.classList.add("landing-letter-ripple")
+      const releaseHandle = storeTimeout(() => {
+        letter.classList.remove("landing-letter-ripple")
+        letterReleaseTimers.delete(letter)
+      }, RIPPLE_LETTER_EFFECT_MS)
+      letterReleaseTimers.set(letter, releaseHandle)
+    }, safeDelay)
+  }
+
+  const impactLettersFromRipple = (
+    letters: LetterPosition[],
+    origin: Point,
+    baseSize: number,
+    rippleScale: number,
+    rippleDelay: number,
+  ) => {
+    if (letters.length === 0) return
+    const minRadius = (baseSize * RIPPLE_INITIAL_SCALE) / 2
+    const maxRadius = (baseSize * rippleScale) / 2
+    const radiusSpan = Math.max(1, maxRadius - minRadius)
+    letters.forEach(({ el, x, y }) => {
+      const distance = Math.hypot(x - origin.x, y - origin.y)
+      if (distance > maxRadius) return
+      const normalizedProgress = Math.max(0, Math.min(1, (distance - minRadius) / radiusSpan))
+      const hitDelay = rippleDelay + normalizedProgress * RIPPLE_DURATION_MS
+      queueLetterImpact(el, hitDelay)
+    })
+  }
+
+  const cleanup = () => {
+    if (disposed) return
+    disposed = true
+    timeouts.forEach((handle) => window.clearTimeout(handle))
+    timeouts.clear()
+    letterTargets.forEach((el) => {
+      cancelTimeout(letterReleaseTimers.get(el))
+      el.classList.remove("landing-letter-ripple")
+    })
+    field.querySelectorAll(".landing-ripple").forEach((node) => node.remove())
+    if (isSynthetic && field.isConnected) {
+      field.remove()
+    }
+    landingRippleRegistry.delete(container)
+  }
+
+  const emitRippleGroup = (): boolean => {
+    if (disposed) return false
+    const rect = field.getBoundingClientRect()
+    if (rect.width === 0 || rect.height === 0) {
+      return false
+    }
+    const minDimension = Math.min(rect.width, rect.height)
+    const baseSize = randomBetween(minDimension * 0.15, minDimension * 0.4)
+    const padX = Math.max(RIPPLE_EDGE_PADDING, rect.width * 0.08)
+    const padY = Math.max(RIPPLE_EDGE_PADDING, rect.height * 0.08)
+    const edgeBand = rect.width * 0.18
+    const bandWidth = Math.max(edgeBand, rect.width * 0.08)
+    const leftBandEnd = Math.min(rect.width - padX, padX + bandWidth)
+    const rightBandStart = Math.max(padX, rect.width - padX - bandWidth)
+    const pickLeft = Math.random() < 0.5
+    const originX = pickLeft
+      ? randomBetween(padX, leftBandEnd)
+      : randomBetween(rightBandStart, rect.width - padX)
+    const originY = randomBetween(padY, Math.max(padY, rect.height - padY))
+    const rippleScale = randomBetween(RIPPLE_MIN_SCALE, RIPPLE_MAX_SCALE)
+    const rippleOpacity = randomBetween(0.25, 0.55)
+    const letterPositions: LetterPosition[] =
+      letterTargets.length > 0
+        ? letterTargets
+            .map((el) => {
+              const bounds = el.getBoundingClientRect()
+              if (bounds.width === 0 || bounds.height === 0) {
+                return null
+              }
+              return {
+                el,
+                x: bounds.left + bounds.width / 2 - rect.left,
+                y: bounds.top + bounds.height / 2 - rect.top,
+              }
+            })
+            .filter((entry): entry is LetterPosition => Boolean(entry))
+        : []
+    const originPoint: Point = { x: originX, y: originY }
+
+    for (let i = 0; i < RIPPLE_GROUP_SIZE; i++) {
+      const ripple = document.createElement("span")
+      ripple.className = "landing-ripple"
+      ripple.style.left = `${originX}px`
+      ripple.style.top = `${originY}px`
+      ripple.style.setProperty("--ripple-size", `${baseSize}px`)
+      ripple.style.setProperty("--ripple-scale", rippleScale.toFixed(2))
+      ripple.style.setProperty("--ripple-duration", `${RIPPLE_DURATION_MS}ms`)
+      ripple.style.setProperty("--ripple-delay", `${i * RIPPLE_STAGGER_MS}ms`)
+      ripple.style.setProperty("--ripple-opacity", rippleOpacity.toFixed(2))
+      field.append(ripple)
+      storeTimeout(() => ripple.remove(), RIPPLE_DURATION_MS + i * RIPPLE_STAGGER_MS + 200)
+      if (letterPositions.length > 0) {
+        impactLettersFromRipple(letterPositions, originPoint, baseSize, rippleScale, i * RIPPLE_STAGGER_MS)
+      }
+    }
+    return true
+  }
+
+  const launchRippleSequence = () => {
+    if (disposed) return
+    const emitted = emitRippleGroup()
+    const interval = emitted
+      ? randomBetween(RIPPLE_GROUP_INTERVAL_MIN, RIPPLE_GROUP_INTERVAL_MAX) + RIPPLE_GROUP_REST_MS
+      : RIPPLE_RETRY_DELAY_MS
+    storeTimeout(launchRippleSequence, interval)
+  }
+
+  storeTimeout(launchRippleSequence, RIPPLE_INITIAL_DELAY_MS)
+  landingRippleRegistry.set(container, cleanup)
+  registerCleanup(cleanup)
+}
+
 const animateOrb = (orb: HTMLElement) => {
   if (orb.dataset.orbAnimated === "true") return
   orb.dataset.orbAnimated = "true"
@@ -175,6 +375,9 @@ const animateOrb = (orb: HTMLElement) => {
   if (!container) return
   const isSidebar = container.classList.contains("sidebar")
   const shouldLoop = !isSidebar
+  if (container.classList.contains("landing-shell")) {
+    initLandingRipples(container)
+  }
   if (isSidebar) {
     container.classList.add(READER_MODE_LOCK_CLASS)
   }
