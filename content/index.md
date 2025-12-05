@@ -1,59 +1,39 @@
 ---
-title: Funiki Digital Garden
-summary: This is the Funiki digital garden landing page
+title: Funiki
+summary: Ambient research that turns rooms into responsive audiovisual stages
 draft: false
 permalink: /
 tags:
   - funiki
   - research
-headerImage: ./static/funiki-header.png
-headerImageAlt: Funiki ambient collage of light and sound
+  - audio-visual
+cssclasses:
+  - landing-root
 ---
 
-> [!warning] Warning
-> This site is brand new and under active development. It'll be officially announced when it is ready.
+<div class="landing-shell" data-orb-debug="true">
+  <div class="glow-orb landing-orb" aria-hidden="true"></div>
+  <div class="landing-title" role="heading" aria-level="1" aria-label="Funiki">
+    <span class="glow-letter">F</span>
+    <span class="glow-letter">u</span>
+    <span class="glow-letter">n</span>
+    <span class="page-title__i glow-letter">
+      i
+      <span class="funiki-idot-anchor" aria-hidden="true"></span>
+    </span>
+    <span class="glow-letter">k</span>
+    <span class="page-title__i glow-letter">
+      i
+      <span class="funiki-idot-anchor" aria-hidden="true"></span>
+    </span>
+  </div>
 
-## Welcome to the Funiki Digital Garden
+  <p class="landing-text">
+    Funiki is a Sony CSL Paris project exploring how light and sound can feel alive,
+    adaptive, and playful inside everyday spaces.
+  </p>
 
-This site is a **digital garden**: a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It’s a place for **ongoing thinking**. Notes evolve, paths cross, and ideas are allowed to stay imperfect while they develop. You can wander, follow threads, and return later to find that things have subtly changed.
-
-Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
-
----
-
-## What is Funiki?
-
-**Funiki** is a Sony CSL research project exploring how **physical spaces can become responsive stages**. These stages blend **light and sound** to support everything from collaborative tabletop play to quiet, restorative solo moments.
-
-At its core, the Funiki engine keeps a **virtual stage** in sync with **real-world devices**. Object-based audiovisual elements can layer, mix, and move with natural dynamics across whatever lights and speakers a space already has.
-
-Instead of treating light and sound as static effects, Funiki treats them as **living elements of a shared environment**.
-
-<div class="video-embed">
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/i7riCaAyB6A"
-    title="Funiki overview"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-  ></iframe>
+  <a class="landing-link internal" href="funiki-website/Project-Introduction">
+    Enter the Funiki Digital Garden
+  </a>
 </div>
-
----
-
-## Why It Matters
-
-**Interpretive ambience, not literal scenes**  
-Funiki does not try to recreate environments pixel-perfectly. Instead, it captures the *emotional essence* of a setting, leaving room for imagination to complete the experience.
-
-**Everyday hardware, not specialized rigs**  
-Lights are not mapped one-to-one to simulated candles or torches. Like Dolby Atmos for sound, Funiki maps **object-based light and audio** onto whatever fixtures happen to be available.
-
-**Non-technical creativity**  
-Long term, the goal is for anyone to define a *vibe* using multimodal prompts (text plus image palettes) and let the engine render it live. No lighting desk. No audio workstation.
-
----
-
-You can read the project overview [here](/0_Funiki%20Overview).

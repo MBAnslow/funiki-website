@@ -1,4 +1,5 @@
 const FADE_IN_HOLD_MS = 350
+const LOOP_DELAY_MS = 1200
 const MAX_TRAJECTORY_POINTS = 8
 const HOLD_SEGMENT_DURATION = 1000
 const FIRST_MOVE_DURATION = 1500
@@ -21,6 +22,7 @@ const DYNAMIC_HUE_START_POINT = 2
 const MIN_HUE_VARIATION = 15
 const READER_MODE_LOCK_CLASS = "orb-reader-lock"
 const ENABLE_ORB_DEBUG = false
+const SVG_NS = "http://www.w3.org/2000/svg"
 const randomHue = () => Math.floor(randomBetween(0, 360))
 
 const evaluateCubic = (segment: PathSegment, t: number): Point => {
@@ -96,14 +98,48 @@ const highlightTargets = (targets: Element[], orbRect: DOMRect) => {
   }
 }
 
-const renderDebugPoints = (sidebar: HTMLElement, orb: HTMLElement, points: Point[]) => {
-  const existing = sidebar.querySelector(".orb-debug-overlay")
+type DebugArtifacts = {
+  overlay: HTMLElement
+  markers: HTMLElement[]
+}
+
+const renderDebugPoints = (
+  container: HTMLElement,
+  orb: HTMLElement,
+  points: Point[],
+  enabled: boolean,
+  contextRect: DOMRect,
+): DebugArtifacts | null => {
+  const existing = container.querySelector<HTMLElement>(".orb-debug-overlay[data-orb-runtime]")
   existing?.remove()
-  if (!ENABLE_ORB_DEBUG) {
-    return
+  if (!enabled) {
+    return null
   }
   const overlay = document.createElement("div")
   overlay.className = "orb-debug-overlay"
+  overlay.dataset.orbRuntime = "true"
+  const markers: HTMLElement[] = []
+
+  const pathSvg = document.createElementNS(SVG_NS, "svg")
+  pathSvg.setAttribute("class", "orb-debug-path")
+  pathSvg.setAttribute("width", "100%")
+  pathSvg.setAttribute("height", "100%")
+  pathSvg.setAttribute("viewBox", `0 0 ${contextRect.width} ${contextRect.height}`)
+  const polyline = document.createElementNS(SVG_NS, "polyline")
+  polyline.setAttribute("fill", "none")
+  polyline.setAttribute("stroke", "currentColor")
+  polyline.setAttribute("stroke-linecap", "round")
+  polyline.setAttribute("stroke-linejoin", "round")
+  polyline.setAttribute("stroke-dasharray", "6 6")
+  polyline.setAttribute(
+    "points",
+    points
+      .map((point) => `${point.x + orb.offsetWidth / 2},${point.y + orb.offsetHeight / 2}`)
+      .join(" "),
+  )
+  pathSvg.append(polyline)
+  overlay.append(pathSvg)
+
   points.forEach((point, idx) => {
     const marker = document.createElement("div")
     marker.className = "orb-debug-point"
@@ -111,21 +147,28 @@ const renderDebugPoints = (sidebar: HTMLElement, orb: HTMLElement, points: Point
     marker.style.left = `${point.x + orb.offsetWidth / 2}px`
     marker.style.top = `${point.y + orb.offsetHeight / 2}px`
     overlay.append(marker)
+    markers.push(marker)
   })
-  sidebar.append(overlay)
+  container.append(overlay)
+  return { overlay, markers }
 }
 
 const animateOrb = (orb: HTMLElement) => {
   if (orb.dataset.orbAnimated === "true") return
   orb.dataset.orbAnimated = "true"
-  const sidebar = orb.closest<HTMLElement>(".sidebar.left")
-  if (!sidebar) return
-
-  sidebar.classList.add(READER_MODE_LOCK_CLASS)
+  const container = orb.closest<HTMLElement>(".sidebar.left") ?? orb.closest<HTMLElement>(".landing-shell")
+  if (!container) return
+  const isSidebar = container.classList.contains("sidebar")
+  const shouldLoop = !isSidebar
+  if (isSidebar) {
+    container.classList.add(READER_MODE_LOCK_CLASS)
+  }
   let readerLockReleased = false
   const releaseReaderLock = () => {
     if (readerLockReleased) return
-    sidebar.classList.remove(READER_MODE_LOCK_CLASS)
+    if (isSidebar) {
+      container.classList.remove(READER_MODE_LOCK_CLASS)
+    }
     readerLockReleased = true
   }
 
@@ -141,9 +184,9 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const initialHue = (() => {
-    const inlineValue = sidebar.style.getPropertyValue("--glow-orb-hue")
+    const inlineValue = container.style.getPropertyValue("--glow-orb-hue")
     if (inlineValue) return parseHue(inlineValue)
-    const computedValue = getComputedStyle(sidebar).getPropertyValue("--glow-orb-hue")
+    const computedValue = getComputedStyle(container).getPropertyValue("--glow-orb-hue")
     return parseHue(computedValue)
   })()
 
@@ -151,7 +194,7 @@ const animateOrb = (orb: HTMLElement) => {
 
   const commitHue = (hue: number) => {
     currentHue = normalizeHue(hue)
-    sidebar.style.setProperty("--glow-orb-hue", currentHue.toFixed(2))
+    container.style.setProperty("--glow-orb-hue", currentHue.toFixed(2))
   }
 
   const hueDistance = (a: number, b: number) => {
@@ -175,8 +218,8 @@ const animateOrb = (orb: HTMLElement) => {
 
   commitHue(currentHue)
 
-  const sidebarRect = sidebar.getBoundingClientRect()
-  const targets = Array.from(sidebar.querySelectorAll<HTMLElement>(".glow-letter"))
+  const contextRect = container.getBoundingClientRect()
+  const targets = Array.from(container.querySelectorAll<HTMLElement>(".glow-letter"))
   const letterEntries = targets
     .map((el) => ({ el, rect: el.getBoundingClientRect() }))
     .filter(({ rect }) => rect.width > 0 && rect.height > 0)
@@ -185,13 +228,13 @@ const animateOrb = (orb: HTMLElement) => {
     letterEntries.length > 0 ? Math.max(...letterEntries.map(({ rect }) => rect.bottom)) : undefined
 
   const baselinePointFor = (rect: DOMRect): Point => ({
-    x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
-    y: (baselineY ?? rect.bottom) + 4 - sidebarRect.top - orb.offsetHeight / 2,
+    x: rect.left + rect.width / 2 - contextRect.left - orb.offsetWidth / 2,
+    y: (baselineY ?? rect.bottom) + 4 - contextRect.top - orb.offsetHeight / 2,
   })
 
   const anchorPointFor = (rect: DOMRect): Point => ({
-    x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
-    y: rect.top - sidebarRect.top - orb.offsetHeight / 2 + 16,
+    x: rect.left + rect.width / 2 - contextRect.left - orb.offsetWidth / 2,
+    y: rect.top - contextRect.top - orb.offsetHeight / 2 + 16,
   })
 
   const rightmostLetter =
@@ -233,8 +276,8 @@ const animateOrb = (orb: HTMLElement) => {
     : underlineStartPoint
 
   const selectStartPoint = (): Point | null => {
-    const iLetters = Array.from(sidebar.querySelectorAll<HTMLElement>(".page-title__i"))
-    const fallback = sidebar.querySelector<HTMLElement>(".funiki-idot-anchor")
+    const iLetters = Array.from(container.querySelectorAll<HTMLElement>(".page-title__i"))
+    const fallback = container.querySelector<HTMLElement>(".funiki-idot-anchor")
     const source =
       iLetters.length > 0 ? iLetters[Math.floor(Math.random() * iLetters.length)] : fallback
     if (!source) {
@@ -243,8 +286,8 @@ const animateOrb = (orb: HTMLElement) => {
     const rect = source.getBoundingClientRect()
     const offsetY = rect.height * 0.2
     return {
-      x: rect.left + rect.width / 2 - sidebarRect.left - orb.offsetWidth / 2,
-      y: rect.top + offsetY - sidebarRect.top - orb.offsetHeight / 2,
+      x: rect.left + rect.width / 2 - contextRect.left - orb.offsetWidth / 2,
+      y: rect.top + offsetY - contextRect.top - orb.offsetHeight / 2,
     }
   }
 
@@ -276,20 +319,20 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const randomHoverPoint = (): Point => {
-    const maxX = sidebarRect.width
+    const maxX = contextRect.width
     const minX = Math.max(
       0,
-      (leftmostLetter?.rect.left ?? sidebarRect.left) - sidebarRect.left - 20,
+      (leftmostLetter?.rect.left ?? contextRect.left) - contextRect.left - 20,
     )
     const maxClampX =
       Math.min(
         maxX,
-        (rightmostLetter?.rect.right ?? sidebarRect.left + maxX) - sidebarRect.left + 20,
+        (rightmostLetter?.rect.right ?? contextRect.left + maxX) - contextRect.left + 20,
       ) - orb.offsetWidth
     const centerX = randomBetween(minX, Math.max(minX + 1, maxClampX))
     const topLimit =
-      (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? sidebarRect.top) -
-      sidebarRect.top -
+      (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? contextRect.top) -
+      contextRect.top -
       30
     const bottomLimit = (underlineStartPoint ?? referencePoint ?? { y: 60 }).y - 10
     const centerY = randomBetween(topLimit, bottomLimit)
@@ -349,19 +392,18 @@ const animateOrb = (orb: HTMLElement) => {
       movementIndex !== 0 &&
       ((i === anchorIndex && i + 1 === underlineStartIndex && anchorIndex !== -1) ||
         (i === underlineStartIndex && i + 1 === underlineEndIndex && underlineStartIndex !== -1))
-    if (movementIndex === 0) {
-      const bias = to.y >= from.y ? "down" : "up"
-      segments.push(createCurvedSegment(from, to, bias, duration))
-    } else if (isUnderlineSegment) {
-      segments.push(createLinearSegment(from, to, duration))
-    } else {
-      const bias = to.y >= from.y ? "down" : "up"
-      segments.push(createCurvedSegment(from, to, bias, duration))
-    }
+    segments.push(createLinearSegment(from, to, duration))
     movementIndex += 1
   }
 
-  renderDebugPoints(sidebar, orb, debugPoints)
+  const debugEnabled = ENABLE_ORB_DEBUG || container.dataset.orbDebug === "true"
+  const debugArtifacts = renderDebugPoints(container, orb, debugPoints, debugEnabled, contextRect)
+  const setActiveDebugMarker = (index: number) => {
+    if (!debugArtifacts) return
+    debugArtifacts.markers.forEach((marker, idx) => {
+      marker.classList.toggle("is-active", idx === index)
+    })
+  }
 
   let segmentIndex = 0
   let segmentStart: number | null = null
@@ -370,13 +412,28 @@ const animateOrb = (orb: HTMLElement) => {
     orb.style.left = `${initialPosition.x}px`
     orb.style.top = `${initialPosition.y}px`
   }
+  setActiveDebugMarker(0)
 
   const step = (timestamp: number) => {
     const segment = segments[segmentIndex]
     if (!segment) {
-      orb.style.opacity = "0"
-      targets.forEach((el) => el.classList.remove("orb-illuminated"))
-      releaseReaderLock()
+      if (shouldLoop) {
+        orb.style.opacity = "0"
+        setActiveDebugMarker(-1)
+        segmentIndex = 0
+        segmentStart = null
+        setTimeout(() => {
+          placeOrbAtStart()
+          orb.style.opacity = "0.85"
+          setActiveDebugMarker(0)
+          requestAnimationFrame(step)
+        }, LOOP_DELAY_MS)
+      } else {
+        orb.style.opacity = "0"
+        targets.forEach((el) => el.classList.remove("orb-illuminated"))
+        setActiveDebugMarker(-1)
+        releaseReaderLock()
+      }
       return
     }
 
@@ -389,6 +446,11 @@ const animateOrb = (orb: HTMLElement) => {
     const pos = evaluateCubic(segment, t)
     orb.style.left = `${pos.x}px`
     orb.style.top = `${pos.y}px`
+    const markerIndex =
+      debugArtifacts && debugArtifacts.markers.length > 0
+        ? Math.min(segmentIndex, debugArtifacts.markers.length - 1)
+        : -1
+    setActiveDebugMarker(markerIndex)
 
     const orbRect = orb.getBoundingClientRect()
     highlightTargets(targets, orbRect)
@@ -413,9 +475,12 @@ const animateOrb = (orb: HTMLElement) => {
 }
 
 document.addEventListener("nav", () => {
-  const orb = document.querySelector<HTMLElement>(".glow-orb")
-  if (!orb) return
-  const slug = document.body.dataset.slug
-  if (slug !== "" && slug !== "index") return
-  animateOrb(orb)
+  const slug = document.body.dataset.slug ?? ""
+  document.querySelectorAll<HTMLElement>(".glow-orb").forEach((orb) => {
+    const isLanding = Boolean(orb.closest(".landing-shell"))
+    const shouldRun =
+      (isLanding && slug === "index") || (!isLanding && (slug === "" || slug === "index"))
+    if (!shouldRun) return
+    animateOrb(orb)
+  })
 })

@@ -57,6 +57,11 @@ type Props = {
   sort?: SortFn
 } & QuartzComponentProps
 
+const removeNumericPrefix = (value?: string) => {
+  if (!value) return value
+  return value.replace(/^\d+[_-\s]+/, "")
+}
+
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
@@ -67,7 +72,10 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
   return (
     <ul class="section-ul">
       {list.map((page) => {
-        const title = page.frontmatter?.title
+        const slugSegment = page.slug?.split("/").filter(Boolean).pop()
+        const cleanedTitle =
+          removeNumericPrefix(page.frontmatter?.title) ?? removeNumericPrefix(slugSegment)
+        const title = cleanedTitle ?? page.frontmatter?.title ?? slugSegment ?? ""
         const tags = page.frontmatter?.tags ?? []
 
         return (

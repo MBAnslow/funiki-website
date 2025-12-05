@@ -89,6 +89,28 @@
     inset: 0;
     pointer-events: none;
     z-index: 2;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .orb-debug-overlay .orb-debug-path {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .orb-debug-overlay .orb-debug-path polyline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5px;
+    stroke-dasharray: 6 6;
+  }
+
+  .orb-debug-point.is-active {
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.95);
+    color: rgba(10, 10, 10, 0.85);
   }
 
   .orb-debug-point {
@@ -180,7 +202,8 @@
   }
 }
 
-.sidebar.left .glow-letter {
+.sidebar.left .glow-letter,
+body[data-slug="index"] .landing-shell .glow-letter {
   transition:
     color 0.6s ease,
     text-shadow 0.6s ease;
@@ -191,7 +214,8 @@
   vertical-align: baseline;
 }
 
-.sidebar.left .orb-illuminated {
+.sidebar.left .orb-illuminated,
+body[data-slug="index"] .landing-shell .orb-illuminated {
   text-shadow:
     0 0 4px hsl(var(--glow-orb-hue, 48) 90% 78% / 0.45),
     0 0 8px hsl(var(--glow-orb-hue, 48) 80% 60% / 0.35),
@@ -199,7 +223,8 @@
   color: hsl(var(--glow-orb-hue, 48) 60% 32%);
 }
 
-:root[saved-theme="dark"] .sidebar.left .orb-illuminated {
+:root[saved-theme="dark"] .sidebar.left .orb-illuminated,
+:root[saved-theme="dark"] body[data-slug="index"] .landing-shell .orb-illuminated {
   text-shadow:
     0 0 10px hsl(var(--glow-orb-hue, 48) 95% 82% / 0.75),
     0 0 18px hsl(var(--glow-orb-hue, 48) 85% 60% / 0.65),
@@ -214,5 +239,276 @@
 
   .sidebar.left:hover {
     background-color: color-mix(in srgb, var(--lightgray) 55%, transparent);
+  }
+}
+
+/* Landing page overrides */
+body[data-slug="index"] {
+  background: radial-gradient(circle at 25% 20%, rgba(140, 140, 140, 0.6), transparent 55%),
+    radial-gradient(circle at 70% 35%, rgba(60, 60, 60, 0.8), transparent 60%),
+    linear-gradient(160deg, #050505, #151515 45%, #050505 90%);
+  color: var(--light);
+  min-height: 100vh;
+  display: flex;
+}
+
+body[data-slug="index"] #quartz-root {
+  width: 100%;
+}
+
+body[data-slug="index"] #quartz-body {
+  min-height: 100vh;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+body[data-slug="index"]
+  :is(
+    .left.sidebar,
+    .right.sidebar,
+    .page-header,
+    .article-title,
+    .content-meta,
+    .tags,
+    hr,
+    .page-footer,
+    footer
+  ) {
+  display: none !important;
+}
+
+body[data-slug="index"] .center {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body[data-slug="index"] article.landing-root {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  max-width: none;
+  padding: 0;
+}
+
+body[data-slug="index"] .landing-shell {
+  --landing-orb-hue: 32;
+  --landing-orb-core: hsl(var(--landing-orb-hue) 95% 90% / 0.95);
+  --landing-orb-mid: hsl(var(--landing-orb-hue) 85% 65% / 0.8);
+  --landing-orb-edge: hsl(var(--landing-orb-hue) 80% 45% / 0.25);
+  --landing-orb-shadow-bright: hsl(var(--landing-orb-hue) 90% 72% / 0.75);
+  --landing-orb-shadow-mid: hsl(var(--landing-orb-hue) 80% 52% / 0.5);
+  --landing-orb-shadow-soft: hsl(var(--landing-orb-hue) 95% 85% / 0.4);
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: clamp(2rem, 6vw, 6rem);
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+body[data-slug="index"] .landing-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 55%);
+  opacity: 0.7;
+  filter: blur(120px);
+  z-index: -2;
+  animation: landingGlow 12s ease-in-out infinite;
+}
+
+body[data-slug="index"] .landing-title {
+  font-size: clamp(4rem, 12vw, 8rem);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--headerFont);
+  display: inline-flex;
+  gap: 0.25em;
+  position: relative;
+  isolation: isolate;
+}
+
+body[data-slug="index"] .landing-title::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: clamp(10rem, 40vw, 22rem);
+  height: clamp(10rem, 40vw, 22rem);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--landing-orb-core),
+    var(--landing-orb-mid),
+    var(--landing-orb-edge)
+  );
+  box-shadow:
+    0 0 25px var(--landing-orb-shadow-bright),
+    0 0 60px var(--landing-orb-shadow-mid),
+    0 0 90px var(--landing-orb-shadow-soft);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  filter: blur(18px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: landingOrbSweep 18s ease-in-out infinite;
+  animation-delay: -4s;
+  z-index: -1;
+}
+
+body[data-slug="index"] .landing-title span {
+  display: inline-block;
+}
+
+body[data-slug="index"] .landing-text {
+  max-width: 40ch;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--lightgray);
+}
+
+body[data-slug="index"] .landing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.95rem;
+  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+body[data-slug="index"] .landing-link::after {
+  content: "→";
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
+}
+
+body[data-slug="index"] .landing-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--tertiary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-slug="index"] .landing-link:hover::after {
+  transform: translateX(4px);
+}
+
+body[data-slug="index"] .landing-shell .landing-orb {
+  position: absolute;
+  top: 30%;
+  left: 18%;
+  width: clamp(1.2rem, 3vw, 1.75rem);
+  height: clamp(1.2rem, 3vw, 1.75rem);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--landing-orb-core), var(--landing-orb-mid), var(--landing-orb-edge));
+  box-shadow:
+    0 0 25px var(--landing-orb-shadow-bright),
+    0 0 55px var(--landing-orb-shadow-mid),
+    0 0 95px var(--landing-orb-shadow-soft);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body[data-slug="index"] .landing-shell .orb-debug-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+body[data-slug="index"] .landing-shell .orb-debug-point {
+  position: absolute;
+  width: clamp(0.9rem, 2vw, 1.2rem);
+  height: clamp(0.9rem, 2vw, 1.2rem);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  top: var(--y);
+  left: var(--x);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes landingGlow {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+}
+
+@keyframes letterPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    text-shadow:
+      0 0 20px var(--landing-orb-shadow-bright),
+      0 0 35px var(--landing-orb-shadow-mid),
+      0 0 55px var(--landing-orb-shadow-soft);
+  }
+  50% {
+    transform: translateY(-6px);
+    text-shadow:
+      0 0 15px rgba(255, 255, 255, 0.75),
+      0 0 35px rgba(255, 255, 255, 0.35),
+      0 20px 35px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@keyframes landingLetterGlow {
+  0%,
+  20%,
+  100% {
+    text-shadow:
+      0 0 20px var(--landing-orb-shadow-bright),
+      0 0 35px var(--landing-orb-shadow-mid),
+      0 0 55px var(--landing-orb-shadow-soft);
+  }
+  10% {
+    text-shadow:
+      0 0 35px var(--landing-orb-core),
+      0 0 70px var(--landing-orb-shadow-bright),
+      0 0 110px var(--landing-orb-shadow-soft);
+  }
+}
+
+@keyframes landingOrbSweep {
+  0% {
+    transform: translate(-60%, -80%) scale(0.85);
+    opacity: 0.45;
+  }
+  45% {
+    transform: translate(10%, -30%) scale(1.1);
+    opacity: 0.25;
+  }
+  75% {
+    transform: translate(-20%, 10%) scale(1.05);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-60%, -80%) scale(0.85);
+    opacity: 0.45;
   }
 }

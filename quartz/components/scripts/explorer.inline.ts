@@ -150,6 +150,7 @@ function createFolderNode(
     button.replaceWith(a)
   } else {
     const span = titleContainer.querySelector(".folder-title") as HTMLElement
+    span.dataset.rawTitle = node.displayName
     span.textContent = node.displayName.replace(/^\d+_/, "")
   }
 
