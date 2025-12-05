@@ -33,7 +33,7 @@ cssclasses:
     adaptive, and playful inside everyday spaces.
   </p>
 
-  <a class="landing-link internal" href="funiki-website/Project-Introduction">
+  <a class="landing-link internal" href="/0_introduction">
     Enter the Funiki Digital Garden
   </a>
 </div>

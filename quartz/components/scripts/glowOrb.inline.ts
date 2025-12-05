@@ -107,6 +107,7 @@ const renderDebugPoints = (
   container: HTMLElement,
   orb: HTMLElement,
   points: Point[],
+  segments: PathSegment[],
   enabled: boolean,
   contextRect: DOMRect,
 ): DebugArtifacts | null => {
@@ -125,27 +126,41 @@ const renderDebugPoints = (
   pathSvg.setAttribute("width", "100%")
   pathSvg.setAttribute("height", "100%")
   pathSvg.setAttribute("viewBox", `0 0 ${contextRect.width} ${contextRect.height}`)
-  const polyline = document.createElementNS(SVG_NS, "polyline")
-  polyline.setAttribute("fill", "none")
-  polyline.setAttribute("stroke", "currentColor")
-  polyline.setAttribute("stroke-linecap", "round")
-  polyline.setAttribute("stroke-linejoin", "round")
-  polyline.setAttribute("stroke-dasharray", "6 6")
-  polyline.setAttribute(
-    "points",
-    points
-      .map((point) => `${point.x + orb.offsetWidth / 2},${point.y + orb.offsetHeight / 2}`)
-      .join(" "),
-  )
-  pathSvg.append(polyline)
+  const pathElement = document.createElementNS(SVG_NS, "path")
+  pathElement.setAttribute("fill", "none")
+  pathElement.setAttribute("stroke", "currentColor")
+  pathElement.setAttribute("stroke-linecap", "round")
+  pathElement.setAttribute("stroke-linejoin", "round")
+  pathElement.setAttribute("stroke-dasharray", "6 6")
+
+  const offsetX = orb.offsetWidth / 2
+  const offsetY = orb.offsetHeight / 2
+  const formatPoint = (point: Point) => `${point.x + offsetX},${point.y + offsetY}`
+
+  let pathData = ""
+  if (segments.length > 0) {
+    segments.forEach((segment, idx) => {
+      if (idx === 0) {
+        pathData += `M${formatPoint(segment.start)} `
+      }
+      pathData += `C${formatPoint(segment.control1)} ${formatPoint(segment.control2)} ${formatPoint(segment.end)} `
+    })
+  } else if (points.length > 0) {
+    pathData = points
+      .map((point, idx) => `${idx === 0 ? "M" : "L"}${formatPoint(point)}`)
+      .join(" ")
+  }
+  const normalizedPathData = pathData.trim()
+  pathElement.setAttribute("d", normalizedPathData.length > 0 ? normalizedPathData : "M0 0")
+  pathSvg.append(pathElement)
   overlay.append(pathSvg)
 
   points.forEach((point, idx) => {
     const marker = document.createElement("div")
     marker.className = "orb-debug-point"
     marker.textContent = String(idx + 1)
-    marker.style.left = `${point.x + orb.offsetWidth / 2}px`
-    marker.style.top = `${point.y + orb.offsetHeight / 2}px`
+    marker.style.left = `${point.x + offsetX}px`
+    marker.style.top = `${point.y + offsetY}px`
     overlay.append(marker)
     markers.push(marker)
   })
@@ -194,7 +209,9 @@ const animateOrb = (orb: HTMLElement) => {
 
   const commitHue = (hue: number) => {
     currentHue = normalizeHue(hue)
-    container.style.setProperty("--glow-orb-hue", currentHue.toFixed(2))
+    const hueString = currentHue.toFixed(2)
+    container.style.setProperty("--glow-orb-hue", hueString)
+    orb.style.setProperty("--glow-orb-hue", hueString)
   }
 
   const hueDistance = (a: number, b: number) => {
@@ -263,6 +280,13 @@ const animateOrb = (orb: HTMLElement) => {
       ? iLetterEntries.reduce((prev, curr) => (prev.rect.left > curr.rect.left ? prev : curr))
       : undefined
 
+  const lastIArcPeak = lastIEntry
+    ? {
+        x: lastIEntry.rect.left + lastIEntry.rect.width / 2 - contextRect.left - orb.offsetWidth / 2,
+        y: lastIEntry.rect.top - contextRect.top - orb.offsetHeight * 1.4,
+      }
+    : null
+
   const anchorStartPoint = firstIEntry ? anchorPointFor(firstIEntry.rect) : null
   const secondAnchorPoint =
     lastIEntry && lastIEntry.el !== firstIEntry?.el ? anchorPointFor(lastIEntry.rect) : null
@@ -304,19 +328,7 @@ const animateOrb = (orb: HTMLElement) => {
     return debugPoints.length - 1
   }
 
-  const anchorIndex = pushPoint(anchorStartPoint ?? fallbackStart)
-  const referencePoint =
-    underlineEndPoint ?? underlineStartPoint ?? debugPoints[debugPoints.length - 1]
-  const shiftedUnderlineStart =
-    underlineStartPoint && referencePoint
-      ? { ...underlineStartPoint, x: underlineStartPoint.x + 12 }
-      : underlineStartPoint
-  const underlineStartIndex = pushPoint(shiftedUnderlineStart)
-  const underlineEndIndex = pushPoint(underlineEndPoint)
-
-  if (referencePoint) {
-    pushPoint({ x: referencePoint.x - 30, y: referencePoint.y - 25 })
-  }
+  const hoverReferencePoint = underlineEndPoint ?? underlineStartPoint ?? null
 
   const randomHoverPoint = (): Point => {
     const maxX = contextRect.width
@@ -334,7 +346,8 @@ const animateOrb = (orb: HTMLElement) => {
       (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? contextRect.top) -
       contextRect.top -
       30
-    const bottomLimit = (underlineStartPoint ?? referencePoint ?? { y: 60 }).y - 10
+    const bottomReference = hoverReferencePoint ?? underlineStartPoint ?? { y: 60 }
+    const bottomLimit = bottomReference.y - 10
     const centerY = randomBetween(topLimit, bottomLimit)
     return {
       x: centerX - orb.offsetWidth / 2,
@@ -342,28 +355,110 @@ const animateOrb = (orb: HTMLElement) => {
     }
   }
 
-  const reservedTailPoints = secondAnchorPoint ? 2 : 1
-  let guard = 0
-  while (debugPoints.length < MAX_TRAJECTORY_POINTS - reservedTailPoints && guard < 200) {
-    const before = debugPoints.length
+  const randomOffscreenPoint = (): Point => {
+    const width = contextRect.width
+    const height = contextRect.height
+    const marginX = Math.max(60, orb.offsetWidth * 2)
+    const marginY = Math.max(60, orb.offsetHeight * 2)
+    const side = Math.floor(Math.random() * 4)
+    const randomX = () => randomBetween(-marginX, width + marginX)
+    const randomY = () => randomBetween(-marginY, height + marginY)
+    switch (side) {
+      case 0: // top
+        return {
+          x: randomX() - orb.offsetWidth / 2,
+          y: -marginY - orb.offsetHeight,
+        }
+      case 1: // right
+        return {
+          x: width + marginX,
+          y: randomY() - orb.offsetHeight / 2,
+        }
+      case 2: // bottom
+        return {
+          x: randomX() - orb.offsetWidth / 2,
+          y: height + marginY,
+        }
+      default: // left
+        return {
+          x: -marginX - orb.offsetWidth,
+          y: randomY() - orb.offsetHeight / 2,
+        }
+    }
+  }
+
+  const createArcOverLastISegment = (start: Point, end: Point, duration: number): PathSegment => {
+    if (!lastIArcPeak) {
+      return createCurvedSegment(start, end, "up", duration)
+    }
+    const rawPeakY = Math.min(start.y, end.y, lastIArcPeak.y) - 12
+    const peakY = Number.isFinite(rawPeakY) ? rawPeakY : lastIArcPeak.y
+    const control1: Point = {
+      x: start.x + (lastIArcPeak.x - start.x) * 0.6,
+      y: peakY - 6,
+    }
+    const control2: Point = {
+      x: end.x + (lastIArcPeak.x - end.x) * 0.35,
+      y: peakY,
+    }
+    return {
+      start,
+      control1,
+      control2,
+      end,
+      duration,
+    }
+  }
+
+  const buildLandingTrajectory = () => {
     pushPoint(randomHoverPoint())
-    guard = debugPoints.length === before ? guard + 1 : 0
+    let guard = 0
+    while (debugPoints.length < MAX_TRAJECTORY_POINTS - 1 && guard < 200) {
+      const before = debugPoints.length
+      pushPoint(randomHoverPoint())
+      guard = debugPoints.length === before ? guard + 1 : 0
+    }
   }
 
-  if (secondAnchorPoint) {
-    pushPoint(secondAnchorPoint)
+  const buildLetterTrajectory = () => {
+    pushPoint(anchorStartPoint ?? fallbackStart)
+    const referencePoint = hoverReferencePoint ?? debugPoints[debugPoints.length - 1]
+    const shiftedUnderlineStart =
+      underlineStartPoint && referencePoint
+        ? { ...underlineStartPoint, x: underlineStartPoint.x + 12 }
+        : underlineStartPoint
+    pushPoint(shiftedUnderlineStart)
+    pushPoint(underlineEndPoint)
+
+    if (referencePoint) {
+      pushPoint({ x: referencePoint.x - 30, y: referencePoint.y - 25 })
+    }
+
+    const reservedTailPoints = secondAnchorPoint ? 2 : 1
+    let guard = 0
+    while (debugPoints.length < MAX_TRAJECTORY_POINTS - reservedTailPoints && guard < 200) {
+      const before = debugPoints.length
+      pushPoint(randomHoverPoint())
+      guard = debugPoints.length === before ? guard + 1 : 0
+    }
+
+    if (secondAnchorPoint) {
+      pushPoint(secondAnchorPoint)
+    }
   }
 
-  const lastPoint = debugPoints[debugPoints.length - 1]
-  if (lastPoint) {
-    pushPoint({
-      x: lastPoint.x + randomBetween(40, 80),
-      y: -orb.offsetHeight * 3,
-    })
+  if (container.classList.contains("landing-shell")) {
+    buildLandingTrajectory()
+  } else {
+    buildLetterTrajectory()
   }
 
   if (debugPoints.length === 0) {
     pushPoint(fallbackStart)
+  }
+
+  if (debugPoints.length > 0) {
+    pushPoint(randomOffscreenPoint())
   }
 
   if (debugPoints.length < 2) {
@@ -388,16 +483,22 @@ const animateOrb = (orb: HTMLElement) => {
     } else {
       duration = randomBetween(RANDOM_SEGMENT_MIN_DURATION, RANDOM_SEGMENT_MAX_DURATION)
     }
-    const isUnderlineSegment =
-      movementIndex !== 0 &&
-      ((i === anchorIndex && i + 1 === underlineStartIndex && anchorIndex !== -1) ||
-        (i === underlineStartIndex && i + 1 === underlineEndIndex && underlineStartIndex !== -1))
-    segments.push(createLinearSegment(from, to, duration))
+    let segment: PathSegment
+    if (movementIndex === 0) {
+      segment = createArcOverLastISegment(from, to, duration)
+    } else {
+      const useCurvedSegment = movementIndex >= 3
+      const bias: "down" | "up" = to.y >= from.y ? "down" : "up"
+      segment = useCurvedSegment
+        ? createCurvedSegment(from, to, bias, duration)
+        : createLinearSegment(from, to, duration)
+    }
+    segments.push(segment)
     movementIndex += 1
   }
 
   const debugEnabled = ENABLE_ORB_DEBUG || container.dataset.orbDebug === "true"
-  const debugArtifacts = renderDebugPoints(container, orb, debugPoints, debugEnabled, contextRect)
+  const debugArtifacts = renderDebugPoints(container, orb, debugPoints, segments, debugEnabled, contextRect)
   const setActiveDebugMarker = (index: number) => {
     if (!debugArtifacts) return
     debugArtifacts.markers.forEach((marker, idx) => {
