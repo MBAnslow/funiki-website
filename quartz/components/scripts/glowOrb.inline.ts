@@ -3,7 +3,7 @@ const LOOP_DELAY_MS = 1200
 const MAX_TRAJECTORY_POINTS = 8
 const MIN_DEBUG_POINT_DISTANCE = 32
 const HOVER_BOX_HORIZONTAL_PAD = 80
-const HOVER_BOX_EXTRA_TOP = 40
+const HOVER_BOX_EXTRA_TOP = 20
 const HOVER_BOX_EXTRA_BOTTOM = 30
 const HOLD_SEGMENT_DURATION = 1000
 const FIRST_MOVE_DURATION = 1500
@@ -17,12 +17,12 @@ const RIPPLE_INITIAL_DELAY_MS = 1600
 const RIPPLE_RETRY_DELAY_MS = 600
 const RIPPLE_GROUP_SIZE = 4
 const RIPPLE_STAGGER_MS = 320
-const RIPPLE_DURATION_MS = 4600
+const RIPPLE_DURATION_MS = 1000
 const RIPPLE_EDGE_PADDING = 140
-const RIPPLE_MIN_SCALE = 2.8
-const RIPPLE_MAX_SCALE = 3.8
+const RIPPLE_MIN_SCALE = 1.4
+const RIPPLE_MAX_SCALE = 2.1
 const RIPPLE_INITIAL_SCALE = 0.35
-const RIPPLE_LETTER_EFFECT_MS = 900
+const RIPPLE_LETTER_EFFECT_MS = 2000
 
 type Point = { x: number; y: number }
 type PathSegment = {
@@ -138,6 +138,26 @@ const createCurvedSegment = (
   }
 }
 
+const LETTER_GLOW_DECAY_MS = 350
+const letterGlowFadeTimers = new WeakMap<Element, number>()
+
+const cancelLetterGlowFade = (el: Element) => {
+  const timer = letterGlowFadeTimers.get(el)
+  if (timer !== undefined) {
+    window.clearTimeout(timer)
+    letterGlowFadeTimers.delete(el)
+  }
+}
+
+const scheduleLetterGlowFade = (el: Element) => {
+  if (letterGlowFadeTimers.has(el)) return
+  const timer = window.setTimeout(() => {
+    el.classList.remove("orb-illuminated")
+    letterGlowFadeTimers.delete(el)
+  }, LETTER_GLOW_DECAY_MS)
+  letterGlowFadeTimers.set(el, timer)
+}
+
 const highlightTargets = (targets: Element[], orbRect: DOMRect) => {
   for (const el of targets) {
     const rect = el.getBoundingClientRect()
@@ -148,8 +168,9 @@ const highlightTargets = (targets: Element[], orbRect: DOMRect) => {
       rect.bottom >= orbRect.top
     if (overlaps) {
       el.classList.add("orb-illuminated")
+      cancelLetterGlowFade(el)
     } else {
-      el.classList.remove("orb-illuminated")
+      scheduleLetterGlowFade(el)
     }
   }
 }
@@ -276,9 +297,15 @@ const initLandingRipples = (container: HTMLElement) => {
   const queueLetterImpact = (letter: HTMLElement, delay: number) => {
     const safeDelay = Math.max(0, delay)
     storeTimeout(() => {
-      cancelTimeout(letterReleaseTimers.get(letter))
-      letter.classList.remove("landing-letter-ripple")
-      void letter.offsetWidth
+      if (letter.classList.contains("landing-letter-ripple")) {
+        const pending = letterReleaseTimers.get(letter)
+        if (pending === undefined) {
+          return
+        }
+        const remaining = Math.max(0, RIPPLE_LETTER_EFFECT_MS - (performance.now() - pending))
+        letterReleaseTimers.set(letter, remaining)
+        return
+      }
       letter.classList.add("landing-letter-ripple")
       const releaseHandle = storeTimeout(() => {
         letter.classList.remove("landing-letter-ripple")

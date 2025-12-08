@@ -29,10 +29,11 @@ cssclasses:
   </div>
 
   <p class="landing-text">
-    Supporting audio-visual ambient experiences for everyone, in everyday spaces.
+    Supporting audio-visual ambient experiences for everyone, in everyday spaces. A project at <a  href="https://csl.sony.fr/projects/funiki">
+    Sony CSL Paris</a>.
   </p>
 
-  <a class="landing-link internal" href="/0_introduction">
+  <a class="landing-link internal" href="/0_introduction" data-no-popover="true">
     Enter the Funiki Digital Garden
   </a>
 </div>
