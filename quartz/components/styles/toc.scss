@@ -6,7 +6,7 @@
   overflow-y: hidden;
   min-height: 1.4rem;
   flex: 0 0.5 auto;
-  font-family: var(--tocFont), var(--bodyFont), sans-serif;
+  font-family: var(--headerFont), var(--bodyFont), sans-serif;
   &:has(button.toc-header.collapsed) {
     flex: 0 1 1.4rem;
   }
@@ -21,6 +21,7 @@ button.toc-header {
   color: var(--dark);
   display: flex;
   align-items: center;
+  font-family: var(--headerFont), var(--bodyFont), sans-serif;
 
   & h3 {
     font-size: 1rem;
@@ -50,19 +51,16 @@ ul.toc-content.overflow {
 
   & > li > a {
     color: var(--dark);
-    opacity: 0.35;
+    opacity: 0.55;
     transition:
-      0.5s ease opacity,
-      0.3s ease color,
-      0.3s ease font-size;
+      0.3s ease opacity,
+      0.3s ease color;
     &.in-view {
-      opacity: 0.75;
+      opacity: 0.8;
       font-weight: 650;
-      font-size: 1.05em;
     }
     &.is-current {
       font-weight: 750;
-      font-size: 1.5em;
       color: color-mix(in srgb, var(--secondary) 65%, var(--dark) 35%);
     }
   }
