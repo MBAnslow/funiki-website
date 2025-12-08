@@ -1,4 +1,4 @@
-const FADE_IN_HOLD_MS = 350
+const FADE_IN_HOLD_MS = 850
 const LOOP_DELAY_MS = 1200
 const MAX_TRAJECTORY_POINTS = 8
 const MIN_DEBUG_POINT_DISTANCE = 32
@@ -10,14 +10,14 @@ const FIRST_MOVE_DURATION = 1500
 const UNDERLINE_SEGMENT_DURATION = 1500
 const RANDOM_SEGMENT_MIN_DURATION = 800
 const RANDOM_SEGMENT_MAX_DURATION = 1200
-const RIPPLE_GROUP_INTERVAL_MIN = 4200
-const RIPPLE_GROUP_INTERVAL_MAX = 6200
-const RIPPLE_GROUP_REST_MS = 1400
+const RIPPLE_GROUP_INTERVAL_MIN = 6200
+const RIPPLE_GROUP_INTERVAL_MAX = 9200
+const RIPPLE_GROUP_REST_MS = 2000
 const RIPPLE_INITIAL_DELAY_MS = 1600
 const RIPPLE_RETRY_DELAY_MS = 600
 const RIPPLE_GROUP_SIZE = 4
-const RIPPLE_STAGGER_MS = 320
-const RIPPLE_DURATION_MS = 1000
+const RIPPLE_STAGGER_MS = 520
+const RIPPLE_DURATION_MS = 1600
 const RIPPLE_EDGE_PADDING = 140
 const RIPPLE_MIN_SCALE = 1.4
 const RIPPLE_MAX_SCALE = 2.1
@@ -359,26 +359,33 @@ const initLandingRipples = (container: HTMLElement) => {
     }
     const minDimension = Math.min(rect.width, rect.height)
     const baseSize = randomBetween(minDimension * 0.15, minDimension * 0.4)
-    const padX = Math.max(RIPPLE_EDGE_PADDING, rect.width * 0.08)
-    const padY = Math.max(RIPPLE_EDGE_PADDING, rect.height * 0.08)
-    const edgeBandX = rect.width * 0.18
-    const bandWidthX = Math.max(edgeBandX, rect.width * 0.08)
-    const edgeBandY = rect.height * 0.18
-    const bandWidthY = Math.max(edgeBandY, rect.height * 0.08)
-    const leftBandEnd = Math.min(rect.width - padX, padX + bandWidthX)
-    const rightBandStart = Math.max(padX, rect.width - padX - bandWidthX)
-    const topBandEnd = Math.min(rect.height - padY, padY + bandWidthY)
-    const bottomBandStart = Math.max(padY, rect.height - padY - bandWidthY)
-
-    const pickTopRight = Math.random() < 0.5
-    const originX = pickTopRight
-      ? randomBetween(rightBandStart, rect.width - padX)
-      : randomBetween(padX, leftBandEnd)
-    const originY = pickTopRight
-      ? randomBetween(padY, topBandEnd)
-      : randomBetween(bottomBandStart, rect.height - padY)
+    const padX = Math.max(RIPPLE_EDGE_PADDING, rect.width * 0.02)
+    const padY = Math.max(RIPPLE_EDGE_PADDING, rect.height * 0.02)
+    const edgeOffset = Math.max(baseSize * 0.25, Math.min(padX, padY) * 0.2)
+    // pick an edge, but keep most of the ripple on-screen near that edge
+    const edge = ["top", "right", "bottom", "left"][Math.floor(Math.random() * 4)]
+    let originX: number
+    let originY: number
+    switch (edge) {
+      case "top":
+        originX = randomBetween(padX, rect.width - padX)
+        originY = edgeOffset
+        break
+      case "bottom":
+        originX = randomBetween(padX, rect.width - padX)
+        originY = rect.height - edgeOffset
+        break
+      case "right":
+        originX = rect.width - edgeOffset
+        originY = randomBetween(padY, rect.height - padY)
+        break
+      default: // left
+        originX = edgeOffset
+        originY = randomBetween(padY, rect.height - padY)
+        break
+    }
     const rippleScale = randomBetween(RIPPLE_MIN_SCALE, RIPPLE_MAX_SCALE)
-    const rippleOpacity = randomBetween(0.25, 0.55)
+    const rippleOpacity = randomBetween(0.15, 0.45)
     const letterPositions: LetterPosition[] =
       letterTargets.length > 0
         ? letterTargets

@@ -42,14 +42,14 @@
     position: sticky;
     overflow: visible;
     isolation: isolate;
-    background-color: color-mix(in srgb, var(--lightgray) 60%, transparent);
+    background-color: transparent;
     transition:
       background-color 0.2s ease,
       opacity 0.2s ease;
   }
 
   .sidebar.left:hover {
-    background-color: color-mix(in srgb, var(--lightgray) 80%, transparent);
+    background-color: transparent;
   }
 
   .glow-orb {
@@ -78,7 +78,7 @@
     mix-blend-mode: screen;
     pointer-events: none;
     animation: none;
-    opacity: 0.85;
+    opacity: 0.2;
     z-index: 3;
     transition: opacity 0.4s ease;
   }
@@ -245,7 +245,7 @@ body[data-slug="index"] .landing-shell .orb-illuminated {
 /* Landing page overrides */
 body[data-slug="index"] {
   background:
-    radial-gradient(circle at 25% 20%, rgba(140, 140, 140, 0.6), transparent 55%),
+    radial-gradient(circle at 25% 20%, rgba(140, 140, 140, 0.6), transparent 35%),
     radial-gradient(circle at 70% 35%, rgba(60, 60, 60, 0.8), transparent 60%),
     linear-gradient(160deg, #050505, #151515 45%, #050505 90%);
   color: var(--light);
@@ -260,6 +260,13 @@ body[data-slug="index"] #quartz-root {
 body[data-slug="index"] #quartz-body {
   min-height: 100vh;
   grid-template-columns: minmax(0, 1fr);
+  & > .page-header,
+  & > .center,
+  & > .page-footer,
+  & > footer {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
 
 body[data-slug="index"]
@@ -295,7 +302,7 @@ body[data-slug="index"] .landing-shell {
   --landing-orb-hue: 32;
   --landing-orb-core: hsl(var(--landing-orb-hue) 95% 90% / 0.95);
   --landing-orb-mid: hsl(var(--landing-orb-hue) 85% 65% / 0.8);
-  --landing-orb-edge: hsl(var(--landing-orb-hue) 80% 45% / 0.25);
+  --landing-orb-edge: rgba(255, 255, 255, 0.7);
   --landing-orb-shadow-bright: hsl(var(--landing-orb-hue) 90% 72% / 0.75);
   --landing-orb-shadow-mid: hsl(var(--landing-orb-hue) 80% 52% / 0.5);
   --landing-orb-shadow-soft: hsl(var(--landing-orb-hue) 95% 85% / 0.4);
@@ -429,11 +436,11 @@ body[data-slug="index"] .landing-big-sphere {
     transparent 82%
   );
   filter: blur(120px) hue-rotate(0deg);
-  opacity: 0.58;
+  opacity: 0.3;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -3;
-  animation: landingRedSphereHue 80s linear infinite;
+  animation: landingBigSphereHue 80s linear infinite;
 }
 
 @keyframes landingCloudDrift {
@@ -554,11 +561,11 @@ body[data-slug="index"] .landing-big-sphere {
     width: 180vw;
     height: 180vw;
     filter: blur(90px) hue-rotate(0deg);
-    animation: landingRedSphereHue 60s linear infinite;
+    animation: landingBigSphereHue 60s linear infinite;
   }
 }
 
-@keyframes landingRedSphereHue {
+@keyframes landingBigSphereHue {
   0% {
     filter: blur(120px) hue-rotate(0deg);
   }
@@ -569,13 +576,34 @@ body[data-slug="index"] .landing-big-sphere {
     filter: blur(120px) hue-rotate(280deg); /* purple */
   }
   60% {
-    filter: blur(120px) hue-rotate(120deg); /* green */
+    filter: blur(120px) hue-rotate(40deg); /* yellow */
   }
   80% {
-    filter: blur(120px) hue-rotate(40deg); /* orange */
+    filter: blur(120px) hue-rotate(60deg); /* orange */
   }
   100% {
     filter: blur(120px) hue-rotate(0deg);
+  }
+}
+
+@keyframes landingOrbHueCloudSync {
+  0% {
+    --landing-orb-core: hsl(18 70% 82% / 0.92);
+  }
+  20% {
+    --landing-orb-core: hsl(215 74% 82% / 0.92);
+  }
+  40% {
+    --landing-orb-core: hsl(295 72% 84% / 0.92);
+  }
+  60% {
+    --landing-orb-core: hsl(150 72% 80% / 0.92);
+  }
+  80% {
+    --landing-orb-core: hsl(55 78% 84% / 0.92);
+  }
+  100% {
+    --landing-orb-core: hsl(18 70% 82% / 0.92);
   }
 }
 
@@ -649,14 +677,14 @@ body[data-slug="index"] .landing-title::after {
     0 0 25px var(--landing-orb-shadow-bright),
     0 0 60px var(--landing-orb-shadow-mid),
     0 0 90px var(--landing-orb-shadow-soft);
-  mix-blend-mode: screen;
-  opacity: 0.2;
-  filter: blur(18px);
+  mix-blend-mode: normal;
+  opacity: 1;
+  filter: blur(8px);
   transform: translate(-90%, -50%);
   pointer-events: none;
-  animation: landingOrbSweep 18s ease-in-out infinite;
-  animation-direction: alternate;
-  animation-delay: -4s;
+  animation:
+    landingOrbSweep 18s ease-in-out infinite alternate -4s,
+    landingOrbHueCloudSync 78s linear infinite;
   z-index: -1;
 }
 
@@ -827,11 +855,11 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
 
 @keyframes landingOrbSweep {
   0% {
-    transform: translate(50%, 25%) scale(0.96);
+    transform: translate(90%, 25%) scale(0.96);
     opacity: 0.45;
   }
   45% {
-    transform: translate(53%, 15%) scale(1.1);
+    transform: translate(93%, 15%) scale(1.1);
     opacity: 0.42;
   }
   75% {
@@ -839,7 +867,7 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
     opacity: 0.43;
   }
   100% {
-    transform: translate(53%, 10%) scale(0.96);
+    transform: translate(73%, 10%) scale(0.96);
     opacity: 0.45;
   }
 }
