@@ -374,7 +374,9 @@ body[data-slug="index"] .landing-clouds .cloud-back {
   animation-timing-function: ease-in-out, linear;
   animation-iteration-count: infinite, infinite;
   animation-direction: alternate, normal;
-  animation-delay: -3s, -4s;
+  animation-delay:
+    -3s,
+    -4s;
 }
 
 body[data-slug="index"] .landing-clouds .cloud-mid {
@@ -391,7 +393,9 @@ body[data-slug="index"] .landing-clouds .cloud-mid {
   animation-timing-function: ease-in-out, linear;
   animation-iteration-count: infinite, infinite;
   animation-direction: alternate, normal;
-  animation-delay: -6s, -10s;
+  animation-delay:
+    -6s,
+    -10s;
 }
 
 body[data-slug="index"] .landing-clouds .cloud-front {
