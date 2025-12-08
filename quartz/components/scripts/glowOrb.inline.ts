@@ -432,6 +432,8 @@ const initLandingRipples = (container: HTMLElement) => {
 const animateOrb = (orb: HTMLElement) => {
   if (orb.dataset.orbAnimated === "true") return
   orb.dataset.orbAnimated = "true"
+  const runToken = `${Date.now()}-${Math.random().toString(16).slice(2)}`
+  orb.dataset.orbRun = runToken
   const container =
     orb.closest<HTMLElement>(".sidebar.left") ?? orb.closest<HTMLElement>(".landing-shell")
   if (!container) return
@@ -854,6 +856,9 @@ const animateOrb = (orb: HTMLElement) => {
   setActiveDebugMarker(0)
 
   const step = (timestamp: number) => {
+    if (orb.dataset.orbRun !== runToken) {
+      return
+    }
     const segment = segments[segmentIndex]
     if (!segment) {
       if (shouldLoop) {
@@ -923,3 +928,24 @@ document.addEventListener("nav", () => {
     animateOrb(orb)
   })
 })
+
+if (typeof window !== "undefined") {
+  let resizeDebounce: number | undefined
+  const resetOrbsForResize = () => {
+    document
+      .querySelectorAll<HTMLElement>(".orb-debug-overlay[data-orb-runtime]")
+      .forEach((node) => node.remove())
+    document.querySelectorAll<HTMLElement>(".glow-orb").forEach((orb) => {
+      orb.dataset.orbAnimated = ""
+      orb.dataset.orbRun = ""
+      orb.style.opacity = "0"
+    })
+    document.dispatchEvent(new CustomEvent("nav", { detail: {} }))
+  }
+  window.addEventListener("resize", () => {
+    if (resizeDebounce !== undefined) {
+      window.clearTimeout(resizeDebounce)
+    }
+    resizeDebounce = window.setTimeout(resetOrbsForResize, 150)
+  })
+}
