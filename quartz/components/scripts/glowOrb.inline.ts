@@ -1,9 +1,10 @@
 const FADE_IN_HOLD_MS = 850
 const LOOP_DELAY_MS = 1200
-const MAX_TRAJECTORY_POINTS = 8
-const MIN_DEBUG_POINT_DISTANCE = 32
+const LOOP_RESTART_DELAY_MS = 3800
+const MAX_TRAJECTORY_POINTS = 6
+const MIN_DEBUG_POINT_DISTANCE = 64
 const HOVER_BOX_HORIZONTAL_PAD = 80
-const HOVER_BOX_EXTRA_TOP = 20
+const HOVER_BOX_EXTRA_TOP = 0
 const HOVER_BOX_EXTRA_BOTTOM = 30
 const HOLD_SEGMENT_DURATION = 1000
 const FIRST_MOVE_DURATION = 1500
@@ -822,16 +823,20 @@ const animateOrb = (orb: HTMLElement) => {
     const to = debugPoints[i + 1]
     const isFinalSegment = i === debugPoints.length - 2
     let duration: number
-    if (movementIndex === 0) {
-      duration = FIRST_MOVE_DURATION
-    } else if (movementIndex === 1) {
-      duration = UNDERLINE_SEGMENT_DURATION
-    } else {
-      duration = randomBetween(RANDOM_SEGMENT_MIN_DURATION, RANDOM_SEGMENT_MAX_DURATION)
-    }
+
+    duration = randomBetween(RANDOM_SEGMENT_MIN_DURATION, RANDOM_SEGMENT_MAX_DURATION)
+
     let segment: PathSegment
     if (movementIndex === 0) {
       segment = createArcOverLastISegment(from, to, duration, curvedSegmentOptions)
+    } else if (isFinalSegment) {
+      duration = Math.max(duration * 2.4, 2000)
+      const bias: "down" | "up" = to.y >= from.y ? "down" : "up"
+      segment = createCurvedSegment(from, to, bias, duration, {
+        curvatureBoost: 3.2,
+        horizontalDriftMultiplier: 2.6,
+        terminalLiftMultiplier: 2.0,
+      })
     } else {
       const useCurvedSegment =
         isFinalSegment || (isLandingShell ? movementIndex >= 1 : movementIndex >= 3)
@@ -885,7 +890,7 @@ const animateOrb = (orb: HTMLElement) => {
           orb.style.opacity = "0.85"
           setActiveDebugMarker(0)
           requestAnimationFrame(step)
-        }, LOOP_DELAY_MS)
+        }, LOOP_DELAY_MS + LOOP_RESTART_DELAY_MS)
       } else {
         orb.style.opacity = "0"
         targets.forEach((el) => el.classList.remove("orb-illuminated"))
