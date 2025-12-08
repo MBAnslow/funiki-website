@@ -1,6 +1,10 @@
 const FADE_IN_HOLD_MS = 350
 const LOOP_DELAY_MS = 1200
 const MAX_TRAJECTORY_POINTS = 8
+const MIN_DEBUG_POINT_DISTANCE = 32
+const HOVER_BOX_HORIZONTAL_PAD = 80
+const HOVER_BOX_EXTRA_TOP = 40
+const HOVER_BOX_EXTRA_BOTTOM = 30
 const HOLD_SEGMENT_DURATION = 1000
 const FIRST_MOVE_DURATION = 1500
 const UNDERLINE_SEGMENT_DURATION = 1500
@@ -27,6 +31,23 @@ type PathSegment = {
   control2: Point
   end: Point
   duration: number
+}
+
+type CurvedSegmentOptions = {
+  curvatureBoost?: number
+  horizontalDriftMultiplier?: number
+  terminalLiftMultiplier?: number
+}
+
+type PushPointOptions = {
+  minDistance?: number
+}
+
+type HoverSampleBox = {
+  left: number
+  top: number
+  right: number
+  bottom: number
 }
 
 const randomBetween = (min: number, max: number) => min + Math.random() * (max - min)
@@ -91,15 +112,24 @@ const createCurvedSegment = (
   end: Point,
   bias: "down" | "up",
   duration: number,
+  options: CurvedSegmentOptions = {},
 ): PathSegment => {
-  const offsetY = bias === "down" ? randomBetween(12, 28) : randomBetween(-26, -10)
+  const {
+    curvatureBoost = 1,
+    horizontalDriftMultiplier = 1,
+    terminalLiftMultiplier = 1,
+  } = options
+  const horizontalRange = 40 * horizontalDriftMultiplier
+  const offsetY =
+    (bias === "down" ? randomBetween(12, 28) : randomBetween(-26, -10)) * curvatureBoost
   const control1: Point = {
-    x: start.x + randomBetween(-40, 40),
+    x: start.x + randomBetween(-horizontalRange, horizontalRange),
     y: start.y + offsetY,
   }
+  const control2VerticalRange = bias === "down" ? [-18, 6] : [12, 32]
   const control2: Point = {
-    x: end.x + randomBetween(-40, 40),
-    y: end.y + (bias === "down" ? randomBetween(-18, 6) : randomBetween(12, 32)),
+    x: end.x + randomBetween(-horizontalRange, horizontalRange),
+    y: end.y + randomBetween(control2VerticalRange[0], control2VerticalRange[1]) * terminalLiftMultiplier,
   }
   return {
     start,
@@ -380,9 +410,10 @@ const animateOrb = (orb: HTMLElement) => {
   const container =
     orb.closest<HTMLElement>(".sidebar.left") ?? orb.closest<HTMLElement>(".landing-shell")
   if (!container) return
+  const isLandingShell = container.classList.contains("landing-shell")
   const isSidebar = container.classList.contains("sidebar")
   const shouldLoop = !isSidebar
-  if (container.classList.contains("landing-shell")) {
+  if (isLandingShell) {
     initLandingRipples(container)
   }
   if (isSidebar) {
@@ -528,12 +559,25 @@ const animateOrb = (orb: HTMLElement) => {
 
   const fallbackStart = selectStartPoint()
 
+  const curvedSegmentOptions: CurvedSegmentOptions | undefined = isLandingShell
+    ? {
+        curvatureBoost: 1.45,
+        horizontalDriftMultiplier: 1.3,
+        terminalLiftMultiplier: 1.2,
+      }
+    : undefined
   const debugPoints: Point[] = []
-  const pushPoint = (pt?: Point | null): number => {
+  const pushPoint = (pt?: Point | null, options?: PushPointOptions): number => {
     if (!pt) return -1
     const last = debugPoints[debugPoints.length - 1]
-    if (last && Math.hypot(last.x - pt.x, last.y - pt.y) < 1) {
-      return debugPoints.length - 1
+    if (last) {
+      const distance = Math.hypot(last.x - pt.x, last.y - pt.y)
+      if (distance < 1) {
+        return debugPoints.length - 1
+      }
+      if (typeof options?.minDistance === "number" && distance < options.minDistance) {
+        return -1
+      }
     }
     debugPoints.push(pt)
     return debugPoints.length - 1
@@ -541,28 +585,63 @@ const animateOrb = (orb: HTMLElement) => {
 
   const hoverReferencePoint = underlineEndPoint ?? underlineStartPoint ?? null
 
-  const randomHoverPoint = (): Point => {
-    const maxX = contextRect.width
-    const minX = Math.max(
-      0,
-      (leftmostLetter?.rect.left ?? contextRect.left) - contextRect.left - 20,
+  const buildHoverSampleBox = (): HoverSampleBox => {
+    const containerWidth = contextRect.width
+    const containerHeight = contextRect.height
+    const horizontalPad = HOVER_BOX_HORIZONTAL_PAD
+    const leftEdge =
+      (leftmostLetter?.rect.left ?? contextRect.left) - contextRect.left - horizontalPad
+    const rightEdge =
+      (rightmostLetter?.rect.right ?? contextRect.left + containerWidth) -
+      contextRect.left +
+      horizontalPad
+    const minX = Math.max(0, leftEdge)
+    const maxTargetX = Math.max(
+      minX + 1,
+      Math.min(containerWidth, rightEdge) - orb.offsetWidth,
     )
-    const maxClampX =
-      Math.min(
-        maxX,
-        (rightmostLetter?.rect.right ?? contextRect.left + maxX) - contextRect.left + 20,
-      ) - orb.offsetWidth
-    const centerX = randomBetween(minX, Math.max(minX + 1, maxClampX))
-    const topLimit =
-      (Math.min(...letterEntries.map(({ rect }) => rect.top)) ?? contextRect.top) -
-      contextRect.top -
-      30
+    const letterTopValues = letterEntries.map(({ rect }) => rect.top)
+    const highestLetterTop =
+      letterTopValues.length > 0 ? Math.min(...letterTopValues) : contextRect.top + 60
+    const topLimitBase = highestLetterTop - contextRect.top - 30 - HOVER_BOX_EXTRA_TOP
+    const topLimit = Number.isFinite(topLimitBase) ? topLimitBase : contextRect.height * 0.25
     const bottomReference = hoverReferencePoint ?? underlineStartPoint ?? { y: 60 }
-    const bottomLimit = bottomReference.y - 10
-    const centerY = randomBetween(topLimit, bottomLimit)
+    const bottomLimitBase = (bottomReference?.y ?? 60) + HOVER_BOX_EXTRA_BOTTOM
+    let bottomLimit = Number.isFinite(bottomLimitBase) ? bottomLimitBase : topLimit + 120
+    if (bottomLimit - topLimit < 40) {
+      bottomLimit = topLimit + 40
+    }
+    let left = minX - orb.offsetWidth / 2
+    let right = maxTargetX - orb.offsetWidth / 2
+    const maxLeft = Math.max(0, containerWidth - orb.offsetWidth)
+    left = Math.min(Math.max(left, 0), maxLeft)
+    right = Math.min(Math.max(right, left + 1), maxLeft)
+    if (right - left < Math.max(80, orb.offsetWidth)) {
+      right = Math.min(left + Math.max(80, orb.offsetWidth), maxLeft)
+    }
+    let top = topLimit - orb.offsetHeight / 2
+    let bottom = bottomLimit - orb.offsetHeight / 2
+    const maxTop = Math.max(0, containerHeight - orb.offsetHeight)
+    top = Math.min(Math.max(top, 0), maxTop)
+    bottom = Math.min(Math.max(bottom, top + 1), maxTop)
+    if (bottom - top < Math.max(80, orb.offsetHeight * 1.5)) {
+      bottom = Math.min(top + Math.max(80, orb.offsetHeight * 1.5), maxTop)
+    }
     return {
-      x: centerX - orb.offsetWidth / 2,
-      y: centerY - orb.offsetHeight / 2,
+      left,
+      top,
+      right,
+      bottom,
+    }
+  }
+
+  const hoverSampleBox = buildHoverSampleBox()
+
+  const randomHoverPoint = (): Point => {
+    const randomWithin = (min: number, max: number) => randomBetween(min, Math.max(min + 1, max))
+    return {
+      x: randomWithin(hoverSampleBox.left, hoverSampleBox.right),
+      y: randomWithin(hoverSampleBox.top, hoverSampleBox.bottom),
     }
   }
 
@@ -571,24 +650,20 @@ const animateOrb = (orb: HTMLElement) => {
     const height = contextRect.height
     const marginX = Math.max(60, orb.offsetWidth * 2)
     const marginY = Math.max(60, orb.offsetHeight * 2)
-    const side = Math.floor(Math.random() * 4)
+    const allowedSides = ["top", "right", "left"] as const
+    const side = allowedSides[Math.floor(Math.random() * allowedSides.length)]
     const randomX = () => randomBetween(-marginX, width + marginX)
     const randomY = () => randomBetween(-marginY, height + marginY)
     switch (side) {
-      case 0: // top
+      case "top":
         return {
           x: randomX() - orb.offsetWidth / 2,
           y: -marginY - orb.offsetHeight,
         }
-      case 1: // right
+      case "right":
         return {
           x: width + marginX,
           y: randomY() - orb.offsetHeight / 2,
-        }
-      case 2: // bottom
-        return {
-          x: randomX() - orb.offsetWidth / 2,
-          y: height + marginY,
         }
       default: // left
         return {
@@ -598,9 +673,30 @@ const animateOrb = (orb: HTMLElement) => {
     }
   }
 
-  const createArcOverLastISegment = (start: Point, end: Point, duration: number): PathSegment => {
+  const appendOffscreenPoint = () => {
+    if (debugPoints.length === 0) {
+      pushPoint(randomOffscreenPoint())
+      return
+    }
+    let attempts = 0
+    while (attempts < 25) {
+      const index = pushPoint(randomOffscreenPoint(), { minDistance: MIN_DEBUG_POINT_DISTANCE })
+      if (index !== -1) {
+        return
+      }
+      attempts += 1
+    }
+    pushPoint(randomOffscreenPoint())
+  }
+
+  const createArcOverLastISegment = (
+    start: Point,
+    end: Point,
+    duration: number,
+    options?: CurvedSegmentOptions,
+  ): PathSegment => {
     if (!lastIArcPeak) {
-      return createCurvedSegment(start, end, "up", duration)
+      return createCurvedSegment(start, end, "up", duration, options)
     }
     const rawPeakY = Math.min(start.y, end.y, lastIArcPeak.y) - 12
     const peakY = Number.isFinite(rawPeakY) ? rawPeakY : lastIArcPeak.y
@@ -622,11 +718,11 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   const buildLandingTrajectory = () => {
-    pushPoint(randomHoverPoint())
+    pushPoint(randomHoverPoint(), { minDistance: MIN_DEBUG_POINT_DISTANCE })
     let guard = 0
     while (debugPoints.length < MAX_TRAJECTORY_POINTS - 1 && guard < 200) {
       const before = debugPoints.length
-      pushPoint(randomHoverPoint())
+      pushPoint(randomHoverPoint(), { minDistance: MIN_DEBUG_POINT_DISTANCE })
       guard = debugPoints.length === before ? guard + 1 : 0
     }
   }
@@ -649,7 +745,7 @@ const animateOrb = (orb: HTMLElement) => {
     let guard = 0
     while (debugPoints.length < MAX_TRAJECTORY_POINTS - reservedTailPoints && guard < 200) {
       const before = debugPoints.length
-      pushPoint(randomHoverPoint())
+      pushPoint(randomHoverPoint(), { minDistance: MIN_DEBUG_POINT_DISTANCE })
       guard = debugPoints.length === before ? guard + 1 : 0
     }
 
@@ -658,7 +754,7 @@ const animateOrb = (orb: HTMLElement) => {
     }
   }
 
-  if (container.classList.contains("landing-shell")) {
+  if (isLandingShell) {
     buildLandingTrajectory()
   } else {
     buildLetterTrajectory()
@@ -669,7 +765,7 @@ const animateOrb = (orb: HTMLElement) => {
   }
 
   if (debugPoints.length > 0) {
-    pushPoint(randomOffscreenPoint())
+    appendOffscreenPoint()
   }
 
   if (debugPoints.length < 2) {
@@ -686,6 +782,7 @@ const animateOrb = (orb: HTMLElement) => {
   for (let i = 0; i < debugPoints.length - 1; i++) {
     const from = debugPoints[i]
     const to = debugPoints[i + 1]
+    const isFinalSegment = i === debugPoints.length - 2
     let duration: number
     if (movementIndex === 0) {
       duration = FIRST_MOVE_DURATION
@@ -696,12 +793,13 @@ const animateOrb = (orb: HTMLElement) => {
     }
     let segment: PathSegment
     if (movementIndex === 0) {
-      segment = createArcOverLastISegment(from, to, duration)
+      segment = createArcOverLastISegment(from, to, duration, curvedSegmentOptions)
     } else {
-      const useCurvedSegment = movementIndex >= 3
+      const useCurvedSegment =
+        isFinalSegment || (isLandingShell ? movementIndex >= 1 : movementIndex >= 3)
       const bias: "down" | "up" = to.y >= from.y ? "down" : "up"
       segment = useCurvedSegment
-        ? createCurvedSegment(from, to, bias, duration)
+        ? createCurvedSegment(from, to, bias, duration, curvedSegmentOptions)
         : createLinearSegment(from, to, duration)
     }
     segments.push(segment)
