@@ -624,7 +624,7 @@ body[data-slug="index"] .landing-ripple {
   --ripple-scale: 2;
   --ripple-duration: 3000ms;
   --ripple-delay: 200ms;
-  --ripple-opacity: 0.28;
+  --ripple-opacity: 0.8;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -632,19 +632,19 @@ body[data-slug="index"] .landing-ripple {
   height: var(--ripple-size);
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0.35);
-  border: 5px solid rgba(107, 104, 104, 0.45);
+  border: 2px solid rgba(220, 220, 220, 0.55);
   background: radial-gradient(
     circle,
-    rgba(23, 22, 22, 0.502),
-    rgba(200, 200, 200, 0.12) 55%,
-    transparent 75%
+    rgba(255, 255, 255, 0.85),
+    rgba(220, 220, 220, 0.35) 55%,
+    rgba(200, 200, 200, 0.15) 75%
   );
-  opacity: 0.9;
+  opacity: var(--ripple-opacity);
   mix-blend-mode: screen;
   box-shadow:
-    0 0 25px rgba(45, 45, 45, 0.968),
-    0 0 45px rgb(62, 61, 61);
-  filter: blur(0.4rem);
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 22px rgba(200, 200, 200, 0.5);
+  filter: blur(0.05rem);
   animation: landingRipple var(--ripple-duration) ease-out forwards;
   animation-delay: var(--ripple-delay);
 }

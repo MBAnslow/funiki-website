@@ -18,7 +18,7 @@ const RIPPLE_INITIAL_DELAY_MS = 1600
 const RIPPLE_RETRY_DELAY_MS = 600
 const RIPPLE_GROUP_SIZE = 4
 const RIPPLE_STAGGER_MS = 520
-const RIPPLE_DURATION_MS = 1600
+const RIPPLE_DURATION_MS = 2000
 const RIPPLE_EDGE_PADDING = 140
 const RIPPLE_MIN_SCALE = 1.4
 const RIPPLE_MAX_SCALE = 2.1
@@ -439,7 +439,7 @@ const initLandingRipples = (container: HTMLElement) => {
     storeTimeout(launchRippleSequence, interval)
   }
 
-  storeTimeout(launchRippleSequence, RIPPLE_INITIAL_DELAY_MS)
+  // disable automatic ripple bursts; only manual triggers remain
   landingRippleRegistry.set(container, cleanup)
   registerCleanup(cleanup)
 }
@@ -455,6 +455,7 @@ const animateOrb = (orb: HTMLElement) => {
   const isLandingShell = container.classList.contains("landing-shell")
   const isSidebar = container.classList.contains("sidebar")
   const shouldLoop = !isSidebar
+  const rippleField = isLandingShell ? ensureRippleField(container).field : null
   if (isLandingShell) {
     initLandingRipples(container)
   }
@@ -867,6 +868,72 @@ const animateOrb = (orb: HTMLElement) => {
 
   let segmentIndex = 0
   let segmentStart: number | null = null
+  const rippleLetterTimers = new WeakMap<HTMLElement, number>()
+  const impactLettersAtRipple = (
+    origin: Point,
+    baseSize: number,
+    rippleScale: number,
+    delay: number,
+  ) => {
+    if (letterEntries.length === 0) return
+    const maxRadius = (baseSize * rippleScale) / 2
+    const minRadius = (baseSize * RIPPLE_INITIAL_SCALE) / 4
+    const radiusSpan = Math.max(1, maxRadius - minRadius)
+    letterEntries.forEach(({ el, rect }) => {
+      const distance = Math.hypot(
+        rect.left + rect.width / 2 - origin.x,
+        rect.top + rect.height / 2 - origin.y,
+      )
+      if (distance > maxRadius) return
+      const normalizedProgress = Math.max(0, Math.min(1, (distance - minRadius) / radiusSpan))
+      const hitDelay = delay + normalizedProgress * RIPPLE_DURATION_MS
+      const pending = rippleLetterTimers.get(el)
+      if (pending) {
+        window.clearTimeout(pending)
+      }
+      el.classList.add("landing-letter-ripple")
+      const timer = window.setTimeout(() => {
+        el.classList.remove("landing-letter-ripple")
+        rippleLetterTimers.delete(el)
+      }, RIPPLE_LETTER_EFFECT_MS)
+      rippleLetterTimers.set(el, timer)
+      // slight stagger per distance
+      if (hitDelay > 0) {
+        window.setTimeout(() => {
+          el.classList.add("landing-letter-ripple")
+        }, hitDelay)
+      }
+    })
+  }
+  const emitRippleAtPoint = (origin: Point) => {
+    if (!rippleField) return
+    const rect = rippleField.getBoundingClientRect()
+    const baseSize = Math.min(rect.width, rect.height) * randomBetween(0.1, 0.8)
+    const originX = origin.x + orb.offsetWidth / 2
+    const originY = origin.y + orb.offsetHeight / 2
+    const count = 3
+    const sizeStep = baseSize * 0.2
+    const emitStagger = 800
+    for (let i = 0; i < count; i++) {
+      const delay = i * emitStagger
+      window.setTimeout(() => {
+        const ripple = document.createElement("span")
+        ripple.className = "landing-ripple"
+        ripple.style.left = `${originX}px`
+        ripple.style.top = `${originY}px`
+        const size = sizeStep + i;
+        ripple.style.setProperty("--ripple-size", `${size}px`)
+        const rippleScale = 1.6
+        ripple.style.setProperty("--ripple-scale", rippleScale.toFixed(2))
+        ripple.style.setProperty("--ripple-duration", `${RIPPLE_DURATION_MS}ms`)
+        ripple.style.setProperty("--ripple-delay", "0ms")
+        ripple.style.setProperty("--ripple-opacity", 1.0.toFixed(2))
+        rippleField.append(ripple)
+        impactLettersAtRipple({ x: originX, y: originY }, size, rippleScale, delay)
+        window.setTimeout(() => ripple.remove(), RIPPLE_DURATION_MS + 400)
+      }, delay)
+    }
+  }
 
   const placeOrbAtStart = () => {
     orb.style.left = `${initialPosition.x}px`
@@ -922,6 +989,13 @@ const animateOrb = (orb: HTMLElement) => {
       if (segmentIndex >= 1) {
         const reachedPointIndex = Math.min(segmentIndex, debugPoints.length - 1)
         handlePointReached(reachedPointIndex)
+        if (isLandingShell) {
+          const isLastPoint = reachedPointIndex >= debugPoints.length - 1
+          const shouldEmit = !isLastPoint && Math.random() < 0.35
+          if (shouldEmit) {
+            emitRippleAtPoint(pos)
+          }
+        }
       }
       segmentIndex += 1
       segmentStart = null
