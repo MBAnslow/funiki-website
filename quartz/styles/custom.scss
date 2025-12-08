@@ -245,8 +245,8 @@ body[data-slug="index"] .landing-shell .orb-illuminated {
 /* Landing page overrides */
 body[data-slug="index"] {
   background:
-    radial-gradient(circle at 25% 20%, rgba(140, 140, 140, 0.6), transparent 35%),
-    radial-gradient(circle at 70% 35%, rgba(60, 60, 60, 0.8), transparent 60%),
+    radial-gradient(circle at 25% 20%, rgba(80, 80, 80, 0.6), transparent 70%),
+    radial-gradient(circle at 70% 35%, rgba(80, 80, 80, 0.4), transparent 35%),
     linear-gradient(160deg, #050505, #151515 45%, #050505 90%);
   color: var(--light);
   min-height: 100vh;
@@ -368,10 +368,10 @@ body[data-slug="index"] .landing-clouds .cloud {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-back {
-  width: 560px;
+  width: 800px;
   height: 320px;
   top: -300px;
-  left: -280px;
+  left: -780px;
   color: hsl(0 88% 68% / 0.95);
   box-shadow: 520px 460px 80px 0px currentColor;
   filter: url(#cloud-filter-back);
@@ -391,10 +391,10 @@ body[data-slug="index"] .landing-clouds .cloud-mid {
   height: 500px;
   top: -130px;
   left: -280px;
-  color: hsl(12 82% 70% / 0.96);
+  color: hsl(12 82% 70% / 0.2);
   box-shadow: 420px 320px 70px 0px currentColor;
   filter: url(#cloud-filter-mid);
-  opacity: 0.2;
+  opacity: 0.6;
   animation-name: landingCloudDrift;
   animation-duration: 24s, 80s;
   animation-timing-function: ease-in-out, linear;
@@ -406,28 +406,28 @@ body[data-slug="index"] .landing-clouds .cloud-mid {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-front {
-  width: 460px;
+  width: 960px;
   height: 260px;
   top: -150px;
-  left: 50px;
+  left: -450px;
   color: hsl(16 86% 74% / 0.98);
   box-shadow: 320px 220px 60px 0px currentColor;
   filter: url(#cloud-filter-front);
-  opacity: 0.4;
+  opacity: 0.2;
   animation-name: landingCloudDrift;
   animation-duration: 78s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: normal;
-  animation-delay: -16s;
+  animation-delay: -4s;
 }
 
 body[data-slug="index"] .landing-big-sphere {
   position: absolute;
-  top: -40%;
-  left: -15%;
-  width: min(100vw, 1000px);
-  height: min(100vw, 1000px);
+  top: -50%;
+  left: -50%;
+  width: min(110vw, 1200px);
+  height: min(110vw, 1200px);
   background: radial-gradient(
     circle at 38% 42%,
     var(--red-sphere-core) 0%,
@@ -435,8 +435,9 @@ body[data-slug="index"] .landing-big-sphere {
     var(--red-sphere-edge) 70%,
     transparent 82%
   );
+  
   filter: blur(120px) hue-rotate(0deg);
-  opacity: 0.3;
+  opacity: 0.6;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -3;
