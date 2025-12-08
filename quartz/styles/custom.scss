@@ -368,10 +368,10 @@ body[data-slug="index"] .landing-clouds .cloud {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-back {
-  width: 800px;
+  width: 550px;
   height: 320px;
   top: -300px;
-  left: -780px;
+  left: -300px;
   color: hsl(0 88% 68% / 0.95);
   box-shadow: 520px 460px 80px 0px currentColor;
   filter: url(#cloud-filter-back);
@@ -388,8 +388,8 @@ body[data-slug="index"] .landing-clouds .cloud-back {
 
 body[data-slug="index"] .landing-clouds .cloud-mid {
   width: 320px;
-  height: 500px;
-  top: -130px;
+  height: 450px;
+  top: -100px;
   left: -280px;
   color: hsl(12 82% 70% / 0.2);
   box-shadow: 420px 320px 70px 0px currentColor;
@@ -406,14 +406,14 @@ body[data-slug="index"] .landing-clouds .cloud-mid {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-front {
-  width: 960px;
+  width: 550px;
   height: 260px;
   top: -150px;
-  left: -450px;
+  left: 50px;
   color: hsl(16 86% 74% / 0.98);
   box-shadow: 320px 220px 60px 0px currentColor;
   filter: url(#cloud-filter-front);
-  opacity: 0.2;
+  opacity: 0.4;
   animation-name: landingCloudDrift;
   animation-duration: 78s;
   animation-timing-function: linear;
