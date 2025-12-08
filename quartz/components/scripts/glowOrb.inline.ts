@@ -114,11 +114,7 @@ const createCurvedSegment = (
   duration: number,
   options: CurvedSegmentOptions = {},
 ): PathSegment => {
-  const {
-    curvatureBoost = 1,
-    horizontalDriftMultiplier = 1,
-    terminalLiftMultiplier = 1,
-  } = options
+  const { curvatureBoost = 1, horizontalDriftMultiplier = 1, terminalLiftMultiplier = 1 } = options
   const horizontalRange = 40 * horizontalDriftMultiplier
   const offsetY =
     (bias === "down" ? randomBetween(12, 28) : randomBetween(-26, -10)) * curvatureBoost
@@ -129,7 +125,9 @@ const createCurvedSegment = (
   const control2VerticalRange = bias === "down" ? [-18, 6] : [12, 32]
   const control2: Point = {
     x: end.x + randomBetween(-horizontalRange, horizontalRange),
-    y: end.y + randomBetween(control2VerticalRange[0], control2VerticalRange[1]) * terminalLiftMultiplier,
+    y:
+      end.y +
+      randomBetween(control2VerticalRange[0], control2VerticalRange[1]) * terminalLiftMultiplier,
   }
   return {
     start,
@@ -596,10 +594,7 @@ const animateOrb = (orb: HTMLElement) => {
       contextRect.left +
       horizontalPad
     const minX = Math.max(0, leftEdge)
-    const maxTargetX = Math.max(
-      minX + 1,
-      Math.min(containerWidth, rightEdge) - orb.offsetWidth,
-    )
+    const maxTargetX = Math.max(minX + 1, Math.min(containerWidth, rightEdge) - orb.offsetWidth)
     const letterTopValues = letterEntries.map(({ rect }) => rect.top)
     const highestLetterTop =
       letterTopValues.length > 0 ? Math.min(...letterTopValues) : contextRect.top + 60
