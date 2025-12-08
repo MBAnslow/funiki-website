@@ -723,9 +723,10 @@ body[data-slug="index"] .landing-link {
   color: #fff;
   background-color: rgba(83, 83, 83, 0.2);
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.95rem;
+  font-family: var(--bodyFont);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: clamp(1rem, 2vw, 1.15rem);
   transition:
     background 0.3s ease,
     transform 0.3s ease,

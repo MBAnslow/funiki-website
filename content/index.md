@@ -54,6 +54,6 @@ cssclasses:
   </p>
 
   <a class="landing-link internal" href="/0_introduction" data-no-popover="true">
-    Enter the Funiki Digital Garden
+    Enter the Digital Garden
   </a>
 </div>
