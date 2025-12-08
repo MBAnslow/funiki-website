@@ -361,15 +361,22 @@ const initLandingRipples = (container: HTMLElement) => {
     const baseSize = randomBetween(minDimension * 0.15, minDimension * 0.4)
     const padX = Math.max(RIPPLE_EDGE_PADDING, rect.width * 0.08)
     const padY = Math.max(RIPPLE_EDGE_PADDING, rect.height * 0.08)
-    const edgeBand = rect.width * 0.18
-    const bandWidth = Math.max(edgeBand, rect.width * 0.08)
-    const leftBandEnd = Math.min(rect.width - padX, padX + bandWidth)
-    const rightBandStart = Math.max(padX, rect.width - padX - bandWidth)
-    const pickLeft = Math.random() < 0.5
-    const originX = pickLeft
-      ? randomBetween(padX, leftBandEnd)
-      : randomBetween(rightBandStart, rect.width - padX)
-    const originY = randomBetween(padY, Math.max(padY, rect.height - padY))
+    const edgeBandX = rect.width * 0.18
+    const bandWidthX = Math.max(edgeBandX, rect.width * 0.08)
+    const edgeBandY = rect.height * 0.18
+    const bandWidthY = Math.max(edgeBandY, rect.height * 0.08)
+    const leftBandEnd = Math.min(rect.width - padX, padX + bandWidthX)
+    const rightBandStart = Math.max(padX, rect.width - padX - bandWidthX)
+    const topBandEnd = Math.min(rect.height - padY, padY + bandWidthY)
+    const bottomBandStart = Math.max(padY, rect.height - padY - bandWidthY)
+
+    const pickTopRight = Math.random() < 0.5
+    const originX = pickTopRight
+      ? randomBetween(rightBandStart, rect.width - padX)
+      : randomBetween(padX, leftBandEnd)
+    const originY = pickTopRight
+      ? randomBetween(padY, topBandEnd)
+      : randomBetween(bottomBandStart, rect.height - padY)
     const rippleScale = randomBetween(RIPPLE_MIN_SCALE, RIPPLE_MAX_SCALE)
     const rippleOpacity = randomBetween(0.25, 0.55)
     const letterPositions: LetterPosition[] =
@@ -432,6 +439,8 @@ const initLandingRipples = (container: HTMLElement) => {
 const animateOrb = (orb: HTMLElement) => {
   if (orb.dataset.orbAnimated === "true") return
   orb.dataset.orbAnimated = "true"
+  const runToken = `${Date.now()}-${Math.random().toString(16).slice(2)}`
+  orb.dataset.orbRun = runToken
   const container =
     orb.closest<HTMLElement>(".sidebar.left") ?? orb.closest<HTMLElement>(".landing-shell")
   if (!container) return
@@ -854,6 +863,9 @@ const animateOrb = (orb: HTMLElement) => {
   setActiveDebugMarker(0)
 
   const step = (timestamp: number) => {
+    if (orb.dataset.orbRun !== runToken) {
+      return
+    }
     const segment = segments[segmentIndex]
     if (!segment) {
       if (shouldLoop) {
@@ -923,3 +935,24 @@ document.addEventListener("nav", () => {
     animateOrb(orb)
   })
 })
+
+if (typeof window !== "undefined") {
+  let resizeDebounce: number | undefined
+  const resetOrbsForResize = () => {
+    document
+      .querySelectorAll<HTMLElement>(".orb-debug-overlay[data-orb-runtime]")
+      .forEach((node) => node.remove())
+    document.querySelectorAll<HTMLElement>(".glow-orb").forEach((orb) => {
+      orb.dataset.orbAnimated = ""
+      orb.dataset.orbRun = ""
+      orb.style.opacity = "0"
+    })
+    document.dispatchEvent(new CustomEvent("nav", { detail: {} }))
+  }
+  window.addEventListener("resize", () => {
+    if (resizeDebounce !== undefined) {
+      window.clearTimeout(resizeDebounce)
+    }
+    resizeDebounce = window.setTimeout(resetOrbsForResize, 150)
+  })
+}

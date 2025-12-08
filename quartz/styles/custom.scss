@@ -299,6 +299,14 @@ body[data-slug="index"] .landing-shell {
   --landing-orb-shadow-bright: hsl(var(--landing-orb-hue) 90% 72% / 0.75);
   --landing-orb-shadow-mid: hsl(var(--landing-orb-hue) 80% 52% / 0.5);
   --landing-orb-shadow-soft: hsl(var(--landing-orb-hue) 95% 85% / 0.4);
+  --cloud-hue: 205;
+  --cloud-core: hsl(var(--cloud-hue) 24% 97% / 0.98);
+  --cloud-back-glow: hsl(var(--cloud-hue) 26% 95% / 0.82);
+  --cloud-mid-glow: hsl(var(--cloud-hue) 28% 96% / 0.88);
+  --cloud-front-glow: hsl(var(--cloud-hue) 30% 98% / 0.95);
+  --red-sphere-core: hsla(6, 86%, 62%, 0.55);
+  --red-sphere-mid: hsla(8, 78%, 48%, 0.45);
+  --red-sphere-edge: hsla(8, 68%, 38%, 0.3);
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -312,44 +320,259 @@ body[data-slug="index"] .landing-shell {
   isolation: isolate;
 }
 
-body[data-slug="index"] .landing-shell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 55%);
-  opacity: 0.7;
-  filter: blur(120px);
-  z-index: -2;
-  animation: landingGlow 12s ease-in-out infinite;
+body[data-slug="index"] .landing-shell::after {
+  content: none;
 }
 
-body[data-slug="index"] .landing-shell::after {
-  content: "";
+body[data-slug="index"] .landing-title {
+  position: relative;
+}
+
+body[data-slug="index"] .landing-title::before {
+  content: none;
+}
+
+body[data-slug="index"] .landing-cloud-filters {
   position: absolute;
-  width: clamp(32rem, 60vw, 60rem);
-  height: clamp(32rem, 60vw, 60rem);
-  top: -25%;
-  left: -10%;
-  background:
-    radial-gradient(
-      circle at 45% 35%,
-      hsl(8 92% 78% / 0.8) 20%,
-      hsl(10 85% 60% / 0.7) 35%,
-      transparent 5%
-    ),
-    radial-gradient(circle at 20% 60%, hsl(8 78% 35% / 0.55) 30%, transparent 70%);
-  box-shadow:
-    0 0 80px rgba(255, 120, 88, 0.45),
-    0 0 180px rgba(255, 68, 0, 0.25);
-  border: 1px solid rgba(255, 120, 88, 0.4);
-  filter: blur(50px);
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+}
+
+body[data-slug="index"] .landing-clouds {
+  position: absolute;
+  top: -18%;
+  left: -16%;
+  width: min(120vw, 1200px);
+  height: min(90vw, 880px);
+  pointer-events: none;
+  z-index: -2;
+  mix-blend-mode: screen;
+}
+
+body[data-slug="index"] .landing-clouds .cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+  mix-blend-mode: screen;
   opacity: 0.1;
+  will-change: transform;
+}
+
+body[data-slug="index"] .landing-clouds .cloud-back {
+  width: 560px;
+  height: 320px;
+  top: -300px;
+  left: -280px;
+  color: hsl(0 88% 68% / 0.95);
+  box-shadow: 520px 460px 80px 0px currentColor;
+  filter: url(#cloud-filter-back);
+  opacity: 0.25;
+  animation-name: landingCloudDrift;
+  animation-duration: 22s, 82s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, normal;
+  animation-delay: -3s, -4s;
+}
+
+body[data-slug="index"] .landing-clouds .cloud-mid {
+  width: 320px;
+  height: 500px;
+  top: -130px;
+  left: -280px;
+  color: hsl(12 82% 70% / 0.96);
+  box-shadow: 420px 320px 70px 0px currentColor;
+  filter: url(#cloud-filter-mid);
+  opacity: 0.2;
+  animation-name: landingCloudDrift;
+  animation-duration: 24s, 80s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, normal;
+  animation-delay: -6s, -10s;
+}
+
+body[data-slug="index"] .landing-clouds .cloud-front {
+  width: 460px;
+  height: 260px;
+  top: -150px;
+  left: 50px;
+  color: hsl(16 86% 74% / 0.98);
+  box-shadow: 320px 220px 60px 0px currentColor;
+  filter: url(#cloud-filter-front);
+  opacity: 0.4;
+  animation-name: landingCloudDrift;
+  animation-duration: 78s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-delay: -16s;
+}
+
+body[data-slug="index"] .landing-big-sphere {
+  position: absolute;
+  top: -40%;
+  left: -15%;
+  width: min(100vw, 1000px);
+  height: min(100vw, 1000px);
+  background: radial-gradient(
+    circle at 38% 42%,
+    var(--red-sphere-core) 0%,
+    var(--red-sphere-mid) 45%,
+    var(--red-sphere-edge) 70%,
+    transparent 82%
+  );
+  filter: blur(120px) hue-rotate(0deg);
+  opacity: 0.58;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -3;
-  animation:
-    landingFarOrbDrift 24s ease-in-out infinite,
-    landingFarOrbHue 50s linear infinite;
+  animation: landingRedSphereHue 80s linear infinite;
+}
+
+@keyframes landingCloudDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(8px, -10px, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(-10px, 8px, 0) scale(0.99);
+  }
+}
+
+@keyframes cloudHueBack {
+  0% {
+    color: hsl(0 72% 82% / 0.85);
+  }
+  20% {
+    color: hsl(200 76% 80% / 0.82);
+  }
+  40% {
+    color: hsl(275 74% 82% / 0.8);
+  }
+  60% {
+    color: hsl(130 72% 80% / 0.8);
+  }
+  80% {
+    color: hsl(35 78% 84% / 0.82);
+  }
+  100% {
+    color: hsl(0 72% 82% / 0.85);
+  }
+}
+
+@keyframes cloudHueMid {
+  0% {
+    color: hsl(10 68% 80% / 0.88);
+  }
+  20% {
+    color: hsl(205 72% 80% / 0.86);
+  }
+  40% {
+    color: hsl(285 70% 82% / 0.84);
+  }
+  60% {
+    color: hsl(140 70% 78% / 0.82);
+  }
+  80% {
+    color: hsl(45 76% 82% / 0.86);
+  }
+  100% {
+    color: hsl(10 68% 80% / 0.88);
+  }
+}
+
+@keyframes cloudHueFront {
+  0% {
+    color: hsl(18 70% 82% / 0.92);
+  }
+  20% {
+    color: hsl(215 74% 82% / 0.9);
+  }
+  40% {
+    color: hsl(295 72% 84% / 0.88);
+  }
+  60% {
+    color: hsl(150 72% 80% / 0.86);
+  }
+  80% {
+    color: hsl(55 78% 84% / 0.9);
+  }
+  100% {
+    color: hsl(18 70% 82% / 0.92);
+  }
+}
+
+@media all and ($mobile) {
+  body[data-slug="index"] .landing-clouds {
+    top: -34%;
+    left: -34%;
+    width: 190vw;
+    height: 150vw;
+    opacity: 0.65;
+  }
+
+  body[data-slug="index"] .landing-clouds .cloud {
+    animation: none;
+  }
+
+  body[data-slug="index"] .landing-clouds .cloud-back {
+    width: 140vw;
+    height: 90vw;
+    top: -55vw;
+    left: -55vw;
+    opacity: 0.28;
+  }
+
+  body[data-slug="index"] .landing-clouds .cloud-mid {
+    width: 125vw;
+    height: 85vw;
+    top: -38vw;
+    left: -45vw;
+    opacity: 0.42;
+  }
+
+  body[data-slug="index"] .landing-clouds .cloud-front {
+    width: 110vw;
+    height: 70vw;
+    top: -22vw;
+    left: -32vw;
+    opacity: 0.5;
+  }
+
+  body[data-slug="index"] .landing-big-sphere {
+    top: -70%;
+    left: -50%;
+    width: 180vw;
+    height: 180vw;
+    filter: blur(90px) hue-rotate(0deg);
+    animation: landingRedSphereHue 60s linear infinite;
+  }
+}
+
+@keyframes landingRedSphereHue {
+  0% {
+    filter: blur(120px) hue-rotate(0deg);
+  }
+  20% {
+    filter: blur(120px) hue-rotate(210deg); /* blue */
+  }
+  40% {
+    filter: blur(120px) hue-rotate(280deg); /* purple */
+  }
+  60% {
+    filter: blur(120px) hue-rotate(120deg); /* green */
+  }
+  80% {
+    filter: blur(120px) hue-rotate(40deg); /* orange */
+  }
+  100% {
+    filter: blur(120px) hue-rotate(0deg);
+  }
 }
 
 body[data-slug="index"] .landing-ripple-field {
@@ -409,8 +632,8 @@ body[data-slug="index"] .landing-title::after {
   content: "";
   position: absolute;
   inset: 50% auto auto 50%;
-  width: clamp(10rem, 40vw, 22rem);
-  height: clamp(10rem, 40vw, 22rem);
+  width: clamp(10rem, 80vw, 30rem);
+  height: clamp(10rem, 80vw, 30rem);
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
@@ -423,11 +646,12 @@ body[data-slug="index"] .landing-title::after {
     0 0 60px var(--landing-orb-shadow-mid),
     0 0 90px var(--landing-orb-shadow-soft);
   mix-blend-mode: screen;
-  opacity: 0.8;
+  opacity: 0.2;
   filter: blur(18px);
-  transform: translate(-50%, -50%);
+  transform: translate(-90%, -50%);
   pointer-events: none;
   animation: landingOrbSweep 18s ease-in-out infinite;
+  animation-direction: alternate;
   animation-delay: -4s;
   z-index: -1;
 }
@@ -599,20 +823,20 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
 
 @keyframes landingOrbSweep {
   0% {
-    transform: translate(90%, 25%) scale(0.96);
-    opacity: 0.55;
+    transform: translate(50%, 25%) scale(0.96);
+    opacity: 0.45;
   }
   45% {
-    transform: translate(55%, 15%) scale(1.02);
-    opacity: 0.52;
+    transform: translate(53%, 15%) scale(1.1);
+    opacity: 0.42;
   }
   75% {
-    transform: translate(70%, 5%) scale(0.99);
-    opacity: 0.53;
+    transform: translate(60%, 5%) scale(0.99);
+    opacity: 0.43;
   }
   100% {
-    transform: translate(50%, 0%) scale(0.96);
-    opacity: 0.55;
+    transform: translate(53%, 10%) scale(0.96);
+    opacity: 0.45;
   }
 }
 

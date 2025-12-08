@@ -12,6 +12,26 @@ cssclasses:
 ---
 
 <div class="landing-shell" data-orb-debug="true">
+  <svg class="landing-cloud-filters" aria-hidden="true" focusable="false">
+    <filter id="cloud-filter-back">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="4" seed="3" />
+      <feDisplacementMap in="SourceGraphic" scale="170" />
+    </filter>
+    <filter id="cloud-filter-mid">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="8" />
+      <feDisplacementMap in="SourceGraphic" scale="150" />
+    </filter>
+    <filter id="cloud-filter-front">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="1" seed="2" />
+      <feDisplacementMap in="SourceGraphic" scale="110" />
+    </filter>
+  </svg>
+  <div class="landing-big-sphere" aria-hidden="true"></div>
+  <div class="landing-clouds" aria-hidden="true">
+    <div class="cloud cloud-back"></div>
+    <div class="cloud cloud-mid"></div>
+    <div class="cloud cloud-front"></div>
+  </div>
   <div class="glow-orb landing-orb" aria-hidden="true"></div>
   <div class="landing-title" role="heading" aria-level="1" aria-label="Funiki">
     <span class="glow-letter">F</span>
