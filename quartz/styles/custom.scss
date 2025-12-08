@@ -323,22 +323,56 @@ body[data-slug="index"] .landing-shell::before {
   animation: landingGlow 12s ease-in-out infinite;
 }
 
+body[data-slug="index"] .landing-shell::after {
+  content: "";
+  position: absolute;
+  width: clamp(32rem, 60vw, 60rem);
+  height: clamp(32rem, 60vw, 60rem);
+  top: -25%;
+  left: -10%;
+  background:
+    radial-gradient(
+      circle at 45% 35%,
+      hsl(8 92% 78% / 0.8) 20%,
+      hsl(10 85% 60% / 0.7) 35%,
+      transparent 5%
+    ),
+    radial-gradient(
+      circle at 20% 60%,
+      hsl(8 78% 35% / 0.55) 30%,
+      transparent 70%
+    );
+  box-shadow:
+    0 0 80px rgba(255, 120, 88, 0.45),
+    0 0 180px rgba(255, 68, 0, 0.25);
+  border: 1px solid rgba(255, 120, 88, 0.4);
+  filter: blur(50px);
+  opacity: 0.1;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: -3;
+  animation:
+    landingFarOrbDrift 24s ease-in-out infinite,
+    landingFarOrbHue 50s linear infinite;
+}
+
 body[data-slug="index"] .landing-ripple-field {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.25;
+  opacity: 0.45;
   mix-blend-mode: screen;
+  filter: blur(0.6rem);
   filter: drop-shadow(0 0 18px rgba(44, 43, 43, 0.12));
 }
 
 body[data-slug="index"] .landing-ripple {
-  --ripple-size: 240px;
-  --ripple-scale: 3;
-  --ripple-duration: 4600ms;
-  --ripple-delay: 0ms;
+  --ripple-size: 120px;
+  --ripple-scale: 2;
+  --ripple-duration: 3000ms;
+  --ripple-delay: 200ms;
   --ripple-opacity: 0.28;
   position: absolute;
   left: 50%;
@@ -359,7 +393,7 @@ body[data-slug="index"] .landing-ripple {
   box-shadow:
     0 0 25px rgba(45, 45, 45, 0.968),
     0 0 45px rgb(62, 61, 61);
-  filter: blur(0.1rem);
+  filter: blur(0.4rem);
   animation: landingRipple var(--ripple-duration) ease-out forwards;
   animation-delay: var(--ripple-delay);
 }
@@ -409,7 +443,7 @@ body[data-slug="index"] .landing-title span {
 
 body[data-slug="index"] .landing-title .glow-letter.landing-letter-ripple {
   animation:
-    letterPulse 16s ease-in-out infinite,
+    letterPulse 2s ease-in-out infinite,
     landingLetterRipple 1.2s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 
@@ -417,7 +451,14 @@ body[data-slug="index"] .landing-text {
   max-width: 40ch;
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   line-height: 1.5;
-  color: var(--lightgray);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+body[data-slug="index"] .landing-text a {
+  max-width: 40ch;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.5;
+  color: rgba(207, 207, 207, 0.9);
 }
 
 body[data-slug="index"] .landing-link {
@@ -426,8 +467,9 @@ body[data-slug="index"] .landing-link {
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.18);
   color: #fff;
+  background-color: rgba(83, 83, 83, 0.2);
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -446,8 +488,11 @@ body[data-slug="index"] .landing-link::after {
 
 body[data-slug="index"] .landing-link:hover {
   transform: translateY(-2px);
-  border-color: var(--tertiary);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 196, 120, 0.65);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 18px rgba(255, 196, 120, 0.35),
+    inset 0 0 8px rgba(255, 255, 255, 0.15);
 }
 
 body[data-slug="index"] .landing-link:hover::after {
@@ -558,19 +603,56 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
 
 @keyframes landingOrbSweep {
   0% {
-    transform: translate(-60%, -80%) scale(0.85);
-    opacity: 0.45;
+    transform: translate(90%, 25%) scale(0.96);
+    opacity: 0.55;
   }
   45% {
-    transform: translate(10%, -30%) scale(1.1);
-    opacity: 0.25;
+    transform: translate(55%, 15%) scale(1.02);
+    opacity: 0.52;
   }
   75% {
-    transform: translate(-20%, 10%) scale(1.05);
-    opacity: 0.4;
+    transform: translate(70%, 5%) scale(0.99);
+    opacity: 0.53;
   }
   100% {
-    transform: translate(-60%, -80%) scale(0.85);
-    opacity: 0.45;
+    transform: translate(50%, 0%) scale(0.96);
+    opacity: 0.55;
+  }
+}
+
+@keyframes landingFarOrbDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translate(4%, 6%) scale(0.96);
+    opacity: 0.32;
+  }
+  75% {
+    transform: translate(-3%, 4%) scale(1.04);
+    opacity: 0.34;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.35;
+  }
+}
+
+@keyframes landingFarOrbHue {
+  0% {
+    filter: blur(50px) hue-rotate(0deg);
+  }
+  25% {
+    filter: blur(50px) hue-rotate(80deg);
+  }
+  50% {
+    filter: blur(50px) hue-rotate(190deg);
+  }
+  75% {
+    filter: blur(50px) hue-rotate(260deg);
+  }
+  100% {
+    filter: blur(50px) hue-rotate(360deg);
   }
 }
