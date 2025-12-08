@@ -921,13 +921,13 @@ const animateOrb = (orb: HTMLElement) => {
         ripple.className = "landing-ripple"
         ripple.style.left = `${originX}px`
         ripple.style.top = `${originY}px`
-        const size = sizeStep + i;
+        const size = sizeStep + i
         ripple.style.setProperty("--ripple-size", `${size}px`)
         const rippleScale = 1.6
         ripple.style.setProperty("--ripple-scale", rippleScale.toFixed(2))
         ripple.style.setProperty("--ripple-duration", `${RIPPLE_DURATION_MS}ms`)
         ripple.style.setProperty("--ripple-delay", "0ms")
-        ripple.style.setProperty("--ripple-opacity", 1.0.toFixed(2))
+        ripple.style.setProperty("--ripple-opacity", (1.0).toFixed(2))
         rippleField.append(ripple)
         impactLettersAtRipple({ x: originX, y: originY }, size, rippleScale, delay)
         window.setTimeout(() => ripple.remove(), RIPPLE_DURATION_MS + 400)
