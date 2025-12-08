@@ -337,11 +337,7 @@ body[data-slug="index"] .landing-shell::after {
       hsl(10 85% 60% / 0.7) 35%,
       transparent 5%
     ),
-    radial-gradient(
-      circle at 20% 60%,
-      hsl(8 78% 35% / 0.55) 30%,
-      transparent 70%
-    );
+    radial-gradient(circle at 20% 60%, hsl(8 78% 35% / 0.55) 30%, transparent 70%);
   box-shadow:
     0 0 80px rgba(255, 120, 88, 0.45),
     0 0 180px rgba(255, 68, 0, 0.25);
