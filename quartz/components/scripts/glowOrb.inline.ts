@@ -361,15 +361,22 @@ const initLandingRipples = (container: HTMLElement) => {
     const baseSize = randomBetween(minDimension * 0.15, minDimension * 0.4)
     const padX = Math.max(RIPPLE_EDGE_PADDING, rect.width * 0.08)
     const padY = Math.max(RIPPLE_EDGE_PADDING, rect.height * 0.08)
-    const edgeBand = rect.width * 0.18
-    const bandWidth = Math.max(edgeBand, rect.width * 0.08)
-    const leftBandEnd = Math.min(rect.width - padX, padX + bandWidth)
-    const rightBandStart = Math.max(padX, rect.width - padX - bandWidth)
-    const pickLeft = Math.random() < 0.5
-    const originX = pickLeft
-      ? randomBetween(padX, leftBandEnd)
-      : randomBetween(rightBandStart, rect.width - padX)
-    const originY = randomBetween(padY, Math.max(padY, rect.height - padY))
+    const edgeBandX = rect.width * 0.18
+    const bandWidthX = Math.max(edgeBandX, rect.width * 0.08)
+    const edgeBandY = rect.height * 0.18
+    const bandWidthY = Math.max(edgeBandY, rect.height * 0.08)
+    const leftBandEnd = Math.min(rect.width - padX, padX + bandWidthX)
+    const rightBandStart = Math.max(padX, rect.width - padX - bandWidthX)
+    const topBandEnd = Math.min(rect.height - padY, padY + bandWidthY)
+    const bottomBandStart = Math.max(padY, rect.height - padY - bandWidthY)
+
+    const pickTopRight = Math.random() < 0.5
+    const originX = pickTopRight
+      ? randomBetween(rightBandStart, rect.width - padX)
+      : randomBetween(padX, leftBandEnd)
+    const originY = pickTopRight
+      ? randomBetween(padY, topBandEnd)
+      : randomBetween(bottomBandStart, rect.height - padY)
     const rippleScale = randomBetween(RIPPLE_MIN_SCALE, RIPPLE_MAX_SCALE)
     const rippleOpacity = randomBetween(0.25, 0.55)
     const letterPositions: LetterPosition[] =
