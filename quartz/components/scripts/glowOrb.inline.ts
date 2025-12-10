@@ -3,6 +3,7 @@ const LOOP_DELAY_MS = 1200
 const LOOP_RESTART_DELAY_MS = 3800
 const MAX_TRAJECTORY_POINTS = 6
 const MIN_DEBUG_POINT_DISTANCE = 64
+const MIN_AXIS_POINT_DISTANCE = 20
 const HOVER_BOX_HORIZONTAL_PAD = 80
 const HOVER_BOX_EXTRA_TOP = 0
 const HOVER_BOX_EXTRA_BOTTOM = 30
@@ -612,13 +613,21 @@ const animateOrb = (orb: HTMLElement) => {
   const debugPoints: Point[] = []
   const pushPoint = (pt?: Point | null, options?: PushPointOptions): number => {
     if (!pt) return -1
-    const last = debugPoints[debugPoints.length - 1]
-    if (last) {
-      const distance = Math.hypot(last.x - pt.x, last.y - pt.y)
+    // Reject if this point is effectively identical to the last accepted point
+    // or violates spacing against any previous point. We enforce both Euclidean
+    // distance and per-axis separation to avoid overlapping or overly aligned
+    // debug markers (keeps the path visibly distinct and prevents sharp kinks).
+    for (const existing of debugPoints) {
+      const distance = Math.hypot(existing.x - pt.x, existing.y - pt.y)
+      const deltaX = Math.abs(existing.x - pt.x)
+      const deltaY = Math.abs(existing.y - pt.y)
       if (distance < 1) {
         return debugPoints.length - 1
       }
       if (typeof options?.minDistance === "number" && distance < options.minDistance) {
+        return -1
+      }
+      if (deltaX < MIN_AXIS_POINT_DISTANCE || deltaY < MIN_AXIS_POINT_DISTANCE) {
         return -1
       }
     }
@@ -828,23 +837,24 @@ const animateOrb = (orb: HTMLElement) => {
     duration = randomBetween(RANDOM_SEGMENT_MIN_DURATION, RANDOM_SEGMENT_MAX_DURATION)
 
     let segment: PathSegment
+    const bias: "down" | "up" = to.y >= from.y ? "down" : "up"
+    const commonOptions = {
+      curvatureBoost: 1.4,
+      horizontalDriftMultiplier: 1.3,
+      terminalLiftMultiplier: 1.1,
+      ...curvedSegmentOptions,
+    }
     if (movementIndex === 0) {
       segment = createArcOverLastISegment(from, to, duration, curvedSegmentOptions)
     } else if (isFinalSegment) {
       duration = Math.max(duration * 2.4, 2000)
-      const bias: "down" | "up" = to.y >= from.y ? "down" : "up"
       segment = createCurvedSegment(from, to, bias, duration, {
         curvatureBoost: 3.2,
         horizontalDriftMultiplier: 2.6,
         terminalLiftMultiplier: 2.0,
       })
     } else {
-      const useCurvedSegment =
-        isFinalSegment || (isLandingShell ? movementIndex >= 1 : movementIndex >= 3)
-      const bias: "down" | "up" = to.y >= from.y ? "down" : "up"
-      segment = useCurvedSegment
-        ? createCurvedSegment(from, to, bias, duration, curvedSegmentOptions)
-        : createLinearSegment(from, to, duration)
+      segment = createCurvedSegment(from, to, bias, duration, commonOptions)
     }
     segments.push(segment)
     movementIndex += 1

@@ -62,8 +62,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 14px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: radial-gradient(
       circle at 30% 30%,
@@ -83,6 +83,7 @@
     transition: opacity 0.4s ease;
   }
 
+  // debug overlay
   .orb-debug-overlay {
     position: absolute;
     inset: 0;
@@ -102,9 +103,9 @@
   .orb-debug-overlay .orb-debug-path path {
     fill: none;
     stroke: currentColor;
-    stroke-width: 1.5px;
-    stroke-dasharray: 6 6;
-    opacity: 0.5;
+    stroke-width: 2px;
+    stroke-dasharray: 12 6;
+    opacity: 0.4;
   }
 
   .orb-debug-point.is-active {
@@ -115,8 +116,8 @@
 
   .orb-debug-point {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.08);
@@ -299,21 +300,21 @@ body[data-slug="index"] article.landing-root {
 }
 
 body[data-slug="index"] .landing-shell {
-  --landing-orb-hue: 32;
-  --landing-orb-core: hsl(var(--landing-orb-hue) 95% 90% / 0.95);
-  --landing-orb-mid: hsl(var(--landing-orb-hue) 85% 65% / 0.8);
-  --landing-orb-edge: rgba(255, 255, 255, 0.7);
-  --landing-orb-shadow-bright: hsl(var(--landing-orb-hue) 90% 72% / 0.75);
-  --landing-orb-shadow-mid: hsl(var(--landing-orb-hue) 80% 52% / 0.5);
-  --landing-orb-shadow-soft: hsl(var(--landing-orb-hue) 95% 85% / 0.4);
+  --landing-sphere-hue: 32;
+  --landing-sphere-core: rgba(255, 255, 255, 1);
+  --landing-sphere-mid: hsl(var(--landing-sphere-hue) 85% 65% / 0.8);
+  --landing-sphere-edge: rgb(50, 50, 50);
+  --landing-sphere-shadow-bright: hsl(var(--landing-sphere-hue) 90% 72% / 0.75);
+  --landing-sphere-shadow-mid: hsl(var(--landing-sphere-hue) 80% 52% / 0.5);
+  --landing-sphere-shadow-soft: hsl(var(--landing-sphere-hue) 95% 85% / 0.4);
   --cloud-hue: 205;
   --cloud-core: hsl(var(--cloud-hue) 24% 97% / 0.98);
   --cloud-back-glow: hsl(var(--cloud-hue) 26% 95% / 0.82);
   --cloud-mid-glow: hsl(var(--cloud-hue) 28% 96% / 0.88);
   --cloud-front-glow: hsl(var(--cloud-hue) 30% 98% / 0.95);
-  --red-sphere-core: hsla(6, 86%, 62%, 0.55);
-  --red-sphere-mid: hsla(8, 78%, 48%, 0.45);
-  --red-sphere-edge: hsla(8, 68%, 38%, 0.3);
+  --cloud-backing-core: hsla(6, 86%, 62%, 0.55);
+  --cloud-backing-mid: hsla(8, 78%, 48%, 0.45);
+  --cloud-backing-edge: hsla(8, 68%, 38%, 0.3);
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -376,14 +377,12 @@ body[data-slug="index"] .landing-clouds .cloud-back {
   box-shadow: 520px 460px 80px 0px currentColor;
   filter: url(#cloud-filter-back);
   opacity: 0.25;
-  animation-name: landingCloudDrift;
-  animation-duration: 22s, 82s;
-  animation-timing-function: ease-in-out, linear;
-  animation-iteration-count: infinite, infinite;
-  animation-direction: alternate, normal;
-  animation-delay:
-    -3s,
-    -4s;
+  animation-name: landingCloudDriftBack;
+  animation-duration: 26s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: -3s;
 }
 
 body[data-slug="index"] .landing-clouds .cloud-mid {
@@ -395,14 +394,12 @@ body[data-slug="index"] .landing-clouds .cloud-mid {
   box-shadow: 420px 320px 70px 0px currentColor;
   filter: url(#cloud-filter-mid);
   opacity: 0.6;
-  animation-name: landingCloudDrift;
-  animation-duration: 24s, 80s;
-  animation-timing-function: ease-in-out, linear;
-  animation-iteration-count: infinite, infinite;
-  animation-direction: alternate, normal;
-  animation-delay:
-    -6s,
-    -10s;
+  animation-name: landingCloudDriftMid;
+  animation-duration: 30s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: -5s;
 }
 
 body[data-slug="index"] .landing-clouds .cloud-front {
@@ -414,34 +411,35 @@ body[data-slug="index"] .landing-clouds .cloud-front {
   box-shadow: 320px 220px 60px 0px currentColor;
   filter: url(#cloud-filter-front);
   opacity: 0.4;
-  animation-name: landingCloudDrift;
-  animation-duration: 78s;
-  animation-timing-function: linear;
+  animation-name: landingCloudDriftFront;
+  animation-duration: 36s;
+  animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  animation-direction: normal;
+  animation-direction: alternate;
   animation-delay: -4s;
 }
 
-body[data-slug="index"] .landing-big-sphere {
+body[data-slug="index"] .landing-cloud-backing {
   position: absolute;
-  top: -50%;
-  left: -50%;
+  top: -100%;
+  left: -40%;
   width: min(110vw, 1200px);
-  height: min(110vw, 1200px);
+  height: min(150vw, 1400px);
+  transform: rotate(220deg);
   background: radial-gradient(
     circle at 38% 42%,
-    var(--red-sphere-core) 0%,
-    var(--red-sphere-mid) 45%,
-    var(--red-sphere-edge) 70%,
+    var(--cloud-backing-core) 0%,
+    var(--cloud-backing-mid) 45%,
+    var(--cloud-backing-edge) 70%,
     transparent 82%
   );
-
-  filter: blur(120px) hue-rotate(0deg);
+  
+  filter: blur(20px) hue-rotate(0deg);
   opacity: 0.6;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -3;
-  animation: landingBigSphereHue 80s linear infinite;
+  animation: landingCloudBackingHue 20s linear infinite;
 }
 
 @keyframes landingCloudDrift {
@@ -456,68 +454,42 @@ body[data-slug="index"] .landing-big-sphere {
   }
 }
 
-@keyframes cloudHueBack {
+@keyframes landingCloudDriftBack {
   0% {
-    color: hsl(0 72% 82% / 0.85);
+    transform: translate3d(0, 0, 0) scale(1);
   }
-  20% {
-    color: hsl(200 76% 80% / 0.82);
-  }
-  40% {
-    color: hsl(275 74% 82% / 0.8);
-  }
-  60% {
-    color: hsl(130 72% 80% / 0.8);
-  }
-  80% {
-    color: hsl(35 78% 84% / 0.82);
+  50% {
+    transform: translate3d(10px, -14px, 0) scale(1.04);
   }
   100% {
-    color: hsl(0 72% 82% / 0.85);
+    transform: translate3d(-12px, 10px, 0) scale(0.98);
   }
 }
 
-@keyframes cloudHueMid {
+@keyframes landingCloudDriftMid {
   0% {
-    color: hsl(10 68% 80% / 0.88);
+    transform: translate3d(0, 0, 0) scale(1);
   }
-  20% {
-    color: hsl(205 72% 80% / 0.86);
-  }
-  40% {
-    color: hsl(285 70% 82% / 0.84);
-  }
-  60% {
-    color: hsl(140 70% 78% / 0.82);
-  }
-  80% {
-    color: hsl(45 76% 82% / 0.86);
+  50% {
+    transform: translate3d(14px, -8px, 0) scale(1.05);
   }
   100% {
-    color: hsl(10 68% 80% / 0.88);
+    transform: translate3d(-16px, 12px, 0) scale(0.98);
   }
 }
 
-@keyframes cloudHueFront {
+@keyframes landingCloudDriftFront {
   0% {
-    color: hsl(18 70% 82% / 0.92);
+    transform: translate3d(0, 0, 0) scale(1);
   }
-  20% {
-    color: hsl(215 74% 82% / 0.9);
-  }
-  40% {
-    color: hsl(295 72% 84% / 0.88);
-  }
-  60% {
-    color: hsl(150 72% 80% / 0.86);
-  }
-  80% {
-    color: hsl(55 78% 84% / 0.9);
+  50% {
+    transform: translate3d(6px, -10px, 0) scale(1.06);
   }
   100% {
-    color: hsl(18 70% 82% / 0.92);
+    transform: translate3d(-10px, 6px, 0) scale(0.97);
   }
 }
+
 
 @media all and ($mobile) {
   body[data-slug="index"] .landing-clouds {
@@ -556,57 +528,30 @@ body[data-slug="index"] .landing-big-sphere {
     opacity: 0.5;
   }
 
-  body[data-slug="index"] .landing-big-sphere {
-    top: -70%;
-    left: -50%;
-    width: 180vw;
-    height: 180vw;
-    filter: blur(90px) hue-rotate(0deg);
-    animation: landingBigSphereHue 60s linear infinite;
+}
+
+@keyframes landingCloudBackingHue {
+  0% {
+    filter: blur(150px) hue-rotate(0deg);/* red */
+  }
+  20% {
+    filter: blur(150px) hue-rotate(80deg); /* blue */
+  }
+  40% {
+    filter: blur(150px) hue-rotate(210deg); /* purple */
+  }
+  60% {
+    filter: blur(150px) hue-rotate(270deg); /* yellow */
+  }
+  80% {
+    filter: blur(150px) hue-rotate(300deg); /* orange */
+  }
+  100% {
+    filter: blur(150px) hue-rotate(0deg);
   }
 }
 
-@keyframes landingBigSphereHue {
-  0% {
-    filter: blur(120px) hue-rotate(0deg);
-  }
-  20% {
-    filter: blur(120px) hue-rotate(210deg); /* blue */
-  }
-  40% {
-    filter: blur(120px) hue-rotate(280deg); /* purple */
-  }
-  60% {
-    filter: blur(120px) hue-rotate(40deg); /* yellow */
-  }
-  80% {
-    filter: blur(120px) hue-rotate(60deg); /* orange */
-  }
-  100% {
-    filter: blur(120px) hue-rotate(0deg);
-  }
-}
 
-@keyframes landingOrbHueCloudSync {
-  0% {
-    --landing-orb-core: hsl(18 70% 82% / 0.92);
-  }
-  20% {
-    --landing-orb-core: hsl(215 74% 82% / 0.92);
-  }
-  40% {
-    --landing-orb-core: hsl(295 72% 84% / 0.92);
-  }
-  60% {
-    --landing-orb-core: hsl(150 72% 80% / 0.92);
-  }
-  80% {
-    --landing-orb-core: hsl(55 78% 84% / 0.92);
-  }
-  100% {
-    --landing-orb-core: hsl(18 70% 82% / 0.92);
-  }
-}
 
 body[data-slug="index"] .landing-ripple-field {
   position: absolute;
@@ -622,10 +567,10 @@ body[data-slug="index"] .landing-ripple-field {
 
 body[data-slug="index"] .landing-ripple {
   --ripple-size: 120px;
-  --ripple-scale: 2;
-  --ripple-duration: 3000ms;
+  --ripple-scale: 10;
+  --ripple-duration: 10000ms;
   --ripple-delay: 200ms;
-  --ripple-opacity: 0.8;
+  --ripple-opacity: 0.4;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -633,7 +578,7 @@ body[data-slug="index"] .landing-ripple {
   height: var(--ripple-size);
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0.35);
-  border: 2px solid rgba(220, 220, 220, 0.55);
+  // border: 2px solid rgba(220, 220, 220, 0.55);
   background: radial-gradient(
     circle,
     rgba(255, 255, 255, 0.85),
@@ -643,9 +588,9 @@ body[data-slug="index"] .landing-ripple {
   opacity: var(--ripple-opacity);
   mix-blend-mode: screen;
   box-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 22px rgba(200, 200, 200, 0.5);
-  filter: blur(0.05rem);
+    0 0 12px rgba(255, 255, 255, 0.5),
+    0 0 22px rgba(200, 200, 200, 0.3);
+  filter: blur(1px);
   animation: landingRipple var(--ripple-duration) ease-out forwards;
   animation-delay: var(--ripple-delay);
 }
@@ -670,22 +615,21 @@ body[data-slug="index"] .landing-title::after {
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
-    var(--landing-orb-core),
-    var(--landing-orb-mid),
-    var(--landing-orb-edge)
+    var(--landing-sphere-core),
+    var(--landing-sphere-mid),
+    var(--landing-sphere-edge)
   );
   box-shadow:
-    0 0 25px var(--landing-orb-shadow-bright),
-    0 0 60px var(--landing-orb-shadow-mid),
-    0 0 90px var(--landing-orb-shadow-soft);
+    0 0 25px var(--landing-sphere-shadow-bright),
+    0 0 60px var(--landing-sphere-shadow-mid),
+    0 0 90px var(--landing-sphere-shadow-soft);
   mix-blend-mode: normal;
   opacity: 1;
   filter: blur(8px);
   transform: translate(-90%, -50%);
   pointer-events: none;
   animation:
-    landingOrbSweep 18s ease-in-out infinite alternate -4s,
-    landingOrbHueCloudSync 78s linear infinite;
+    landingOrbSweep 18s ease-in-out infinite alternate -4s;
   z-index: -1;
 }
 
@@ -753,7 +697,7 @@ body[data-slug="index"] .landing-link:hover::after {
   transform: translateX(4px);
 }
 
-body[data-slug="index"] .landing-shell .landing-orb {
+body[data-slug="index"] .landing-shell .landing-sphere {
   width: clamp(1.2rem, 3vw, 1.75rem);
   height: clamp(1.2rem, 3vw, 1.75rem);
   z-index: 3;
@@ -768,13 +712,13 @@ body[data-slug="index"] .landing-shell .orb-debug-overlay {
 
 body[data-slug="index"] .landing-shell .orb-debug-point {
   position: absolute;
-  width: clamp(0.9rem, 2vw, 1.2rem);
-  height: clamp(0.9rem, 2vw, 1.2rem);
+  width: clamp(1.8rem, 3vw, 1.5rem);
+  height: clamp(1.8rem, 3vw, 1.5rem);
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -838,22 +782,6 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
   }
 }
 
-@keyframes landingLetterGlow {
-  0%,
-  20%,
-  100% {
-    text-shadow:
-      0 0 20px var(--landing-orb-shadow-bright),
-      0 0 35px var(--landing-orb-shadow-mid),
-      0 0 55px var(--landing-orb-shadow-soft);
-  }
-  10% {
-    text-shadow:
-      0 0 35px var(--landing-orb-core),
-      0 0 70px var(--landing-orb-shadow-bright),
-      0 0 110px var(--landing-orb-shadow-soft);
-  }
-}
 
 @keyframes landingOrbSweep {
   0% {

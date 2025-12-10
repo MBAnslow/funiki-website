@@ -26,7 +26,7 @@ cssclasses:
       <feDisplacementMap in="SourceGraphic" scale="110" />
     </filter>
   </svg>
-  <div class="landing-big-sphere" aria-hidden="true"></div>
+  <div class="landing-cloud-backing" aria-hidden="true"></div>
   <div class="landing-clouds" aria-hidden="true">
     <div class="cloud cloud-back"></div>
     <div class="cloud cloud-mid"></div>
