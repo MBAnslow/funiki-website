@@ -14,7 +14,8 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "en-US",
-    baseUrl: "https://mbanslow.github.io/funiki-website",
+    // Use BASE_URL env when running locally; default to GitHub Pages URL for deploys.
+    baseUrl: process.env.BASE_URL ?? "https://mbanslow.github.io/funiki-website",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {

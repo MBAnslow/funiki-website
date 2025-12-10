@@ -2,7 +2,7 @@
 title: The Funiki Digital Garden
 summary: This is the Funiki digital garden landing page
 draft: false
-permalink: /Project-Introduction
+permalink: /project-introduction
 tags:
   - funiki
   - research
@@ -12,6 +12,12 @@ headerImageAlt: Funiki ambient collage of light and sound
 
 > [!warning] Warning
 > This site is brand new and under active development. It'll be officially announced when it is ready.
+
+---
+
+### What is a [Digital Garden](/digital-garden/)?
+
+This site is a **digital garden**: a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
 
 ## What is Funiki?
 
@@ -45,19 +51,3 @@ Lights are not mapped one-to-one to simulated candles or torches. Like Dolby Atm
 
 **Non-technical creativity**  
 Long term, the goal is for anyone to define a _vibe_ using multimodal prompts (text plus image palettes) and let the engine render it live. No lighting desk. No audio workstation.
-
----
-
-You can read the project overview [here](/0_Funiki%20Overview).
-
----
-
-### What is a Digital Garden?
-
-This site is a **digital garden**: a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
-
-- The 'explorer' 👈
-- The concept graph 👉
-- Back links 👉
-
-Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
