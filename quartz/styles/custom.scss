@@ -433,7 +433,7 @@ body[data-slug="index"] .landing-cloud-backing {
     var(--cloud-backing-edge) 70%,
     transparent 82%
   );
-  
+
   filter: blur(20px) hue-rotate(0deg);
   opacity: 0.6;
   mix-blend-mode: screen;
@@ -490,7 +490,6 @@ body[data-slug="index"] .landing-cloud-backing {
   }
 }
 
-
 @media all and ($mobile) {
   body[data-slug="index"] .landing-clouds {
     top: -34%;
@@ -527,12 +526,11 @@ body[data-slug="index"] .landing-cloud-backing {
     left: -32vw;
     opacity: 0.5;
   }
-
 }
 
 @keyframes landingCloudBackingHue {
   0% {
-    filter: blur(150px) hue-rotate(0deg);/* red */
+    filter: blur(150px) hue-rotate(0deg); /* red */
   }
   20% {
     filter: blur(150px) hue-rotate(80deg); /* blue */
@@ -550,8 +548,6 @@ body[data-slug="index"] .landing-cloud-backing {
     filter: blur(150px) hue-rotate(0deg);
   }
 }
-
-
 
 body[data-slug="index"] .landing-ripple-field {
   position: absolute;
@@ -628,8 +624,7 @@ body[data-slug="index"] .landing-title::after {
   filter: blur(8px);
   transform: translate(-90%, -50%);
   pointer-events: none;
-  animation:
-    landingOrbSweep 18s ease-in-out infinite alternate -4s;
+  animation: landingOrbSweep 18s ease-in-out infinite alternate -4s;
   z-index: -1;
 }
 
@@ -781,7 +776,6 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
     transform: translateY(-3px);
   }
 }
-
 
 @keyframes landingOrbSweep {
   0% {
