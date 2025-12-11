@@ -8,8 +8,8 @@ tags:
   - digital-garden
   - notes
 aliases:
- - digital-gardens
- - funiki-digital-garden
+  - digital-gardens
+  - funiki-digital-garden
 weight: 3
 ---
 

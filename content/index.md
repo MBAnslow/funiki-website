@@ -2,7 +2,7 @@
 title: Funiki
 summary: Ambient research that turns rooms into responsive audiovisual stages
 draft: false
-permalink: 
+permalink:
 tags:
   - funiki
   - research

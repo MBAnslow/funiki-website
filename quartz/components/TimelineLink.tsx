@@ -1,7 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
 const TimelineLink: QuartzComponent = ({ displayClass }: QuartzComponentProps) => {
-
   return (
     <div class={classNames(displayClass, "timeline-link")}>
       <a class="timeline-link__anchor" href="/timeline">
