@@ -1,9 +1,12 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
-const TimelineLink: QuartzComponent = ({ displayClass }: QuartzComponentProps) => {
+import { FullSlug, resolveRelative } from "../util/path"
+
+const TimelineLink: QuartzComponent = ({ displayClass, fileData }: QuartzComponentProps) => {
+  const href = resolveRelative(fileData.slug!, "timeline" as FullSlug)
   return (
     <div class={classNames(displayClass, "timeline-link")}>
-      <a class="timeline-link__anchor" href="/timeline">
+      <a class="timeline-link__anchor" href={href}>
         Timeline
       </a>
     </div>
