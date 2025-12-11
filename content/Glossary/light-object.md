@@ -1,6 +1,6 @@
 ---
 title: Light Object
-permalink: /glossary/light_object
+permalink: /glossary-light_object
 tags:
   - light object
   - glossary

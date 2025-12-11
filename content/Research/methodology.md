@@ -2,7 +2,7 @@
 title: Research Methodology
 summary: Overview of the research methodology process
 draft: false
-permalink: /research_methodology
+permalink: /research-methodology
 tags:
   - funiki
   - research

@@ -1,6 +1,6 @@
 ---
 title: Egocentric Tethering
-permalink: /glossary/egocentric
+permalink: /glossary-egocentric
 tags:
   - egocentric-tethering
   - glossary

@@ -8,6 +8,7 @@ tags:
   - research
 headerImage: ./static/funiki-header.png
 headerImageAlt: Funiki ambient collage of light and sound
+weight: 1
 ---
 
 > [!warning] Warning
@@ -15,7 +16,7 @@ headerImageAlt: Funiki ambient collage of light and sound
 
 ---
 
-### What is a [Digital Garden](/digital-garden/)?
+### What is a [Digital Garden](digital-garden)?
 
 This site is a **digital garden**: a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
 

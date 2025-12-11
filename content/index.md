@@ -2,13 +2,14 @@
 title: Funiki
 summary: Ambient research that turns rooms into responsive audiovisual stages
 draft: false
-permalink: /
+permalink: 
 tags:
   - funiki
   - research
   - audio-visual
 cssclasses:
   - landing-root
+weight: 0
 ---
 
 <div class="landing-shell" data-orb-debug="true">
@@ -53,7 +54,7 @@ cssclasses:
     Sony CSL Paris</a>.
   </p>
 
-  <a class="landing-link internal" href="/0_introduction" data-no-popover="true">
+  <a class="landing-link internal" href="/introduction" data-no-popover="true">
     Enter the Digital Garden
   </a>
 </div>

@@ -2,11 +2,15 @@
 title: Digital Gardens
 summary: Describing what a digital garden is.
 draft: false
-permalink: /digital-garden/
+permalink: digital-garden
 tags:
   - funiki
   - digital-garden
   - notes
+aliases:
+ - digital-gardens
+ - funiki-digital-garden
+weight: 3
 ---
 
 - The 'explorer' 👈

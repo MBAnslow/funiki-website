@@ -1,6 +1,6 @@
 ---
 title: Sound Object
-permalink: /glossary/sound_object
+permalink: /glossary-sound_object
 tags:
   - sound object
   - glossary
