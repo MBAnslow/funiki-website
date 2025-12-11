@@ -15,6 +15,22 @@ interface ParsedOptions {
 }
 
 const numericPrefixSort = (a: FileTrieNode, b: FileTrieNode) => {
+  const weightFor = (node: FileTrieNode) => {
+    const weight = (node.data as ContentDetails | null)?.weight
+    return typeof weight === "number" ? weight : null
+  }
+
+  const aWeight = weightFor(a)
+  const bWeight = weightFor(b)
+
+  if (aWeight !== null || bWeight !== null) {
+    if (aWeight === null) return 1
+    if (bWeight === null) return -1
+    if (aWeight !== bWeight) {
+      return aWeight - bWeight
+    }
+  }
+
   const prefixFor = (node: FileTrieNode) => {
     const source = node.slugSegment || node.displayName || ""
     const match = source.match(/^(\d+)_/)

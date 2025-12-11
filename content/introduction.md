@@ -1,5 +1,5 @@
 ---
-title: The Funiki Digital Garden
+title: Introduction
 summary: This is the Funiki digital garden landing page
 draft: false
 permalink: /project-introduction
@@ -16,11 +16,11 @@ weight: 1
 
 ---
 
-### What is a [Digital Garden](digital-garden)?
+# What is a Digital Garden?
 
-This site is a **digital garden**: a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
+This site is a [digital garden](digital-garden): a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
 
-## What is Funiki?
+# What is Funiki?
 
 **Funiki** is a **Sony CSL Paris** research project exploring how **physical spaces can become responsive stages**. These stages blend **light and sound** to support everything from collaborative tabletop play to quiet, restorative solo moments.
 
@@ -42,7 +42,7 @@ Instead of treating light and sound as static effects, Funiki treats them as **l
 
 ---
 
-## Why It Matters
+# Why It Matters
 
 **Interpretive ambience, not literal scenes**  
 Funiki does not try to recreate environments pixel-perfectly. Instead, it captures the _emotional essence_ of a setting, leaving room for imagination to complete the experience.

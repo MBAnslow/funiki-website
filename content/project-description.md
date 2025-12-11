@@ -1,5 +1,5 @@
 ---
-title: Project Overview
+title: Overview
 summary: Overview of the Funiki Project
 draft: false
 permalink: /project-description
@@ -9,6 +9,7 @@ tags:
   - audio-visual
 weight: 2
 ---
+
 
 Funiki is a Sony CSL research project exploring how physical spaces can become responsive "stages" that blend light and sound to support activities ranging from collaborative tabletop play to restorative solo moments. The engine keeps a virtual stage in sync with real devices so object-based audiovisual elements can layer, mix, and move with natural dynamics.
 

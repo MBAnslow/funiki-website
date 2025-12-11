@@ -16,6 +16,8 @@ body {
   box-sizing: border-box;
   background-color: var(--light);
   font-family: var(--bodyFont);
+  font-size: 1.5rem;
+  font-weight: 300;
   color: var(--darkgray);
 }
 
@@ -52,6 +54,50 @@ ul,
   }
 }
 
+/* Custom list markers for better size + alignment inside articles */
+article ul,
+article ol {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+article ul li,
+article ol li {
+  position: relative;
+  padding-left: 1.75em;
+  line-height: 1.2;
+}
+
+article ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-size: 2em;
+  line-height: 1;
+  color: var(--tertiary);
+}
+
+article ol {
+  counter-reset: article-ol;
+}
+
+article ol li {
+  counter-increment: article-ol;
+}
+
+article ol li::before {
+  content: counter(article-ol) ".";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tertiary);
+}
+
 .math {
   &.math-display {
     text-align: center;
@@ -74,7 +120,8 @@ article {
 }
 
 strong {
-  font-weight: $semiBoldWeight;
+  font-weight: 700;
+  color: var(--dark);
 }
 
 a {
@@ -160,7 +207,13 @@ a {
   margin: 0 auto;
   & article {
     & > h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-left: 15px;
+      margin-bottom: 35px;
     }
 
     & li:has(> input[type="checkbox"]) {
@@ -218,7 +271,7 @@ a {
       gap: 1.2rem;
       top: 0;
       box-sizing: border-box;
-      padding: 3rem 2rem 2rem 2rem;
+      padding: 2rem 1.25rem 1.5rem 1.25rem;
       display: flex;
       height: 100vh;
       position: sticky;
@@ -393,19 +446,19 @@ h6 {
 
 // typography improvements
 h1 {
-  font-size: 1.75rem;
+  font-size: 2.2rem;
   margin-top: 2.25rem;
   margin-bottom: 1rem;
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   margin-top: 1.9rem;
   margin-bottom: 1rem;
 }
 
 h3 {
-  font-size: 1.12rem;
+  font-size: 1.35rem;
   margin-top: 1.62rem;
   margin-bottom: 1rem;
 }
@@ -413,7 +466,7 @@ h3 {
 h4,
 h5,
 h6 {
-  font-size: 1rem;
+  font-size: 1.15rem;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -511,6 +564,7 @@ tbody,
 li,
 p {
   line-height: 1.6rem;
+  margin: 8px;
 }
 
 .table-container {

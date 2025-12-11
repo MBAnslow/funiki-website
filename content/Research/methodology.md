@@ -1,5 +1,5 @@
 ---
-title: Research Methodology
+title: Methodology
 summary: Overview of the research methodology process
 draft: false
 permalink: /research-methodology

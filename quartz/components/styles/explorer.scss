@@ -105,7 +105,7 @@ button.desktop-explorer {
   margin-top: 0.5rem;
 
   & h2 {
-    font-size: clamp(1.9rem, 2.3vw, 1.6rem);
+    font-size: clamp(2rem, 2.8vw, 2.4rem);
     display: inline-block;
     margin: 0;
     font-family: var(--titleFont);
@@ -126,13 +126,13 @@ button.desktop-explorer {
     margin-left: 0;
     padding: 0;
     overscroll-behavior: contain;
-    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    font-size: clamp(1.28rem, 1.9vw, 1.6rem);
 
     & li > a {
       opacity: 0.75;
       pointer-events: all;
-      font-size: 0.8em;
-      line-height: 1.35em;
+      font-size: 0.88em;
+      line-height: 1.4em;
       margin-left: 0;
       color: var(--gray);
 
@@ -162,7 +162,7 @@ button.desktop-explorer {
     margin-left: 6px;
     padding-left: 0.8rem;
     border-left: 1px solid var(--lightgray);
-    font-size: 0.8em;
+    font-size: 0.88em;
   }
 }
 
@@ -175,7 +175,7 @@ button.desktop-explorer {
   & div > a {
     color: var(--secondary);
     font-family: var(--titleFont);
-    font-size: 1em;
+    font-size: 1.05em;
     font-weight: $semiBoldWeight;
     line-height: 1.4em;
     display: inline-flex;
@@ -202,7 +202,7 @@ button.desktop-explorer {
     font-family: var(--titleFont);
 
     & span {
-      font-size: 1em;
+      font-size: 1.05em;
       display: inline-block;
       color: var(--secondary);
       font-weight: $semiBoldWeight;

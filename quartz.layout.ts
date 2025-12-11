@@ -41,6 +41,10 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.ArticleTitle(),
     Component.ContentMeta(),
+    Component.ConditionalRender({
+      component: Component.TimelineContent(),
+      condition: (page) => page.fileData.slug === "timeline",
+    }),
     Component.TagList(),
   ],
   left: [
@@ -51,6 +55,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
+    Component.TimelineLink(),
   ],
   right: [
     Component.Graph(),
@@ -94,6 +99,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
+    Component.TimelineLink(),
   ],
   right: [],
 }

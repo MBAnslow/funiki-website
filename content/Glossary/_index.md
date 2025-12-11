@@ -1,4 +1,4 @@
 ---
 title: "Glossary"
-weight: 1
+weight: 100
 ---

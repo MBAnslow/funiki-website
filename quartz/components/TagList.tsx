@@ -50,6 +50,15 @@ a.internal.tag-link {
   background-color: var(--highlight);
   padding: 0.2rem 0.4rem;
   margin: 0 0.1rem;
+  color: #ee7d57;
+}
+
+:root:not([saved-theme="dark"]) a.internal.tag-link {
+  color: #3c7ca9;
+}
+
+:root[saved-theme="dark"] a.internal.tag-link {
+  color: #fb5c27;
 }
 `
 

@@ -24,6 +24,8 @@ import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import HeaderImage from "./HeaderImage"
 import GlowingOrb from "./GlowingOrb"
+import TimelineLink from "./TimelineLink"
+import TimelineContent from "./TimelineContent"
 
 export {
   ArticleTitle,
@@ -52,4 +54,6 @@ export {
   ConditionalRender,
   HeaderImage,
   GlowingOrb,
+  TimelineLink,
+  TimelineContent,
 }
