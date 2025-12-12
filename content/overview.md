@@ -2,7 +2,7 @@
 title: Overview
 summary: Overview of the Funiki Project
 draft: false
-permalink: /project-description
+permalink: /overview
 tags:
   - funiki
   - research

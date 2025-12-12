@@ -75,7 +75,8 @@ article ul li::before {
   content: "•";
   position: absolute;
   left: 0;
-  top: 0.1em;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 2em;
   line-height: 1;
   color: var(--tertiary);
@@ -93,7 +94,8 @@ article ol li::before {
   content: counter(article-ol) ".";
   position: absolute;
   left: 0;
-  top: 0.1em;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 1.2em;
   font-weight: 600;
   line-height: 1;
@@ -766,6 +768,7 @@ iframe.pdf {
   border: 0;
   border-radius: 10px;
   display: block;
+  margin-bottom: 1rem;
 }
 
 /* Reusable link badge (title + description) */

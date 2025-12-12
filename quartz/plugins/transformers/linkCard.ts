@@ -8,6 +8,7 @@ type Attrs = {
   desc?: string
   href?: string
   icon?: string
+  hideDesc?: string
 }
 
 const parseAttrs = (raw: string): Attrs => {
@@ -27,13 +28,14 @@ const buildCard = (attrs: Attrs): string | null => {
   const href = attrs.href?.trim()
   if (!title || !href) return null
   const hrefSafe = attrs.href?.trim() ?? ""
+  const hideDesc = attrs.hideDesc?.toLowerCase() === "true"
 
   const safe = (v: string) => v.replace(/</g, "&lt;").replace(/>/g, "&gt;")
 
-  return `<div class="callout" data-callout="link">
-  <div class="callout-title">
-    <div class="callout-icon"></div>
-    <div class="callout-title-inner">
+  return `<div class="resource" data-resource="link">
+  <div class="resource-title">
+    <div class="resource-icon resource-icon--link"></div>
+    <div class="resource-title-inner">
       <p>
         <a class="link-card__title" href="${hrefSafe}">
           <span>${safe(title)}</span>
@@ -42,8 +44,8 @@ const buildCard = (attrs: Attrs): string | null => {
     </div>
   </div>
   ${
-    desc
-      ? `<div class="callout-content">
+    desc && !hideDesc
+      ? `<div class="resource-content">
     <p class="link-card__desc">${safe(desc)}</p>
   </div>`
       : ""

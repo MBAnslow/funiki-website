@@ -8,6 +8,7 @@ type Attrs = {
   desc?: string
   src?: string
   icon?: string
+  hideDesc?: string
 }
 
 const parseAttrs = (raw: string): Attrs => {
@@ -28,25 +29,30 @@ const buildCard = (attrs: Attrs): string | null => {
   if (!title || !src) return null
   const safe = (v: string) => v.replace(/</g, "&lt;").replace(/>/g, "&gt;")
   const icon = attrs.icon?.trim()
+  const hideDesc = attrs.hideDesc?.toLowerCase() === "true"
 
-  return `<div class="callout" data-callout="video">
-  <div class="callout-title">
-    <div class="callout-icon"></div>
-    <div class="callout-title-inner">
+  return `<div class="resource" data-resource="video">
+  <div class="resource-title">
+    <div class="resource-icon resource-icon--video"${icon ? ` data-video-icon="${safe(icon)}"` : ""}></div>
+    <div class="resource-title-inner">
       <p><span>${safe(title)}</span></p>
     </div>
   </div>
-  <div class="callout-content">
-    ${desc ? `<p class="link-card__desc">${safe(desc)}</p>` : ""}
+  ${
+    hideDesc && !desc
+      ? `<div class="resource-content">
     <div class="video-callout-embed">
       <iframe src="${safe(src)}" title="${safe(title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-  </div>
+  </div>`
+      : `<div class="resource-content">
+    ${desc && !hideDesc ? `<p class="link-card__desc">${safe(desc)}</p>` : ""}
+    <div class="video-callout-embed">
+      <iframe src="${safe(src)}" title="${safe(title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>`
+  }
 </div>`
-    .replace(
-      'data-callout="video"',
-      `data-callout="video"${icon ? ` data-video-icon="${safe(icon)}"` : ""}`,
-    )
 }
 
 const videoCardRegex = /<VideoCard\b([^>]*)\/>/g
