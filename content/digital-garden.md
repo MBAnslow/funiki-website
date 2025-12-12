@@ -13,11 +13,15 @@ aliases:
 weight: 3
 ---
 
-- The 'explorer' 👈
-- The concept graph 👉
-- Back links 👉
+Digital gardens are living maps of ideas, not chronological feeds. Borrowing from Maggie Appleton’s “garden” metaphor, they privilege gradual growth over polished releases, letting notes and concepts mature in place rather than getting buried by time.
 
-Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
+They shine for research notes, evolving concepts, and work-in-progress thinking—anything that benefits from resurfacing, cross-linking, and revising. The explorer and graph views make those connections visible so you can navigate by relationships instead of recency.
+
+The layout is deliberately topographic: you can wander the terrain, hop between related clusters, and see how topics terrace into one another, rather than marching through a single linear path.  
+![Topographic map of a digital garden](/static/digital-garden-topography.png)
+
+Some plants become “finished” artifacts, others stay as seedlings and sketches. Both matter: sketches keep the soil fertile, while outputs mark waypoints of clarity.  
+![An evolving digital garden output](/static/digital-garden-output.png)
 
 <LinkCard
   title="Funiki Concept Video"

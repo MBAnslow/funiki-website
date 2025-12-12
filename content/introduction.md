@@ -16,10 +16,6 @@ weight: 1
 
 ---
 
-# What is a Digital Garden?
-
-This site is a [digital garden](digital-garden): a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
-
 # What is Funiki?
 
 **Funiki** is a **Sony CSL Paris** research project exploring how **physical spaces can become responsive stages**. These stages blend **light and sound** to support everything from collaborative tabletop play to quiet, restorative solo moments.
@@ -46,3 +42,16 @@ Lights are not mapped one-to-one to simulated candles or torches. Like Dolby Atm
 
 **Non-technical creativity**  
 Long term, the goal is for anyone to define a _vibe_ using multimodal prompts (text plus image palettes) and let the engine render it live. No lighting desk. No audio workstation.
+
+# What is a Digital Garden?
+
+This site is a [digital garden](digital-garden): a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
+
+- 👈 **The 'explorer'** Structured posts.
+- 👈 **The 'resources'** Links, videos, books etc.
+- 👈 **The 'timeline'** Content from newest to oldest.
+- 👉 **The concept graph** An interactive graph linking concepts on this site.
+- 👉 **Table of Contents** To orient in longer documents.
+- 👉 **Back links** What points to the current content.
+
+Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
