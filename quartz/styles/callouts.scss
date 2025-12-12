@@ -76,6 +76,11 @@
   .resource-content {
     padding: 0.2rem;
     display: grid;
+
+    p {
+      margin: 0.4rem;
+      line-height: 1.4;
+    }
   }
 }
 
