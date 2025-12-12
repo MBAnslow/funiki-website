@@ -27,7 +27,7 @@ const buildCard = (attrs: Attrs): string | null => {
   const src = attrs.src?.trim()
   if (!title || !src) return null
   const safe = (v: string) => v.replace(/</g, "&lt;").replace(/>/g, "&gt;")
-  const icon = attrs.icon?.trim() ?? "/static/icons/video.svg"
+  const icon = attrs.icon?.trim()
 
   return `<div class="callout" data-callout="video">
   <div class="callout-title">
@@ -42,7 +42,11 @@ const buildCard = (attrs: Attrs): string | null => {
       <iframe src="${safe(src)}" title="${safe(title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
-</div>`.replace('data-callout="video"', `data-callout="video" data-video-icon="${safe(icon)}"`)
+</div>`
+    .replace(
+      'data-callout="video"',
+      `data-callout="video"${icon ? ` data-video-icon="${safe(icon)}"` : ""}`,
+    )
 }
 
 const videoCardRegex = /<VideoCard\b([^>]*)\/>/g
