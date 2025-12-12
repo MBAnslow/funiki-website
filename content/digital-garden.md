@@ -19,6 +19,20 @@ weight: 3
 
 Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
 
-What is a digital garden? https://www.youtube.com/watch?v=en56OKg5hyc
-Some great examples: https://github.com/kyrose/awesome-digital-gardens?tab=readme-ov-file
-A blog post introducing the concept: https://maggieappleton.com/garden-history
+<LinkCard
+  title="Funiki Concept Video"
+  desc="A quick tour of the idea in motion."
+  href="https://www.youtube.com/watch?v=en56OKg5hyc"
+/>
+
+<LinkCard
+  title="Great Digital Garden Examples"
+  desc="Curated list of inspiring public gardens."
+  href="https://github.com/kyrose/awesome-digital-gardens?tab=readme-ov-file"
+/>
+
+<LinkCard
+  title="What Is a Digital Garden?"
+  desc="Origins, metaphors, and why this format works."
+  href="https://maggieappleton.com/garden-history"
+/>

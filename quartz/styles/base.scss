@@ -711,3 +711,93 @@ iframe.pdf {
   transition: width 0.2s ease;
   z-index: 9999;
 }
+
+/* Video embed styling */
+.video-embed {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  padding-top: 4rem; /* reserve space for badge */
+  margin: 1.5rem 0;
+  background: color-mix(in srgb, var(--highlight) 75%, rgba(0, 0, 0, 0));
+  border: 1px solid color-mix(in srgb, var(--highlight) 60%, rgba(0, 0, 0, 0));
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.video-embed .video-badge {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  background: color-mix(in srgb, var(--highlight) 82%, rgba(0, 0, 0, 0));
+  border: 1px solid color-mix(in srgb, var(--highlight) 65%, rgba(0, 0, 0, 0));
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.video-embed iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 10px;
+}
+
+.video-callout-embed iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 10px;
+  display: block;
+}
+
+/* Reusable link badge (title + description) */
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0.9rem;
+  margin: 0.75rem 0;
+  background: color-mix(in srgb, var(--highlight) 85%, rgba(0, 0, 0, 0));
+  border: 1px solid color-mix(in srgb, var(--highlight) 70%, rgba(0, 0, 0, 0));
+  border-left: 4px solid var(--secondary);
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.link-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--titleFont);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  margin: 0;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.link-card__title:hover {
+  color: var(--tertiary);
+}
+
+.link-card__icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  display: inline-block;
+}
+
+.link-card__desc {
+  margin: 0;
+  color: var(--darkgray);
+  line-height: 1.4;
+}

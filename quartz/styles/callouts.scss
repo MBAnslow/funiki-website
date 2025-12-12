@@ -118,6 +118,38 @@
     --callout-icon: var(--callout-icon-quote);
   }
 
+  &[data-callout="link"] {
+    --color: var(--secondary);
+    --border: color-mix(in srgb, var(--secondary) 40%, transparent);
+    --bg: color-mix(in srgb, var(--highlight) 80%, transparent);
+    --callout-icon: url("/static/icons/link.svg");
+  }
+
+  &[data-callout="link"] .callout-icon {
+    background-color: transparent;
+    mask-image: none;
+    background-image: var(--callout-icon);
+    background-size: var(--icon-size) var(--icon-size);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &[data-callout="video"] {
+    --color: var(--secondary);
+    --border: color-mix(in srgb, var(--secondary) 40%, transparent);
+    --bg: color-mix(in srgb, var(--highlight) 80%, transparent);
+    --callout-icon: url("/static/icons/video.svg");
+  }
+
+  &[data-callout="video"] .callout-icon {
+    background-color: transparent;
+    mask-image: none;
+    background-image: var(--callout-icon);
+    background-size: var(--icon-size) var(--icon-size);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   &.is-collapsed {
     & > .callout-title > .fold-callout-icon {
       transform: rotateZ(-90deg);
