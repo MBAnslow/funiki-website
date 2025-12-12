@@ -61,7 +61,7 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
                           src={res.src}
                           title={res.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen={true}
+                          allowFullScreen={true}
                         ></iframe>
                       </div>
                     )}
@@ -114,4 +114,3 @@ ResourcesContent.css = `
 `
 
 export default (() => ResourcesContent) satisfies QuartzComponentConstructor
-

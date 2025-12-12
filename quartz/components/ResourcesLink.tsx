@@ -14,4 +14,3 @@ const ResourcesLink: QuartzComponent = ({ displayClass, fileData }: QuartzCompon
 }
 
 export default (() => ResourcesLink) satisfies QuartzComponentConstructor
-
