@@ -25,12 +25,12 @@ TimelineLink.css = `
   gap: 0.35rem;
   font-size: clamp(1.9rem, 2.6vw, 2.3rem);
   font-family: var(--titleFont);
-  color: var(--secondary);
+  color: var(--dark);
   text-decoration: none;
 }
 
 .timeline-link__anchor:hover {
-  color: var(--tertiary);
+  color: var(--dark);
 }
 
 `

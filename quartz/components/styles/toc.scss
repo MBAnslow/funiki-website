@@ -18,13 +18,15 @@ button.toc-header {
   text-align: left;
   cursor: pointer;
   padding: 0;
+  line-height: 2.2rem;
   color: var(--dark);
   display: flex;
   align-items: center;
   font-family: var(--headerFont), var(--bodyFont), sans-serif;
 
   & h3 {
-    font-size: 1rem;
+    font-size: clamp(1.9rem, 2.6vw, 2.3rem);
+    font-family: var(--titleFont);
     display: inline-block;
     margin: 0;
   }
@@ -48,6 +50,7 @@ ul.toc-content.overflow {
   max-height: calc(100% - 2rem);
   overscroll-behavior: contain;
   list-style: none;
+  line-height: 1.2rem;
 
   & > li > a {
     color: var(--dark);

@@ -17,7 +17,7 @@ $tablet: "(min-width: #{map.get($breakpoints, mobile)}) and (max-width: #{map.ge
 $desktop: "(min-width: #{map.get($breakpoints, desktop)})";
 
 $pageWidth: #{map.get($breakpoints, mobile)};
-$sidePanelWidth: 260px; // was 320px; narrower sidebars give more center width
+$sidePanelWidth: 375px; // ~10% wider sidebars to reduce center width
 $topSpacing: 6rem;
 $boldWeight: 700;
 $semiBoldWeight: 600;
