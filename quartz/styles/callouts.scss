@@ -122,7 +122,7 @@
     --color: var(--secondary);
     --border: color-mix(in srgb, var(--secondary) 40%, transparent);
     --bg: color-mix(in srgb, var(--highlight) 80%, transparent);
-    --callout-icon: url("/static/icons/link.svg");
+    --callout-icon: url("../static/icons/link.svg");
   }
 
   &[data-callout="link"] .callout-icon {
@@ -138,7 +138,7 @@
     --color: var(--secondary);
     --border: color-mix(in srgb, var(--secondary) 40%, transparent);
     --bg: color-mix(in srgb, var(--highlight) 80%, transparent);
-    --callout-icon: url("/static/icons/video.svg");
+    --callout-icon: url("../static/icons/video.svg");
   }
 
   &[data-callout="video"] .callout-icon {
