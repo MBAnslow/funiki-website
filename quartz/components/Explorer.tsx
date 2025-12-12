@@ -30,7 +30,10 @@ const defaultOptions: Options = {
     return node
   },
   sortFn: undefined,
-  filterFn: (node) => node.slugSegment !== "tags" && node.slugSegment !== "timeline",
+  filterFn: (node) =>
+    node.slugSegment !== "tags" &&
+    node.slugSegment !== "timeline" &&
+    node.slugSegment !== "resources",
   order: ["filter", "map", "sort"],
 }
 
