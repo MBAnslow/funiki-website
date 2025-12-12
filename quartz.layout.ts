@@ -108,6 +108,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
     Component.TimelineLink(),
+    Component.ResourcesLink(),
   ],
   right: [],
 }
