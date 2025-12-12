@@ -51,10 +51,11 @@ ul.toc-content.overflow {
   overscroll-behavior: contain;
   list-style: none;
   line-height: 1.2rem;
+  font-size: 0.95rem;
 
   & > li > a {
     color: var(--dark);
-    opacity: 0.55;
+    opacity: 0.25; /* unseen headings are more translucent */
     transition:
       0.3s ease opacity,
       0.3s ease color;

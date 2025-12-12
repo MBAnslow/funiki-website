@@ -51,6 +51,7 @@ ul,
 
   & li::marker {
     color: var(--tertiary);
+    opacity: 0.6; /* slightly translucent markers */
   }
 }
 
@@ -97,6 +98,12 @@ article ol li::before {
   font-weight: 600;
   line-height: 1;
   color: var(--tertiary);
+}
+
+/* Make markers slightly translucent */
+article ul li::marker,
+article ol li::marker {
+  opacity: 0.6;
 }
 
 .math {
