@@ -163,6 +163,9 @@ function createFolderNode(
     a.dataset.for = folderPath
     a.className = "folder-title"
     a.textContent = node.displayName.replace(/^\d+_/, "")
+    if (folderPath === currentSlug) {
+      a.classList.add("active")
+    }
     button.replaceWith(a)
   } else {
     const span = titleContainer.querySelector(".folder-title") as HTMLElement
