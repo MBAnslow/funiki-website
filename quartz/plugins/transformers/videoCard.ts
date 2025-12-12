@@ -11,6 +11,14 @@ type Attrs = {
   hideDesc?: string
 }
 
+type ResourceEntry = {
+  type: "video"
+  title: string
+  desc?: string
+  src: string
+  slug?: string
+}
+
 const parseAttrs = (raw: string): Attrs => {
   const attrs: Attrs = {}
   const regex = /(\w+)="([^"]*)"/g
@@ -22,7 +30,7 @@ const parseAttrs = (raw: string): Attrs => {
   return attrs
 }
 
-const buildCard = (attrs: Attrs): string | null => {
+const buildCard = (attrs: Attrs, file: any): string | null => {
   const title = attrs.title?.trim()
   const desc = attrs.desc?.trim()
   const src = attrs.src?.trim()
@@ -30,6 +38,15 @@ const buildCard = (attrs: Attrs): string | null => {
   const safe = (v: string) => v.replace(/</g, "&lt;").replace(/>/g, "&gt;")
   const icon = attrs.icon?.trim()
   const hideDesc = attrs.hideDesc?.toLowerCase() === "true"
+
+  const resources = (file.data.resources ??= [] as ResourceEntry[])
+  resources.push({
+    type: "video",
+    title,
+    desc,
+    src,
+    slug: file.data.slug?.toString(),
+  })
 
   return `<div class="resource" data-resource="video">
   <div class="resource-title">
@@ -58,11 +75,11 @@ const buildCard = (attrs: Attrs): string | null => {
 const videoCardRegex = /<VideoCard\b([^>]*)\/>/g
 
 const videoCardTransformer: Plugin<[], MdRoot> = () => {
-  return (tree) => {
+  return (tree, file) => {
     visit(tree, "html", (node: any) => {
       if (typeof node.value !== "string") return
       node.value = node.value.replace(videoCardRegex, (_match: string, attrPart: string) => {
-        const card = buildCard(parseAttrs(attrPart ?? ""))
+        const card = buildCard(parseAttrs(attrPart ?? ""), file)
         return card ?? _match
       })
     })

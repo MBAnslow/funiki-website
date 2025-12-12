@@ -26,6 +26,8 @@ import HeaderImage from "./HeaderImage"
 import GlowingOrb from "./GlowingOrb"
 import TimelineLink from "./TimelineLink"
 import TimelineContent from "./TimelineContent"
+import ResourcesLink from "./ResourcesLink"
+import ResourcesContent from "./ResourcesContent"
 
 export {
   ArticleTitle,
@@ -56,4 +58,6 @@ export {
   GlowingOrb,
   TimelineLink,
   TimelineContent,
+  ResourcesLink,
+  ResourcesContent,
 }

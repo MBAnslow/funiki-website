@@ -11,6 +11,14 @@ type Attrs = {
   hideDesc?: string
 }
 
+type ResourceEntry = {
+  type: "link"
+  title: string
+  desc?: string
+  href: string
+  slug?: string
+}
+
 const parseAttrs = (raw: string): Attrs => {
   const attrs: Attrs = {}
   const regex = /(\w+)="([^"]*)"/g
@@ -22,7 +30,7 @@ const parseAttrs = (raw: string): Attrs => {
   return attrs
 }
 
-const buildCard = (attrs: Attrs): string | null => {
+const buildCard = (attrs: Attrs, file: any): string | null => {
   const title = attrs.title?.trim()
   const desc = attrs.desc?.trim()
   const href = attrs.href?.trim()
@@ -31,6 +39,16 @@ const buildCard = (attrs: Attrs): string | null => {
   const hideDesc = attrs.hideDesc?.toLowerCase() === "true"
 
   const safe = (v: string) => v.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+
+  // collect resource data for aggregation page
+  const resources = (file.data.resources ??= [] as ResourceEntry[])
+  resources.push({
+    type: "link",
+    title,
+    desc,
+    href,
+    slug: file.data.slug?.toString(),
+  })
 
   return `<div class="resource" data-resource="link">
   <div class="resource-title">
@@ -56,12 +74,12 @@ const buildCard = (attrs: Attrs): string | null => {
 const linkCardRegex = /<LinkCard\b([^>]*)\/>/g
 
 const linkCardTransformer: Plugin<[], MdRoot> = () => {
-  return (tree) => {
+  return (tree, file) => {
     visit(tree, "html", (node: any) => {
       if (typeof node.value !== "string") return
       let changed = false
       node.value = node.value.replace(linkCardRegex, (_match: string, attrPart: string) => {
-        const card = buildCard(parseAttrs(attrPart ?? ""))
+        const card = buildCard(parseAttrs(attrPart ?? ""), file)
         if (card) {
           changed = true
           return card
