@@ -15,11 +15,11 @@ weight: 3
 
 ## What is a Digital Garden?
 
-Digital gardens are an alternative to conventional websites.  They are not a chronological feed of polished content, but a continually growing inter-connected web of ideas. Borrowing from Maggie Appleton’s “garden” metaphor, they privilege gradual growth over polished releases, letting notes and concepts mature in place rather than getting buried by time.
+Digital gardens are an alternative to conventional websites. They are not a chronological feed of polished content, but a continually growing inter-connected web of ideas. Borrowing from Maggie Appleton’s “garden” metaphor, they privilege gradual growth over polished releases, letting notes and concepts mature in place rather than getting buried by time.
 
 Some plants become “finished” artifacts, others stay as seedlings and sketches. Both of these matter: sketches keep the soil fertile and provide various points to spring-board off of ideas, while polished outputs mark waypoints and concrete points of output for communication and collaboration.  
 ![An evolving digital garden output](/static/digital-garden-output.png)  
-*An evolving garden output—waypoints of clarity amid ongoing growth. Taken from Maggie Appleton's blog.*
+_An evolving garden output—waypoints of clarity amid ongoing growth. Taken from Maggie Appleton's blog._
 
 <LinkCard
   title="A Brief History & Ethos of the Digital Garden."
@@ -39,12 +39,11 @@ Some plants become “finished” artifacts, others stay as seedlings and sketch
   href="https://github.com/kyrose/awesome-digital-gardens?tab=readme-ov-file"
 />
 
-
 ## Topology of Ideas
 
 Digital gardens shine when it comes to research notes, evolving concepts, work-in-progress, thinking—anything outputs. This is content that is supposed to resurface over time, cross-linking to other concepts, and being revised. The layout is deliberately topographic rather than just time-line based: you can wander the terrain, hop between related clusters, and see how topics interact with one another, rather than marching through a single linear path.
 ![Topographic map of a digital garden](/static/digital-garden-topography.png)  
-*A topographic map of the garden—clusters, ridges, and routes between ideas. Taken from Maggie Appleton's blog.*
+_A topographic map of the garden—clusters, ridges, and routes between ideas. Taken from Maggie Appleton's blog._
 
 ## The value of Context-Rich Websites
 
