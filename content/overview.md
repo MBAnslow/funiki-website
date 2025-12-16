@@ -60,5 +60,3 @@ into synchronized light/sound events.
   rather than observe it.
 - Iterate toward a **generalizable schema** so AI can reliably emit dynamic,
   object-based scenes for any room configuration.
-
-Further reading: [Sony CSL – Funiki](https://csl.sony.fr/projects/funiki/).

@@ -13,30 +13,41 @@ aliases:
 weight: 3
 ---
 
-Digital gardens are living maps of ideas, not chronological feeds. Borrowing from Maggie Appleton’s “garden” metaphor, they privilege gradual growth over polished releases, letting notes and concepts mature in place rather than getting buried by time.
+## What is a Digital Garden?
 
-They shine for research notes, evolving concepts, and work-in-progress thinking—anything that benefits from resurfacing, cross-linking, and revising. The explorer and graph views make those connections visible so you can navigate by relationships instead of recency.
+Digital gardens are an alternative to conventional websites.  They are not a chronological feed of polished content, but a continually growing inter-connected web of ideas. Borrowing from Maggie Appleton’s “garden” metaphor, they privilege gradual growth over polished releases, letting notes and concepts mature in place rather than getting buried by time.
 
-The layout is deliberately topographic: you can wander the terrain, hop between related clusters, and see how topics terrace into one another, rather than marching through a single linear path.  
-![Topographic map of a digital garden](/static/digital-garden-topography.png)
-
-Some plants become “finished” artifacts, others stay as seedlings and sketches. Both matter: sketches keep the soil fertile, while outputs mark waypoints of clarity.  
-![An evolving digital garden output](/static/digital-garden-output.png)
+Some plants become “finished” artifacts, others stay as seedlings and sketches. Both of these matter: sketches keep the soil fertile and provide various points to spring-board off of ideas, while polished outputs mark waypoints and concrete points of output for communication and collaboration.  
+![An evolving digital garden output](/static/digital-garden-output.png)  
+*An evolving garden output—waypoints of clarity amid ongoing growth. Taken from Maggie Appleton's blog.*
 
 <LinkCard
-  title="Funiki Concept Video"
-  desc="A quick tour of the idea in motion."
+  title="A Brief History & Ethos of the Digital Garden."
+  desc="A great exploration of the history and philosophy of digital gardens by Maggie Appleton."
+  href="https://maggieappleton.com/garden-history"
+/>
+
+<LinkCard
+  title="What Is A Digital Garden? 🌱 Benefits & Philosophy"
+  desc="A nice youtube video describing the digital gardens concept and how to set this up with Obsidian."
   href="https://www.youtube.com/watch?v=en56OKg5hyc"
 />
 
 <LinkCard
-  title="Great Digital Garden Examples"
-  desc="Curated list of inspiring public gardens."
+  title="Digital Garden Examples"
+  desc="This is a curated list of inspiring public digital gardens."
   href="https://github.com/kyrose/awesome-digital-gardens?tab=readme-ov-file"
 />
 
-<LinkCard
-  title="What Is a Digital Garden?"
-  desc="Origins, metaphors, and why this format works."
-  href="https://maggieappleton.com/garden-history"
-/>
+
+## Topology of Ideas
+
+Digital gardens shine when it comes to research notes, evolving concepts, work-in-progress, thinking—anything outputs. This is content that is supposed to resurface over time, cross-linking to other concepts, and being revised. The layout is deliberately topographic rather than just time-line based: you can wander the terrain, hop between related clusters, and see how topics interact with one another, rather than marching through a single linear path.
+![Topographic map of a digital garden](/static/digital-garden-topography.png)  
+*A topographic map of the garden—clusters, ridges, and routes between ideas. Taken from Maggie Appleton's blog.*
+
+## The value of Context-Rich Websites
+
+Early websites were much more personalised and varied than the generic templated monoliths we have today. Platforms like X, LinkedIn and Instagram frame content within a generic design format with limited customisation. Your content is within predictable boxes that can be dragged and dropped in any feed. That detaches the content from the conceputally rich topology of the individual. On the contrary, when you visit a personalised website, you visit the person in their home.
+
+This format also keeps with the [philosophy](our-philosophy) of the Funiki project. Focusing on quality, personal experiences.

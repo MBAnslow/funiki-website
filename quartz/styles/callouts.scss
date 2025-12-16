@@ -27,16 +27,18 @@
 
   .resource-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 10px;
     padding: 0 0.9rem;
+    padding-top: 0.5rem;
     margin: 0;
     background: color-mix(in srgb, var(--light) 30%, var(--secondary) 70%);
     border-bottom: 1px solid var(--border);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     line-height: 1.1;
-    height: 45px;
+    min-height: 45px;
   }
 
   .resource-title-inner {
@@ -45,12 +47,24 @@
     line-height: 1.2;
   }
 
-  .resource-title a {
-    color: var(--color);
+  /* Link colors (scoped to resource to increase specificity) */
+  .resource .resource-title a {
     text-decoration: none;
   }
 
-  .resource-title a:hover {
+  /* Light mode link colors */
+  :root:not([saved-theme="dark"]) .resource .resource-title a {
+    color: var(--dark);
+  }
+  :root:not([saved-theme="dark"]) .resource .resource-title a:hover {
+    color: var(--tertiary);
+  }
+
+  /* Dark mode link colors */
+  :root[saved-theme="dark"] .resource .resource-title a {
+    color: var(--light);
+  }
+  :root[saved-theme="dark"] .resource .resource-title a:hover {
     color: var(--tertiary);
   }
 
@@ -70,6 +84,7 @@
 
   .resource-icon--video {
     mask-image: var(--resource-icon-mask);
+    margin-top: -1px;
   }
 
   .resource-content {

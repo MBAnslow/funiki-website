@@ -60,7 +60,7 @@ article ul,
 article ol {
   list-style: none;
   padding-left: 0;
-  margin-left: 0;
+  margin-left: 1.25rem; /* indent lists for clearer hierarchy */
   line-height: 3rem;
 }
 
@@ -408,9 +408,9 @@ input[type="checkbox"] {
 }
 
 blockquote {
-  margin: 1rem 0;
+  margin: 1rem 0 1rem 1.5rem; /* add left indent */
   border-left: 3px solid var(--secondary);
-  padding-left: 1rem;
+  padding-left: 1.25rem;
   transition: border-color 0.2s ease;
 }
 

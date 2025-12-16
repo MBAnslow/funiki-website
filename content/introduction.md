@@ -45,13 +45,15 @@ Long term, the goal is for anyone to define a _vibe_ using multimodal prompts (t
 
 # What is a Digital Garden?
 
-This site is a [digital garden](digital-garden): a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress.
+This site is a [digital garden](digital-garden): a living collection of ideas, sketches, experiments, and reflections that grow over time. Unlike a traditional blog, a digital garden is not a stream of finished posts. It's a constant work in progress. 
 
-- 👈 **The 'explorer'** Structured posts.
-- 👈 **The 'resources'** Links, videos, books etc.
-- 👈 **The 'timeline'** Content from newest to oldest.
-- 👉 **The concept graph** An interactive graph linking concepts on this site.
+- 👈 **The Explorer** Structured posts.
+- 👈 **The Resources** Links, videos, books etc.
+- 👈 **The Timeline** Content from newest to oldest.
+- 👉 **The Concept Graph** An interactive graph linking concepts on this site.
 - 👉 **Table of Contents** To orient in longer documents.
-- 👉 **Back links** What points to the current content.
+- 👉 **Back Links** See what points to the current content.
 
-Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration.
+Funiki lives well in this format. It’s not a product with a fixed destination. It’s a research-creation project that grows through exploration. 
+
+This format also keeps with our [philosophy](our-philosophy) for the Funiki project.

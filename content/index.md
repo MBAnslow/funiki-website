@@ -50,8 +50,10 @@ weight: 0
   </div>
 
   <p class="landing-text">
-    Supporting audio-visual ambient experiences for everyone, in everyday spaces. A project at <a  href="https://csl.sony.fr/projects/funiki">
-    Sony CSL Paris</a>.
+    Supporting audio-visual ambient experiences for everyone, in everyday spaces. 
+    <br>
+    <br>
+    A project at <a  href="https://csl.sony.fr/projects/funiki">Sony CSL Paris</a>.
   </p>
 
   <a class="landing-link internal" href="/introduction" data-no-popover="true">
