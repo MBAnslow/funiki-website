@@ -51,7 +51,7 @@ Funiki uses the research-creation [methodology](methodology). This is appropriat
 **Interpretive ambience, not literal scenes**  
 Funiki does not try to recreate virtual environments pixel-perfectly as you might using screens. Instead, it captures the _emotional essence_ of a setting, leaving room for imagination to complete the experience.
 
-Though this is the corner-stone of lighting in general, Funiki aims to solve this problem using generative AI and coarse grained lighting setups where precision is replaced by impression. 
+Though this is the corner-stone of lighting in general, Funiki aims to solve this problem using generative AI and coarse grained lighting setups where precision is replaced by impression.
 
 **Everyday hardware, not specialized rigs**  
 Lights are not mapped one-to-one to simulated candles or torches. Like Dolby Atmos for sound, Funiki maps **object-based light and audio** onto whatever fixtures happen to be available.

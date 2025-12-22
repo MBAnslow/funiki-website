@@ -2,7 +2,11 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 
 const buildShareUrl = (cfgBaseUrl: string | undefined, slug: string | undefined): string => {
   const base =
-    cfgBaseUrl && cfgBaseUrl.startsWith("http") ? cfgBaseUrl : cfgBaseUrl ? `https://${cfgBaseUrl}` : ""
+    cfgBaseUrl && cfgBaseUrl.startsWith("http")
+      ? cfgBaseUrl
+      : cfgBaseUrl
+        ? `https://${cfgBaseUrl}`
+        : ""
 
   if (!slug) {
     return base
@@ -138,8 +142,8 @@ const ShareButtons: QuartzComponent = ({ fileData, cfg }: QuartzComponentProps) 
             href={link.href}
             rel="noopener noreferrer"
             target="_blank"
-          aria-label={`Share on ${link.name}`}
-          title={`Share on ${link.name}`}
+            aria-label={`Share on ${link.name}`}
+            title={`Share on ${link.name}`}
           >
             {link.icon}
           </a>

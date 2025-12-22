@@ -1,6 +1,6 @@
 ---
 title: Digital Gardens
-summary: Describing what a digital garden is and why it makes sense for the Funiki project. 
+summary: Describing what a digital garden is and why it makes sense for the Funiki project.
 draft: false
 permalink: digital-garden
 tags:
