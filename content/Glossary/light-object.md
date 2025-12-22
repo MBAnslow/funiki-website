@@ -1,5 +1,6 @@
 ---
 title: Light Object
+summary: Light objects are lights positioned in space.
 permalink: /glossary-light_object
 tags:
   - light object

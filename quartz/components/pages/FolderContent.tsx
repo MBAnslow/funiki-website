@@ -102,6 +102,17 @@ export default ((opts?: Partial<FolderContentOptions>) => {
         : htmlToJsx(fileData.filePath!, tree)
     ) as ComponentChildren
 
+    const slug = fileData.slug?.toLowerCase() ?? ""
+    const isGlossaryFolder =
+      slug === "glossary/index" || slug === "glossary/_index" || slug === "glossary"
+    if (isGlossaryFolder) {
+      return (
+        <div class="popover-hint">
+          <article class={classes}>{content}</article>
+        </div>
+      )
+    }
+
     return (
       <div class="popover-hint">
         <article class={classes}>{content}</article>

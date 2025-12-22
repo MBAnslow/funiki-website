@@ -26,6 +26,8 @@ import HeaderImage from "./HeaderImage"
 import GlowingOrb from "./GlowingOrb"
 import TimelineLink from "./TimelineLink"
 import TimelineContent from "./TimelineContent"
+import GlossaryLink from "./GlossaryLink"
+import GlossaryContent from "./GlossaryContent"
 import ResourcesLink from "./ResourcesLink"
 import ResourcesContent from "./ResourcesContent"
 import ShareButtons from "./ShareButtons"
@@ -60,6 +62,8 @@ export {
   GlowingOrb,
   TimelineLink,
   TimelineContent,
+  GlossaryLink,
+  GlossaryContent,
   ResourcesLink,
   ResourcesContent,
   ShareButtons,

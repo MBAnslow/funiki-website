@@ -24,6 +24,11 @@ const buildShareUrl = (cfgBaseUrl: string | undefined, slug: string | undefined)
 }
 
 const ShareButtons: QuartzComponent = ({ fileData, cfg }: QuartzComponentProps) => {
+  const slug = fileData.slug?.toLowerCase() ?? ""
+  if (slug === "glossary" || slug === "glossary/index" || slug === "glossary/_index") {
+    return null
+  }
+
   const pageTitle = fileData.frontmatter?.title ?? fileData.slug ?? "this page"
   const shareUrl = buildShareUrl(cfg.baseUrl, fileData.slug)
   const summary =

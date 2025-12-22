@@ -44,6 +44,13 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.TimelineContent(),
       condition: (page) => page.fileData.slug === "timeline",
     }),
+    Component.ConditionalRender({
+      component: Component.GlossaryContent(),
+      condition: (page) => {
+        const slug = page.fileData.slug?.toLowerCase() ?? ""
+        return slug === "glossary" || slug === "glossary/index" || slug === "glossary/_index"
+      },
+    }),
     Component.TagList(),
   ],
   left: [
@@ -55,12 +62,21 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
     Component.TimelineLink(),
+    Component.GlossaryLink(),
     Component.ResourcesLink(),
   ],
   right: [
     Component.ConditionalRender({
       component: Component.Graph(),
-      condition: (page) => page.fileData.slug !== "timeline" && page.fileData.slug !== "resources",
+      condition: (page) => {
+        const slug = page.fileData.slug?.toLowerCase() ?? ""
+        return (
+          slug !== "timeline" &&
+          slug !== "resources" &&
+          slug !== "glossary" &&
+          slug !== "glossary/index"
+        )
+      },
     }),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
@@ -93,6 +109,13 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ArticleTitle(),
     Component.ContentMeta(),
+    Component.ConditionalRender({
+      component: Component.GlossaryContent(),
+      condition: (page) => {
+        const slug = page.fileData.slug?.toLowerCase() ?? ""
+        return slug === "glossary" || slug === "glossary/index" || slug === "glossary/_index"
+      },
+    }),
   ],
   left: [
     Component.ConditionalRender({
@@ -103,6 +126,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
     Component.TimelineLink(),
+    Component.GlossaryLink(),
     Component.ResourcesLink(),
   ],
   right: [],

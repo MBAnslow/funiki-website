@@ -1,5 +1,6 @@
 ---
 title: Sound Object
+summary: Sound objects are objects positioned in space.
 permalink: /glossary-sound_object
 tags:
   - sound object

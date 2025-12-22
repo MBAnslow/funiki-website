@@ -22,7 +22,7 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
   if (sources.length === 0) {
     return (
       <section class="resources-content">
-        <h2>Resources</h2>
+        <h2>All resources found across posts:</h2>
         <p>No resources found yet.</p>
       </section>
     )
@@ -30,7 +30,7 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
 
   return (
     <section class="resources-content">
-      <h2>Resources</h2>
+      <h2>All resources found across posts:</h2>
       {sources.map((source) => (
         <div class="resource-source">
           <div class="resource-source__header">
