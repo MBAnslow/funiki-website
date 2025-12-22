@@ -24,7 +24,8 @@ const GlossaryContent: QuartzComponent = ({ allFiles, fileData }: QuartzComponen
       const cleanedTitle =
         removeNumericPrefix(page.frontmatter?.title) ?? removeNumericPrefix(slugSegment)
       const title = cleanedTitle ?? page.frontmatter?.title ?? slugSegment ?? ""
-      const summary = page.frontmatter?.summary ?? ""
+      const summaryRaw = page.frontmatter?.summary
+      const summary = typeof summaryRaw === "string" ? summaryRaw : ""
       return { page, title, summary }
     })
     .filter(({ title }) => title.trim().length > 0)
@@ -63,22 +64,29 @@ const GlossaryContent: QuartzComponent = ({ allFiles, fileData }: QuartzComponen
               {letter}
             </h3>
             <ul class="section-ul">
-              {groups.get(letter)!.map(({ page, title, summary }) => (
-                <li class="section-li">
-                  <div class="section">
-                    <div class="desc">
-                      <h4>
-                        <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
-                          {title}
-                        </a>
-                      </h4>
-                      {summary.trim().length > 0 && (
-                        <p class="glossary-summary">{summary.trim()}</p>
-                      )}
+              {groups.get(letter)!.map(({ page, title, summary }) => {
+                const trimmedSummary = summary.trim()
+                const summaryText = trimmedSummary.length > 0 ? ` — ${trimmedSummary}` : ""
+                return (
+                  <li class="section-li">
+                    <div class="section">
+                      <div class="desc glossary-row">
+                        <p class="glossary-line">
+                          <span class="glossary-summary">
+                            <a
+                              href={resolveRelative(fileData.slug!, page.slug!)}
+                              class="internal glossary-term"
+                            >
+                              {title}
+                            </a>
+                            {summaryText}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         ))
@@ -102,10 +110,6 @@ GlossaryContent.css = `
   width: 100%;
 }
 
-.glossary-content .section h3 {
-  margin: 0;
-}
-
 .glossary-group {
   margin: 1rem 0 1.25rem;
 }
@@ -114,17 +118,31 @@ GlossaryContent.css = `
   margin: 0 0 0.5rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-size: 1.5em;
 }
 
-.glossary-group .section h4 {
+.glossary-line {
   margin: 0;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.glossary-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.glossary-term {
+  font-weight: 600;
 }
 
 .glossary-summary {
-  margin: 0.2rem 0 0;
+  margin: 0;
   color: var(--darkgray);
-  width: 100%;
-  display: block;
 }
 `
 

@@ -24,11 +24,11 @@
 :root[reader-mode="on"] {
   & .sidebar.left,
   & .sidebar.right {
-    opacity: 0.25;
+    opacity: 0.1;
     transition: opacity 0.2s ease;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.75;
     }
   }
 

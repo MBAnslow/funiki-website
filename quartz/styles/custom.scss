@@ -23,6 +23,17 @@
     margin: 0;
   }
 
+  .sidebar.left,
+  .sidebar.right {
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+  }
+
+  .sidebar.left:hover,
+  .sidebar.right:hover {
+    opacity: 0.75;
+  }
+
   .video-embed {
     display: flex;
     justify-content: center;
