@@ -22,19 +22,24 @@ export default (() => {
 
     const { css, js, additionalHead } = externalResources
 
-    const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
-    const path = url.pathname as FullSlug
-    const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
-    const iconPath = joinSegments(baseDir, "static/icon.png")
+    const normalizedBase =
+      cfg.baseUrl && /^https?:\/\//.test(cfg.baseUrl)
+        ? cfg.baseUrl
+        : `https://${cfg.baseUrl ?? "example.com"}`
+    const baseWithSlash = normalizedBase.endsWith("/") ? normalizedBase : `${normalizedBase}/`
+    const pageUrl =
+      fileData.slug === "404"
+        ? normalizedBase
+        : new URL(fileData.slug ?? "", baseWithSlash).toString()
 
-    // Url of current page
-    const socialUrl =
-      fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+    const baseDir =
+      fileData.slug === "404" ? new URL(baseWithSlash).pathname : pathToRoot(fileData.slug!)
+    const iconPath = joinSegments(baseDir, "static/icon.png")
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
     )
-    const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
+    const ogImageDefaultPath = new URL("static/og-image.png", baseWithSlash).toString()
 
     return (
       <head>
@@ -77,8 +82,8 @@ export default (() => {
         {cfg.baseUrl && (
           <>
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
-            <meta property="og:url" content={socialUrl}></meta>
-            <meta property="twitter:url" content={socialUrl}></meta>
+            <meta property="og:url" content={pageUrl}></meta>
+            <meta property="twitter:url" content={pageUrl}></meta>
           </>
         )}
 
