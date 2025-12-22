@@ -34,7 +34,7 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
       {sources.map((source) => (
         <div class="resource-source">
           <div class="resource-source__header">
-            <span class="resource-source__label">Resources from</span>{" "}
+            <span class="resource-source__label">... from</span>{" "}
             <a href={resolveRelative(fileData.slug!, source.slug as FullSlug)}>{source.title}</a>
           </div>
           <div class="resources-grid">
@@ -90,6 +90,7 @@ ResourcesContent.css = `
   margin: 0 0 0.5rem;
   font-size: clamp(1.2rem, 2vw, 1.4rem);
   font-weight: 700;
+  text-align: right;
 }
 .resource-source__label {
   font-weight: 600;

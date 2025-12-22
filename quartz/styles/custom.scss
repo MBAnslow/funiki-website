@@ -350,10 +350,10 @@ body[data-slug="index"] .landing-cloud-filters {
 
 body[data-slug="index"] .landing-clouds {
   position: absolute;
-  top: -18%;
-  left: -16%;
-  width: min(120vw, 1200px);
-  height: min(90vw, 880px);
+  top: -13vw;
+  left: -12vw;
+  width: 88vw;
+  height: 64vw;
   pointer-events: none;
   z-index: -2;
   mix-blend-mode: screen;
@@ -369,10 +369,10 @@ body[data-slug="index"] .landing-clouds .cloud {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-back {
-  width: 550px;
-  height: 320px;
-  top: -300px;
-  left: -300px;
+  width: 45vw;
+  height: 26vw;
+  top: -22vw;
+  left: -22vw;
   color: hsl(0 88% 68% / 0.95);
   box-shadow: 520px 460px 80px 0px currentColor;
   filter: url(#cloud-filter-back);
@@ -386,10 +386,10 @@ body[data-slug="index"] .landing-clouds .cloud-back {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-mid {
-  width: 320px;
-  height: 450px;
-  top: -100px;
-  left: -280px;
+  width: 27vw;
+  height: 38vw;
+  top: -8vw;
+  left: -20vw;
   color: hsl(12 82% 70% / 0.2);
   box-shadow: 420px 320px 70px 0px currentColor;
   filter: url(#cloud-filter-mid);
@@ -403,10 +403,10 @@ body[data-slug="index"] .landing-clouds .cloud-mid {
 }
 
 body[data-slug="index"] .landing-clouds .cloud-front {
-  width: 550px;
-  height: 260px;
-  top: -150px;
-  left: 50px;
+  width: 45vw;
+  height: 22vw;
+  top: -11vw;
+  left: 4vw;
   color: hsl(16 86% 74% / 0.98);
   box-shadow: 320px 220px 60px 0px currentColor;
   filter: url(#cloud-filter-front);
@@ -421,10 +421,10 @@ body[data-slug="index"] .landing-clouds .cloud-front {
 
 body[data-slug="index"] .landing-cloud-backing {
   position: absolute;
-  top: -100%;
-  left: -40%;
-  width: min(110vw, 1200px);
-  height: min(150vw, 1400px);
+  top: -75vw;
+  left: -50vw;
+  width: 100vw;
+  height: 116vw;
   transform: rotate(220deg);
   background: radial-gradient(
     circle at 38% 42%,
@@ -492,10 +492,10 @@ body[data-slug="index"] .landing-cloud-backing {
 
 @media all and ($mobile) {
   body[data-slug="index"] .landing-clouds {
-    top: -34%;
-    left: -34%;
-    width: 190vw;
-    height: 150vw;
+    top: -180px;
+    left: -160px;
+    width: 1200px;
+    height: 880px;
     opacity: 0.65;
   }
 
@@ -504,26 +504,26 @@ body[data-slug="index"] .landing-cloud-backing {
   }
 
   body[data-slug="index"] .landing-clouds .cloud-back {
-    width: 140vw;
-    height: 90vw;
-    top: -55vw;
-    left: -55vw;
+    width: 45vw;
+    height: 26vw;
+    top: -22vw;
+    left: -22vw;
     opacity: 0.28;
   }
 
   body[data-slug="index"] .landing-clouds .cloud-mid {
-    width: 125vw;
-    height: 85vw;
-    top: -38vw;
-    left: -45vw;
+    width: 27vw;
+    height: 38vw;
+    top: -8vw;
+    left: -20vw;
     opacity: 0.42;
   }
 
   body[data-slug="index"] .landing-clouds .cloud-front {
-    width: 110vw;
-    height: 70vw;
-    top: -22vw;
-    left: -32vw;
+    width: 45vw;
+    height: 22vw;
+    top: -11vw;
+    left: 4vw;
     opacity: 0.5;
   }
 }
@@ -602,12 +602,12 @@ body[data-slug="index"] .landing-title {
   isolation: isolate;
 }
 
-body[data-slug="index"] .landing-title::after {
-  content: "";
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: clamp(10rem, 80vw, 30rem);
-  height: clamp(10rem, 80vw, 30rem);
+body[data-slug="index"] .landing-sphere-bg {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  width: clamp(10rem, 60vw, 30rem);
+  height: clamp(10rem, 60vw, 30rem);
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
@@ -622,7 +622,7 @@ body[data-slug="index"] .landing-title::after {
   mix-blend-mode: normal;
   opacity: 1;
   filter: blur(8px);
-  transform: translate(-90%, -50%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
   animation: landingOrbSweep 18s ease-in-out infinite alternate -4s;
   z-index: -1;
@@ -644,6 +644,7 @@ body[data-slug="index"] .landing-text {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
 }
 
 body[data-slug="index"] .landing-text a {

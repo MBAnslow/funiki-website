@@ -18,7 +18,7 @@ weight: 1
 
 # What is Funiki?
 
-**Funiki** is a **Sony CSL Paris** research project exploring how **physical spaces can become responsive stages**. These stages blend **light and sound** to support everything from collaborative tabletop play to quiet, restorative solo moments.
+Funiki is a Sony CSL Paris research project exploring how physical spaces can become **responsive stages**. These stages blend **light and sound** to support everything from collaborative tabletop play to quiet, restorative solo moments.
 
 At its core, the Funiki engine keeps a **virtual stage** in sync with **real-world devices**. Object-based audiovisual elements can layer, mix, and move with natural dynamics across whatever lights and speakers a space already has.
 

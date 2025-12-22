@@ -33,6 +33,7 @@ weight: 0
     <div class="cloud cloud-mid"></div>
     <div class="cloud cloud-front"></div>
   </div>
+  <div class="landing-sphere-bg" aria-hidden="true"></div>
   <div class="glow-orb landing-orb" aria-hidden="true"></div>
   <div class="landing-title" role="heading" aria-level="1" aria-label="Funiki">
     <span class="glow-letter">F</span>
@@ -50,10 +51,7 @@ weight: 0
   </div>
 
   <p class="landing-text">
-    Supporting audio-visual ambient experiences for everyone, in everyday spaces. 
-    <br>
-    <br>
-    A project at <a  href="https://csl.sony.fr/projects/funiki">Sony CSL Paris</a>.
+    Supporting audio-visual ambient experiences for everyone, in everyday spaces. A project at <a  href="https://csl.sony.fr/projects/funiki">Sony CSL Paris</a>.
   </p>
 
   <a class="landing-link internal" href="/introduction" data-no-popover="true">

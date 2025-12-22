@@ -140,6 +140,61 @@ const createCurvedSegment = (
   }
 }
 
+const directionFromSegmentEnd = (segment?: PathSegment | null): Point | null => {
+  if (!segment) return null
+  const dx = segment.end.x - segment.control2.x
+  const dy = segment.end.y - segment.control2.y
+  const len = Math.hypot(dx, dy)
+  if (!isFinite(len) || len < 1e-3) return null
+  return { x: dx / len, y: dy / len }
+}
+
+const createCurvedSegmentAligned = (
+  start: Point,
+  end: Point,
+  bias: "down" | "up",
+  duration: number,
+  options: CurvedSegmentOptions = {},
+  prevSegment?: PathSegment | null,
+): PathSegment => {
+  const prevDir = directionFromSegmentEnd(prevSegment)
+  if (!prevDir) {
+    return createCurvedSegment(start, end, bias, duration, options)
+  }
+
+  const { curvatureBoost = 1, horizontalDriftMultiplier = 1 } = options
+  const span = Math.hypot(end.x - start.x, end.y - start.y) || 1
+  const base = span / 3
+  const d1 = Math.max(28, base * horizontalDriftMultiplier * 0.9)
+  const d2 = Math.max(28, base * horizontalDriftMultiplier * 0.9)
+
+  // Bend slightly using the perpendicular to preserve "up/down" bias while following the incoming tangent.
+  const perp = { x: -prevDir.y, y: prevDir.x }
+  const perpLen = Math.hypot(perp.x, perp.y)
+  if (perpLen > 1e-5) {
+    perp.x /= perpLen
+    perp.y /= perpLen
+  }
+  const bendScale = Math.max(0.18, Math.min(0.32, curvatureBoost * 0.22))
+  const bend = bendScale * span * (bias === "down" ? 1 : -1)
+  const bendX = perp.x * bend
+  const bendY = perp.y * bend
+
+  return {
+    start,
+    control1: {
+      x: start.x + prevDir.x * d1 + bendX * 0.35,
+      y: start.y + prevDir.y * d1 + bendY * 0.35,
+    },
+    control2: {
+      x: end.x - prevDir.x * d2 + bendX,
+      y: end.y - prevDir.y * d2 + bendY,
+    },
+    end,
+    duration,
+  }
+}
+
 const LETTER_GLOW_DECAY_MS = 350
 const letterGlowFadeTimers = new WeakMap<Element, number>()
 
@@ -848,13 +903,27 @@ const animateOrb = (orb: HTMLElement) => {
       segment = createArcOverLastISegment(from, to, duration, curvedSegmentOptions)
     } else if (isFinalSegment) {
       duration = Math.max(duration * 2.4, 2000)
-      segment = createCurvedSegment(from, to, bias, duration, {
+      segment = createCurvedSegmentAligned(
+        from,
+        to,
+        bias,
+        duration,
+        {
         curvatureBoost: 3.2,
         horizontalDriftMultiplier: 2.6,
         terminalLiftMultiplier: 2.0,
-      })
+        },
+        segments[segments.length - 1],
+      )
     } else {
-      segment = createCurvedSegment(from, to, bias, duration, commonOptions)
+      segment = createCurvedSegmentAligned(
+        from,
+        to,
+        bias,
+        duration,
+        commonOptions,
+        segments[segments.length - 1],
+      )
     }
     segments.push(segment)
     movementIndex += 1
