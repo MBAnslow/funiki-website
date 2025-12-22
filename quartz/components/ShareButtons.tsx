@@ -12,10 +12,14 @@ const buildShareUrl = (cfgBaseUrl: string | undefined, slug: string | undefined)
     return base
   }
 
+  // Ensure the base keeps its path (e.g., GitHub Pages subfolder) by forcing a trailing slash.
+  const normalizedBase = base.endsWith("/") ? base : `${base}/`
+  const normalizedSlug = slug.replace(/^\//, "")
+
   try {
-    return new URL(slug, base || "http://localhost").toString()
+    return new URL(normalizedSlug, normalizedBase || "http://localhost/").toString()
   } catch {
-    return `${base}/${slug}`
+    return `${normalizedBase}${normalizedSlug}`
   }
 }
 
