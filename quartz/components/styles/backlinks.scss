@@ -20,6 +20,15 @@
     & > li {
       & > a {
         background-color: transparent;
+        color: var(--dark);
+        opacity: 0.8; // match TOC in-view link tone
+        transition:
+          0.3s ease opacity,
+          0.3s ease color;
+
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }
