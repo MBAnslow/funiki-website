@@ -909,9 +909,9 @@ const animateOrb = (orb: HTMLElement) => {
         bias,
         duration,
         {
-          curvatureBoost: 3.2,
-          horizontalDriftMultiplier: 2.6,
-          terminalLiftMultiplier: 2.0,
+        curvatureBoost: 3.2,
+        horizontalDriftMultiplier: 2.6,
+        terminalLiftMultiplier: 2.0,
         },
         segments[segments.length - 1],
       )

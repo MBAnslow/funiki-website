@@ -28,6 +28,8 @@ import TimelineLink from "./TimelineLink"
 import TimelineContent from "./TimelineContent"
 import ResourcesLink from "./ResourcesLink"
 import ResourcesContent from "./ResourcesContent"
+import ShareButtons from "./ShareButtons"
+import ShareFooter from "./ShareFooter"
 
 export {
   ArticleTitle,
@@ -60,4 +62,6 @@ export {
   TimelineContent,
   ResourcesLink,
   ResourcesContent,
+  ShareButtons,
+  ShareFooter,
 }

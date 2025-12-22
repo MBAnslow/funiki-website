@@ -2,6 +2,9 @@ footer {
   text-align: left;
   margin-bottom: 4rem;
   opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 
   & ul {
     list-style: none;
@@ -11,5 +14,11 @@ footer {
     flex-direction: row;
     gap: 1rem;
     margin-top: -1rem;
+  }
+
+  .footer-share {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
   }
 }
