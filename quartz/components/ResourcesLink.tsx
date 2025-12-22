@@ -5,10 +5,10 @@ import { FullSlug, resolveRelative } from "../util/path"
 const ResourcesLink: QuartzComponent = ({ displayClass, fileData }: QuartzComponentProps) => {
   const href = resolveRelative(fileData.slug!, "resources" as FullSlug)
   return (
-    <div class={classNames(displayClass, "timeline-link")}>
-      <a class="timeline-link__anchor" href={href}>
-        Resources
-      </a>
+    <div class={classNames(displayClass, "title-button timeline-link")}>
+      <h2>
+        <a href={href}>Resources</a>
+      </h2>
     </div>
   )
 }

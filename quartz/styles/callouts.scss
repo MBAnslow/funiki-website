@@ -47,6 +47,13 @@
     line-height: 1.2;
   }
 
+  .resource-title-inner p {
+    margin: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
   /* Link colors (scoped to resource to increase specificity) */
   .resource .resource-title a {
     text-decoration: none;
