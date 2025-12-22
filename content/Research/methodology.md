@@ -9,10 +9,12 @@ tags:
   - research-creation
 ---
 
+# Research Creation
+
 There are two core research questions within the Funiki project:
 
-What is the breadth and depth of object-based audiovisual ambient experiences?
-How can AI be used to support the creation of ambience?
+1. _What is the breadth and depth of object-based audiovisual ambient experiences?_
+2. _How can AI be used to support the creation of ambience?_
 
 The ‘research creation’ paradigm is particularly appropriate for the project. That is, where creative practice is integral to the research methodology of the project. The tool and the creative targets co-evolve together. Here, the tool is the Funiki engine, and the targets are ambient experiences across varying contexts of use. Unlike projects with concrete initial goals, Funiki grows in the direction of intuition about what the system could and should be, and part of this growth is refining this intuition over time through creation.
 
