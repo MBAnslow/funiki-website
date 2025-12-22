@@ -433,16 +433,16 @@ body[data-slug="index"] .landing-clouds .cloud-front {
 body[data-slug="index"] .landing-cloud-backing {
   position: absolute;
   top: -75vw;
-  left: -50vw;
+  left: -40vw;
   width: 100vw;
   height: 116vw;
   transform: rotate(220deg);
   background: radial-gradient(
     circle at 38% 42%,
-    var(--cloud-backing-core) 0%,
-    var(--cloud-backing-mid) 45%,
-    var(--cloud-backing-edge) 70%,
-    transparent 82%
+    var(--cloud-backing-core) 40%,
+    var(--cloud-backing-mid) 25%,
+    var(--cloud-backing-edge) 20%,
+    transparent 10%
   );
 
   filter: blur(20px) hue-rotate(0deg);
@@ -450,7 +450,7 @@ body[data-slug="index"] .landing-cloud-backing {
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -3;
-  animation: landingCloudBackingHue 20s linear infinite;
+  animation: landingCloudBackingHue 50s linear infinite;
 }
 
 @keyframes landingCloudDrift {
