@@ -200,6 +200,16 @@ ShareButtons.css = `
   margin-right: 0.5rem;
   flex: 0 0 12px;
 }
+
+@media all and (max-width: 800px) {
+  .share-bar {
+    justify-content: center;
+  }
+
+  .share-bar__link + .share-bar__link {
+    margin-left: 0.6rem;
+  }
+}
 `
 
 export default (() => ShareButtons) satisfies QuartzComponentConstructor

@@ -9,18 +9,19 @@
 
   & > .search-button {
     background-color: transparent;
-    border: 1px var(--lightgray) solid;
+    border: 0;
     border-radius: 4px;
     font-family: inherit;
     font-size: inherit;
     height: 2rem;
-    padding: 0 1rem 0 0;
+    padding: 0;
     display: flex;
     align-items: center;
     text-align: inherit;
     cursor: pointer;
     white-space: nowrap;
     width: 100%;
+    margin-top: -5px;
 
     & > p {
       display: inline;
@@ -30,15 +31,21 @@
 
     & svg {
       cursor: pointer;
-      width: 18px;
-      min-width: 18px;
-      margin: 0 0.5rem;
+      width: 20px;
+      min-width: 20px;
 
       .search-path {
         stroke: var(--darkgray);
         stroke-width: 1.5px;
         transition: stroke 0.5s ease;
       }
+    }
+  }
+
+  @media all and ($mobile) {
+    & > .search-button {
+      margin-top: 0;
+      padding: 0 1rem 0 0;
     }
   }
 
@@ -247,9 +254,9 @@
 
     & > .search-button {
       border-radius: 999px;
-      width: 2.25rem;
-      height: 2.25rem;
-      padding: 0.25rem;
+      // width: 2.25rem;
+      // height: 2.25rem;
+      // padding: 0.25rem;
       justify-content: center;
     }
 

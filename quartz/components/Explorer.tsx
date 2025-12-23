@@ -54,6 +54,7 @@ export default ((userOpts?: Partial<Options>) => {
 
   const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
     const id = `explorer-${numExplorers++}`
+    const components = i18n(cfg.locale).components as Record<string, { title?: string }>
 
     return (
       <div
@@ -93,7 +94,17 @@ export default ((userOpts?: Partial<Options>) => {
           <h2>{opts.title ?? i18n(cfg.locale).components.explorer.title}</h2>
         </div>
         <div id={id} class="explorer-content" aria-expanded={true} role="group">
-          <OverflowList class="explorer-ul" />
+          <OverflowList class="explorer-ul">
+            <li>
+              <a href="/timeline">{components.timeline?.title ?? "Timeline"}</a>
+            </li>
+            <li>
+              <a href="/glossary">{components.glossary?.title ?? "Glossary"}</a>
+            </li>
+            <li>
+              <a href="/resources">{components.resources?.title ?? "Resources"}</a>
+            </li>
+          </OverflowList>
         </div>
         <template id="template-file">
           <li>
