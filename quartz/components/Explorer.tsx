@@ -57,6 +57,7 @@ export default ((userOpts?: Partial<Options>) => {
     const id = `explorer-${numExplorers++}`
     const components = i18n(cfg.locale).components as Record<string, { title?: string }>
     const currentSlug = (fileData.slug ?? ("index" as FullSlug)) as FullSlug
+    const homeHref = resolveRelative(currentSlug, "index" as FullSlug)
     const timelineHref = resolveRelative(currentSlug, "timeline" as FullSlug)
     const glossaryHref = resolveRelative(currentSlug, "glossary" as FullSlug)
     const resourcesHref = resolveRelative(currentSlug, "resources" as FullSlug)
@@ -100,6 +101,9 @@ export default ((userOpts?: Partial<Options>) => {
         </div>
         <div id={id} class="explorer-content" aria-expanded={true} role="group">
           <OverflowList class="explorer-ul">
+            <li class="mobile-nav-only">
+              <a href={homeHref}>Funiki</a>
+            </li>
             <li class="mobile-nav-only">
               <a href={timelineHref}>{components.timeline?.title ?? "Timeline"}</a>
             </li>

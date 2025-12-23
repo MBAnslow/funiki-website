@@ -116,6 +116,15 @@
   }
 }
 
+/* Light mode: resource titles use light gray (override dark defaults) */
+:root:not([saved-theme="dark"]) .resource .resource-title-inner,
+:root:not([saved-theme="dark"]) .resource .resource-title-inner span,
+:root:not([saved-theme="dark"]) .resource .resource-title-inner p,
+:root:not([saved-theme="dark"]) .resource .resource-title a,
+:root:not([saved-theme="dark"]) .resource .resource-title a span {
+  color: var(--lightgray) !important;
+}
+
 .callout {
   border: 1px solid var(--border);
   background-color: var(--bg);
