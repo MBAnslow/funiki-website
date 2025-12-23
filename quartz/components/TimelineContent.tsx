@@ -79,6 +79,7 @@ TimelineContent.css = `
 
 .timeline-content h2 {
   margin: 0 0 0.75rem;
+  color: var(--darkgray);
 }
 
 .timeline-content .section h3 {

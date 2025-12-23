@@ -75,6 +75,13 @@
     display: flex;
   }
 
+  // Show timeline/glossary/resources shortcuts only when the sidebar collapses (mobile)
+  .mobile-nav-only {
+    @media all and not ($mobile) {
+      display: none !important;
+    }
+  }
+
   @media all and ($mobile) {
     button.mobile-explorer {
       display: flex;
@@ -169,6 +176,11 @@ button.desktop-explorer {
     & li {
       line-height: 1.2rem;
       margin: 2px;
+    }
+
+    // Timeline/Glossary/Resources shortcuts default to dark gray
+    & li.mobile-nav-only > a {
+      color: var(--darkgray);
     }
 
     & li > a {

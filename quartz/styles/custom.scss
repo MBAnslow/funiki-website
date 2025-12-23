@@ -1016,3 +1016,18 @@ body[data-slug="index"] .landing-shell .orb-debug-point {
     filter: blur(50px) hue-rotate(360deg);
   }
 }
+
+// Sidebar quick links (Timeline/Resources/Glossary) default color
+.title-button.timeline-link a,
+.title-button.glossary-link a {
+  color: var(--darkgray);
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--tertiary);
+  }
+
+  &.active {
+    color: var(--tertiary);
+  }
+}

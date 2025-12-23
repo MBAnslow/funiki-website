@@ -100,13 +100,13 @@ export default ((userOpts?: Partial<Options>) => {
         </div>
         <div id={id} class="explorer-content" aria-expanded={true} role="group">
           <OverflowList class="explorer-ul">
-            <li>
+            <li class="mobile-nav-only">
               <a href={timelineHref}>{components.timeline?.title ?? "Timeline"}</a>
             </li>
-            <li>
+            <li class="mobile-nav-only">
               <a href={glossaryHref}>{components.glossary?.title ?? "Glossary"}</a>
             </li>
-            <li>
+            <li class="mobile-nav-only">
               <a href={resourcesHref}>{components.resources?.title ?? "Resources"}</a>
             </li>
           </OverflowList>

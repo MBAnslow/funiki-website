@@ -41,16 +41,21 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
             {source.resources.map((res) => (
               <div class="resource" data-resource={res.type}>
                 <div class="resource-title">
-                  <div class={`resource-icon resource-icon--${res.type}`}></div>
-                  <div class="resource-title-inner">
-                    {res.type === "link" && res.href ? (
-                      <a class="link-card__title" href={res.href}>
+                  {res.type === "link" && res.href ? (
+                    <a class="link-card__title resource-link" href={res.href}>
+                      <div class={`resource-icon resource-icon--${res.type}`}></div>
+                      <div class="resource-title-inner">
                         <span>{res.title}</span>
-                      </a>
-                    ) : (
-                      <p>{res.title}</p>
-                    )}
-                  </div>
+                      </div>
+                    </a>
+                  ) : (
+                    <>
+                      <div class={`resource-icon resource-icon--${res.type}`}></div>
+                      <div class="resource-title-inner">
+                        <span>{res.title}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
                 {(res.desc || res.type === "video") && (
                   <div class="resource-content">
@@ -82,6 +87,7 @@ ResourcesContent.css = `
 }
 .resources-content h2 {
   margin: 0 0 1rem;
+  color: var(--darkgray);
 }
 .resource-source {
   margin-bottom: 1.5rem;

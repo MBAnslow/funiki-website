@@ -41,10 +41,31 @@
     min-height: 45px;
   }
 
+  .resource-title .resource-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    text-decoration: none;
+    color: var(--dark);
+  }
+
+  /* Ensure title container stays dark (incl. video cards) */
   .resource-title-inner {
+    color: var(--dark);
+  }
+
+  .resource-title-inner p,
+  .resource-title-inner span {
+    color: var(--dark);
+  }
+
+  .resource-title-inner {
+    font-family: var(--titleFont);
     font-weight: 700;
     font-size: clamp(1.3rem, 2vw, 1.6rem);
     line-height: 1.2;
+    padding-bottom: 9px;
   }
 
   .resource-title-inner p {
@@ -54,24 +75,14 @@
     font-weight: inherit;
   }
 
-  /* Link colors (scoped to resource to increase specificity) */
-  .resource .resource-title a {
+  /* Resource titles: always dark base color */
+  .resource .resource-title a,
+  .resource .resource-title p,
+  .resource .resource-title span {
     text-decoration: none;
-  }
-
-  /* Light mode link colors */
-  :root:not([saved-theme="dark"]) .resource .resource-title a {
     color: var(--dark);
   }
-  :root:not([saved-theme="dark"]) .resource .resource-title a:hover {
-    color: var(--tertiary);
-  }
-
-  /* Dark mode link colors */
-  :root[saved-theme="dark"] .resource .resource-title a {
-    color: var(--light);
-  }
-  :root[saved-theme="dark"] .resource .resource-title a:hover {
+  .resource .resource-title a:hover {
     color: var(--tertiary);
   }
 

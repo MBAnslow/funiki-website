@@ -116,9 +116,10 @@ GlossaryContent.css = `
 
 .glossary-letter {
   margin: 0 0 0.5rem;
+  margin-left: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .glossary-line {
@@ -138,11 +139,13 @@ GlossaryContent.css = `
 
 .glossary-term {
   font-weight: 600;
+  padding-left: 1.5rem;
 }
 
 .glossary-summary {
   margin: 0;
   color: var(--darkgray);
+  padding-left: 2rem;
 }
 `
 
