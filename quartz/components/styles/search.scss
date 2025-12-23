@@ -1,10 +1,16 @@
 @use "../../styles/variables.scss" as *;
 
 .search {
+  display: flex;
+  align-items: center;
+  align-self: end;
   min-width: fit-content;
   max-width: 14rem;
+  margin-top: 0;
   @media all and ($mobile) {
     flex-grow: 0.3;
+    align-self: center;
+    margin-top: 0;
   }
 
   & > .search-button {
@@ -13,15 +19,20 @@
     border-radius: 4px;
     font-family: inherit;
     font-size: inherit;
-    height: 2rem;
+    height: 20px;
+    min-height: 20px;
     padding: 0;
     display: flex;
     align-items: center;
+    align-self: flex-end;
     text-align: inherit;
     cursor: pointer;
     white-space: nowrap;
-    width: 100%;
-    margin-top: -5px;
+    // width: 100%;
+    margin-top: 0;
+    line-height: 0;
+    justify-content: flex-end;
+    align-self: center;
 
     & > p {
       display: inline;
@@ -46,6 +57,20 @@
     & > .search-button {
       margin-top: 0;
       padding: 0 1rem 0 0;
+      justify-content: center;
+      align-self: center;
+      height: 2rem;
+      min-height: 2rem;
+      line-height: normal;
+    }
+  }
+
+  // Safari needs extra spacing for the search trigger
+  @supports (font: -apple-system-body) {
+    margin-top: 14px;
+
+    @media all and ($mobile) {
+      margin-top: 14px;
     }
   }
 

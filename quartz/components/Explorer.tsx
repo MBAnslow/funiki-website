@@ -6,7 +6,7 @@ import script from "./scripts/explorer.inline"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 import { FileTrieNode } from "../util/fileTrie"
-import { resolveRelative, simplifySlug, type FullSlug } from "../util/path"
+import { resolveRelative, type FullSlug } from "../util/path"
 import OverflowListFactory from "./OverflowList"
 import { concatenateResources } from "../util/resources"
 
@@ -56,7 +56,7 @@ export default ((userOpts?: Partial<Options>) => {
   const Explorer: QuartzComponent = ({ cfg, displayClass, fileData }: QuartzComponentProps) => {
     const id = `explorer-${numExplorers++}`
     const components = i18n(cfg.locale).components as Record<string, { title?: string }>
-    const currentSlug = (fileData.slug ? simplifySlug(fileData.slug) : "index") as FullSlug
+    const currentSlug = (fileData.slug ?? ("index" as FullSlug)) as FullSlug
     const timelineHref = resolveRelative(currentSlug, "timeline" as FullSlug)
     const glossaryHref = resolveRelative(currentSlug, "glossary" as FullSlug)
     const resourcesHref = resolveRelative(currentSlug, "resources" as FullSlug)
