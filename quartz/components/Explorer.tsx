@@ -6,6 +6,7 @@ import script from "./scripts/explorer.inline"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 import { FileTrieNode } from "../util/fileTrie"
+import { resolveRelative, simplifySlug, type FullSlug } from "../util/path"
 import OverflowListFactory from "./OverflowList"
 import { concatenateResources } from "../util/resources"
 
@@ -52,9 +53,13 @@ export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
 
-  const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
+  const Explorer: QuartzComponent = ({ cfg, displayClass, fileData }: QuartzComponentProps) => {
     const id = `explorer-${numExplorers++}`
     const components = i18n(cfg.locale).components as Record<string, { title?: string }>
+    const currentSlug = (fileData.slug ? simplifySlug(fileData.slug) : "index") as FullSlug
+    const timelineHref = resolveRelative(currentSlug, "timeline" as FullSlug)
+    const glossaryHref = resolveRelative(currentSlug, "glossary" as FullSlug)
+    const resourcesHref = resolveRelative(currentSlug, "resources" as FullSlug)
 
     return (
       <div
@@ -96,13 +101,13 @@ export default ((userOpts?: Partial<Options>) => {
         <div id={id} class="explorer-content" aria-expanded={true} role="group">
           <OverflowList class="explorer-ul">
             <li>
-              <a href="/timeline">{components.timeline?.title ?? "Timeline"}</a>
+              <a href={timelineHref}>{components.timeline?.title ?? "Timeline"}</a>
             </li>
             <li>
-              <a href="/glossary">{components.glossary?.title ?? "Glossary"}</a>
+              <a href={glossaryHref}>{components.glossary?.title ?? "Glossary"}</a>
             </li>
             <li>
-              <a href="/resources">{components.resources?.title ?? "Resources"}</a>
+              <a href={resourcesHref}>{components.resources?.title ?? "Resources"}</a>
             </li>
           </OverflowList>
         </div>
