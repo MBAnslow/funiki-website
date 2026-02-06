@@ -2,7 +2,7 @@
 title: The System
 summary: A broad description of the Funiki system.
 draft: false
-permalink: /system
+permalink: /project-system
 tags:
   - funiki
   - research
