@@ -8,6 +8,8 @@ tags:
   - demo
 publishDate: 04/12/2025
 weight: 1
+headerImage: ./static/the-lighthouse/lighthouse-header.png
+headerImageAlt: Lighthouse shining in the night across the sea.
 ---
 
 The Lighthouse was a project created in collaboration with Guillaume Boulliard who served as a creative technologist for the project. The project focused on creating a tabletop roleplaying scenario in the form of a Scooby Doo-style mystery. This set a specific creative goal for the project that raised various creative and technical challenges.
