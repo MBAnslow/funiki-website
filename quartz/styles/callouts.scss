@@ -25,6 +25,13 @@
     --resource-icon-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24' fill='black'><path d='M200-320h400L462-500l-92 120-62-80-108 140Zm-40 160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h480q33 0 56.5 23.5T720-720v180l160-160v440L720-420v180q0 33-23.5 56.5T640-160H160Zm0-80h480v-480H160v480Zm0 0v-480 480Z'/></svg>");
   }
 
+  &[data-resource="pdf"] {
+    --color: var(--secondary);
+    --border: color-mix(in srgb, var(--secondary) 40%, transparent);
+    --bg: color-mix(in srgb, var(--highlight) 80%, transparent);
+    --resource-icon-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24' fill='black'><path d='M320-240h320v-80H320v80Zm0-160h320v-80H320v80Zm160-240v-120H320v120h160ZM280-80q-33 0-56.5-23.5T200-160v-640q0-33 23.5-56.5T280-880h320l160 160v560q0 33-23.5 56.5T680-80H280Zm280-560v-160H280v640h400v-480H560Z'/></svg>");
+  }
+
   .resource-title {
     display: flex;
     align-items: flex-start;
@@ -105,6 +112,10 @@
     margin-top: -1px;
   }
 
+  .resource-icon--pdf {
+    mask-image: var(--resource-icon-mask);
+  }
+
   .resource-content {
     padding: 0.2rem;
     display: grid;
@@ -114,6 +125,11 @@
       line-height: 1.4;
     }
   }
+}
+
+.pdf-callout-embed {
+  width: 100%;
+  min-height: 600px;
 }
 
 /* Light mode: resource titles use light gray (override dark defaults) */

@@ -1,4 +1,5 @@
 import path from "path"
+import fs from "fs/promises"
 import { QuartzEmitterPlugin } from "../types"
 import { QuartzComponentProps } from "../../components/types"
 import HeaderConstructor from "../../components/Header"
@@ -14,6 +15,7 @@ import { BuildCtx } from "../../util/ctx"
 import { Node } from "unist"
 import { StaticResources } from "../../util/resources"
 import { QuartzPluginData } from "../vfile"
+import { isLandingSlug, landingSlugAliases, landingDuplicateTargets } from "../../util/landing"
 
 async function processContent(
   ctx: BuildCtx,
@@ -75,24 +77,30 @@ export const ContentPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOp
     },
     async *emit(ctx, content, resources) {
       const allFiles = content.map((c) => c[1].data)
-      let containsIndex = false
+      let containsLanding = false
 
       for (const [tree, file] of content) {
         const slug = file.data.slug!
-        if (slug === "index") {
-          containsIndex = true
+        if (isLandingSlug(slug)) {
+          containsLanding = true
         }
 
         // only process home page, non-tag pages, and non-index pages
-        if (slug.endsWith("/index") || slug.startsWith("tags/")) continue
-        yield processContent(ctx, tree, file.data, allFiles, opts, resources)
+        if (!isLandingSlug(slug) && (slug.endsWith("/index") || slug.startsWith("tags/"))) continue
+        const outputPath = await processContent(ctx, tree, file.data, allFiles, opts, resources)
+        yield outputPath
+        if (isLandingSlug(slug)) {
+          await duplicateLandingOutputs(ctx, slug)
+        }
       }
 
-      if (!containsIndex) {
+      if (!containsLanding) {
         console.log(
           styleText(
             "yellow",
-            `\nWarning: you seem to be missing an \`index.md\` home page file at the root of your \`${ctx.argv.directory}\` folder (\`${path.join(ctx.argv.directory, "index.md")} does not exist\`). This may cause errors when deploying.`,
+            `\nWarning: no landing page found. Ensure one of the following files exists: ${landingSlugAliases
+              .map((slug) => `\`${slug}\``)
+              .join(", ")}.`,
           ),
         )
       }
@@ -112,10 +120,29 @@ export const ContentPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOp
       for (const [tree, file] of content) {
         const slug = file.data.slug!
         if (!changedSlugs.has(slug)) continue
-        if (slug.endsWith("/index") || slug.startsWith("tags/")) continue
+        if (!isLandingSlug(slug) && (slug.endsWith("/index") || slug.startsWith("tags/"))) continue
 
-        yield processContent(ctx, tree, file.data, allFiles, opts, resources)
+        const outputPath = await processContent(ctx, tree, file.data, allFiles, opts, resources)
+        yield outputPath
+        if (isLandingSlug(slug)) {
+          await duplicateLandingOutputs(ctx, slug)
+        }
       }
     },
+  }
+}
+
+async function duplicateLandingOutputs(ctx: BuildCtx, slug: string) {
+  const targets = landingDuplicateTargets(slug)
+  if (targets.length === 0) {
+    return
+  }
+
+  const sourcePath = path.join(ctx.argv.output, `${slug}.html`)
+  for (const target of targets) {
+    const destinationPath = path.join(ctx.argv.output, `${target}.html`)
+    if (destinationPath === sourcePath) continue
+    await fs.mkdir(path.dirname(destinationPath), { recursive: true })
+    await fs.copyFile(sourcePath, destinationPath)
   }
 }

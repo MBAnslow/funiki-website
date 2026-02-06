@@ -15,6 +15,7 @@ import {
   zoom,
 } from "d3"
 import { Text, Graphics, Application, Container, Circle } from "pixi.js"
+import type { ApplicationOptions } from "pixi.js"
 import { Group as TweenGroup, Tween as Tweened } from "@tweenjs/tween.js"
 import { registerEscapeHandler, removeAllChildren } from "./util"
 import { FullSlug, SimpleSlug, getFullSlug, resolveRelative, simplifySlug } from "../../util/path"
@@ -67,6 +68,8 @@ type TweenNode = {
   update: (time: number) => void
   stop: () => void
 }
+
+type RendererPreference = NonNullable<ApplicationOptions["preference"]>
 
 async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   const slug = simplifySlug(fullSlug)
@@ -163,6 +166,31 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
 
   const width = graph.offsetWidth
   const height = Math.max(graph.offsetHeight, 250)
+
+  const rendererOptions: Omit<ApplicationOptions, "preference"> = {
+    width,
+    height,
+    antialias: true,
+    autoStart: false,
+    autoDensity: true,
+    backgroundAlpha: 0,
+    resolution: window.devicePixelRatio,
+    eventMode: "static",
+  }
+
+  const initWithPreference = async (preference?: RendererPreference) => {
+    const candidate = new Application()
+    try {
+      await candidate.init({
+        ...rendererOptions,
+        ...(preference ? { preference } : {}),
+      })
+      return candidate
+    } catch (error) {
+      candidate.destroy(true)
+      throw error
+    }
+  }
 
   // we virtualize the simulation and use pixi to actually render it
   const simulation: Simulation<NodeData, LinkData> = forceSimulation<NodeData>(graphData.nodes)
@@ -349,18 +377,19 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   tweens.forEach((tween) => tween.stop())
   tweens.clear()
 
-  const app = new Application()
-  await app.init({
-    width,
-    height,
-    antialias: true,
-    autoStart: false,
-    autoDensity: true,
-    backgroundAlpha: 0,
-    preference: "webgpu",
-    resolution: window.devicePixelRatio,
-    eventMode: "static",
-  })
+  let app: Application
+  try {
+    app = await initWithPreference("webgpu")
+  } catch (webGpuError) {
+    console.warn("[graph] WebGPU renderer unavailable, falling back to WebGL", webGpuError)
+    try {
+      app = await initWithPreference("webgl")
+    } catch (webGlError) {
+      console.error("[graph] Failed to initialise renderer", webGlError)
+      graph.textContent = "Interactive graph unavailable on this device."
+      return () => {}
+    }
+  }
   graph.appendChild(app.canvas)
 
   const stage = app.stage
@@ -595,9 +624,17 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
     }
   }
 
-  await renderLocalGraph()
+  const safeRenderLocalGraph = async () => {
+    try {
+      await renderLocalGraph()
+    } catch (error) {
+      console.error("[graph] Failed to render local graph", error)
+    }
+  }
+
+  await safeRenderLocalGraph()
   const handleThemeChange = () => {
-    void renderLocalGraph()
+    void safeRenderLocalGraph()
   }
 
   document.addEventListener("themechange", handleThemeChange)

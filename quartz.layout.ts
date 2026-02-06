@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { isLandingSlug } from "./quartz/util/landing"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -56,7 +57,7 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.ConditionalRender({
       component: Component.GlowingOrb(),
-      condition: (page) => page.fileData.slug === "index",
+      condition: (page) => isLandingSlug(page.fileData.slug),
     }),
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
@@ -65,22 +66,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.GlossaryLink(),
     Component.ResourcesLink(),
   ],
-  right: [
-    Component.ConditionalRender({
-      component: Component.Graph(),
-      condition: (page) => {
-        const slug = page.fileData.slug?.toLowerCase() ?? ""
-        return (
-          slug !== "timeline" &&
-          slug !== "resources" &&
-          slug !== "glossary" &&
-          slug !== "glossary/index"
-        )
-      },
-    }),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [Component.DesktopOnly(Component.TableOfContents()), Component.Backlinks()],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
@@ -120,7 +106,7 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.ConditionalRender({
       component: Component.GlowingOrb(),
-      condition: (page) => page.fileData.slug === "index",
+      condition: (page) => isLandingSlug(page.fileData.slug),
     }),
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),

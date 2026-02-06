@@ -10,6 +10,7 @@ import { Root, Element, ElementContent } from "hast"
 import { GlobalConfiguration } from "../cfg"
 import { i18n } from "../i18n"
 import { styleText } from "util"
+import { isLandingSlug } from "../util/landing"
 
 interface RenderComponents {
   head: QuartzComponent
@@ -259,10 +260,11 @@ export function renderPage(
 
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
   const direction = i18n(cfg.locale).direction ?? "ltr"
+  const isLandingPage = isLandingSlug(slug)
   const doc = (
     <html lang={lang} dir={direction}>
       <Head {...componentData} />
-      <body data-slug={slug}>
+      <body data-slug={slug} data-landing={isLandingPage ? "true" : undefined}>
         <div id="quartz-root" class="page">
           <Body {...componentData}>
             {LeftComponent}

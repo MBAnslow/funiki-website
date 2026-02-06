@@ -108,6 +108,10 @@ article ol li::marker {
   opacity: 0.6;
 }
 
+.page article p {
+  font-weight: 300;
+}
+
 .math {
   &.math-display {
     text-align: center;
@@ -147,8 +151,8 @@ a {
   &.internal {
     text-decoration: none;
     background-color: var(--highlight);
-    padding: 0 0.1rem;
-    border-radius: 5px;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
     line-height: 1.4rem;
 
     &.broken {
@@ -221,7 +225,7 @@ a {
     }
 
     p {
-      font-weight: 200;
+      font-weight: 300;
       line-height: 1.8rem;
       margin-left: 15px;
       margin-bottom: 35px;
@@ -283,7 +287,7 @@ a {
       top: 0;
       box-sizing: border-box;
       padding: 2rem 1.25rem 1.5rem 1.25rem;
-      padding-top: 2rem;
+      padding-top: 4rem;
       display: flex;
       height: 100vh;
       position: sticky;
@@ -296,6 +300,8 @@ a {
       z-index: 1;
       grid-area: grid-sidebar-left;
       flex-direction: column;
+      padding-right: 0;
+      padding-left: 12vw;
       @media all and ($mobile) {
         gap: 0;
         align-items: center;
@@ -305,6 +311,7 @@ a {
         flex-direction: row;
         padding: 0;
         padding-top: 2rem;
+        padding-left: 10vw;
       }
     }
 
@@ -312,6 +319,8 @@ a {
       grid-area: grid-sidebar-right;
       margin-right: 0;
       flex-direction: column;
+      padding-left: 0;
+      padding-right: 10vw;
       @media all and ($mobile) {
         margin-left: inherit;
         margin-right: inherit;
@@ -772,7 +781,7 @@ iframe.pdf {
   border: 0;
   border-radius: 10px;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 /* Reusable link badge (title + description) */

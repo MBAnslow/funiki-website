@@ -23,6 +23,7 @@ export const Citations: QuartzTransformerPlugin<Partial<Options>> = (userOpts) =
     name: "Citations",
     htmlPlugins(ctx) {
       const plugins: PluggableList = []
+      const bibliographyHeading = "References"
 
       // Add rehype-citation to the list of plugins
       plugins.push([
@@ -40,11 +41,80 @@ export const Citations: QuartzTransformerPlugin<Partial<Options>> = (userOpts) =
       // using https://github.com/syntax-tree/unist-util-visit as they're just anochor links
       plugins.push(() => {
         return (tree, _file) => {
+          let insertedHeading = false
+
+          const hasClassName = (node, className: string) => {
+            const classes = node.properties?.className
+            if (Array.isArray(classes)) {
+              return classes.includes(className)
+            }
+            if (typeof classes === "string") {
+              return classes.split(" ").includes(className)
+            }
+            return false
+          }
+
+          const getNodeText = (node): string => {
+            if (!node) return ""
+            if (node.type === "text") return String(node.value ?? "")
+            if (!node.children) return ""
+            return node.children.map(getNodeText).join("")
+          }
+
+          const hasReferencesHeading = (parent, beforeIndex: number) => {
+            if (!parent?.children) return false
+            return parent.children.slice(0, beforeIndex).some((child) => {
+              if (!child || child.type !== "element") return false
+              if (!/^h[1-6]$/.test(child.tagName)) return false
+              return getNodeText(child).trim() === bibliographyHeading
+            })
+          }
+
+          const isBibliographyContainer = (node) => {
+            if (!node || node.type !== "element") return false
+            const id = node.properties?.id
+            return (
+              id === "refs" ||
+              id === "bibliography" ||
+              hasClassName(node, "references") ||
+              hasClassName(node, "csl-bib-body") ||
+              hasClassName(node, "bibliography")
+            )
+          }
+
           visit(tree, "element", (node, _index, _parent) => {
             if (node.tagName === "a" && node.properties?.href?.startsWith("#bib")) {
               node.properties["data-no-popover"] = true
             }
           })
+
+          if (!opts.suppressBibliography) {
+            visit(tree, "element", (node, index, parent) => {
+              if (insertedHeading || !isBibliographyContainer(node)) {
+                return
+              }
+
+              if (
+                parent &&
+                typeof index === "number" &&
+                !hasReferencesHeading(parent, index)
+              ) {
+                parent.children.splice(index, 0, {
+                  type: "element",
+                  tagName: "h2",
+                  properties: { id: "references" },
+                  children: [
+                    {
+                      type: "text",
+                      value: bibliographyHeading,
+                    },
+                  ],
+                })
+              }
+
+              insertedHeading = true
+            })
+          }
         }
       })
 
