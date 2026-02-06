@@ -2,7 +2,7 @@
 title: Why it matters?
 summary: The Funiki project has touches upon many different creative and technological problems. Here we summarise why we think it's an interesting and relevant project.
 draft: false
-permalink: /our-philosophy
+permalink: /project-why-it-matter
 tags:
   - funiki
   - research

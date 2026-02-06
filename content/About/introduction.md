@@ -5,6 +5,7 @@ draft: false
 permalink: /project-introduction
 aliases:
   - introduction
+  - project-introduction
 tags:
   - funiki
   - research

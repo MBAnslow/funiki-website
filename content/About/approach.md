@@ -2,7 +2,7 @@
 title: Approach
 summary: The approach taken by the project.
 draft: false
-permalink: /overview
+permalink: /project-approach
 tags:
   - funiki
   - research
