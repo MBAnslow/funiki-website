@@ -55,7 +55,7 @@ weight: 0
     Supporting audio-visual ambient experiences for everyone, in everyday spaces. A project at <a  href="https://csl.sony.fr/projects/funiki">Sony CSL Paris</a>.
   </p>
 
-  <a class="landing-link internal" href="introduction" data-no-popover="true">
+  <a class="landing-link internal" href="/project-introduction" data-no-popover="true">
     Enter the Digital Garden
   </a>
 </div>
