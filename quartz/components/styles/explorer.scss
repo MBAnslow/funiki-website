@@ -39,11 +39,11 @@
 .explorer {
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow: visible;
   font-family: var(--titleFont);
 
   min-height: 1.2rem;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   &.collapsed {
     flex: 0 1 1.2rem;
     & .fold {
@@ -150,6 +150,7 @@ button.desktop-explorer {
   padding: 0;
   margin: 0;
   cursor: default;
+  flex-shrink: 0;
 
   & h2 {
     font-size: clamp(1.9rem, 2.6vw, 2.3rem);
@@ -161,9 +162,7 @@ button.desktop-explorer {
 
 .explorer-content {
   list-style: none;
-  overflow: hidden;
-  overflow-y: auto;
-  max-height: 100%;
+  overflow: visible;
 
   & ul {
     list-style: none;
@@ -285,9 +284,6 @@ button.desktop-explorer {
   }
 }
 
-.explorer-content {
-  max-height: 70vh;
-}
 
 .folder-icon {
   margin-right: 5px;
