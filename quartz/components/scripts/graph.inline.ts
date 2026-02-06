@@ -167,7 +167,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   const width = graph.offsetWidth
   const height = Math.max(graph.offsetHeight, 250)
 
-  const rendererOptions: Omit<ApplicationOptions, "preference"> = {
+  const rendererOptions: Partial<ApplicationOptions> = {
     width,
     height,
     antialias: true,
@@ -182,7 +182,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     const candidate = new Application()
     try {
       await candidate.init({
-        ...rendererOptions,
+        ...(rendererOptions as ApplicationOptions),
         ...(preference ? { preference } : {}),
       })
       return candidate

@@ -78,7 +78,6 @@ const config: QuartzConfig = {
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.Citations({
         bibliographyFile: "content/bibliography.bib",
-        prettyLink: true,
       }),
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
