@@ -15,7 +15,7 @@ weight: 3
 
 ## Our Digital Garden
 
-Our digital garden has the following features: 
+Our digital garden has the following features:
 
 - 👈 **The Explorer** Posts.
 - 👈 **The Resources** Links, videos, books etc. from across the site.
@@ -24,13 +24,11 @@ Our digital garden has the following features:
 - 👉 **Table of Contents** To keep oriented in longer documents.
 - 👉 **Back Links** To see what posts point to the current post.
 
-
 ## The value of Context-Rich Websites
 
 Early websites were much more personalised and varied than the generic templated monoliths we have today. Platforms like X, LinkedIn and Instagram frame content within a generic design format with limited customisation. Your content fits within predictable boxes that can be dragged and dropped into any feed. That detaches the content from the conceputally rich topology of the individual. On the contrary, when you visit a personalised website, you visit that person in their home. Not a photo of that person in a gallery.
 
 This format keeps with the philosophy of the Funiki project. Focusing on quality, personal and inter-personal experiences embeded in your space.
-
 
 ## What is a Digital Garden?
 
@@ -64,4 +62,4 @@ Digital gardens shine when it comes to research notes, evolving concepts, work-i
 ![Topographic map of a digital garden](/static/digital-garden-topography.png)  
 _A topographic map of the garden—clusters, ridges, and routes between ideas. Taken from Maggie Appleton's blog._
 
-You might need to get to know that topology which might be a rich tangle of concepts that are personal to the author/project. 
+You might need to get to know that topology which might be a rich tangle of concepts that are personal to the author/project.

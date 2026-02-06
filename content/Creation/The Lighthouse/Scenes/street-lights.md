@@ -10,8 +10,4 @@ publishDate: 05/02/2026
 weight: 2
 ---
 
-The lighthouse was an Funiki-powered role-playing experience. 
-
-
-
-
+The lighthouse was an Funiki-powered role-playing experience.

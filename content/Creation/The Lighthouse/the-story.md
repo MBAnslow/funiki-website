@@ -1,7 +1,7 @@
 ---
 title: The Story
 permalink: /the-story
-summary: Summarising the story of Funiki. 
+summary: Summarising the story of Funiki.
 tags:
   - funiki
   - story
@@ -19,15 +19,15 @@ There is some variations in the actions that the players can take but the basic 
 2. They **approach the lighthouse** and go inside.
 3. The **lights black out** and they only have a **candle** available to light their way.
 4. When they try to turn the lights back on a **strange red light** turns on instead of the previous lighthouse light.
-5. The party is **attacked by some sort of spirit**. 
-6. They find and **open the cursed chest**. 
+5. The party is **attacked by some sort of spirit**.
+6. They find and **open the cursed chest**.
 7. The players go back to the **police station** and are explained everything that happens.
 
-The events take place at night and the  low-light setting naturally allows for artificial lights to play a major role in setting the ambience of the scene. 
+The events take place at night and the low-light setting naturally allows for artificial lights to play a major role in setting the ambience of the scene.
 
 ## Driving in car
 
-The first such setting was driving towards the seaside at night in a taxi. This provided the perfect context for travellers to. 
+The first such setting was driving towards the seaside at night in a taxi. This provided the perfect context for travellers to.
 
 <VideoCard
   title="Taxi Session."

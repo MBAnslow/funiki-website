@@ -34,7 +34,7 @@ While some ambiences require simulating complex lighting interactions, in other 
 
 ## AI Workflow Sketch
 
-The construction of ambiences using AI roughly falls into the following tasks: 
+The construction of ambiences using AI roughly falls into the following tasks:
 
 - Constructing a scene and identifying ambient elements
 - Generating meta data for audio-visual objects and their dynamics
@@ -43,7 +43,7 @@ The construction of ambiences using AI roughly falls into the following tasks:
 
 ### Multi-modal aspects
 
-The project lies at the intersection of various areas of AI. 
+The project lies at the intersection of various areas of AI.
 
 **Large Language Models** are useful as a common-sense reasoner: they can infer what belongs in, say, a Napoleonic battle ambience (cannon fire, shouted orders, metal impacts) and provide structured guidance that downstream systems can turn into synchronized light/sound events.
 

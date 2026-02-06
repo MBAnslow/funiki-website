@@ -1,6 +1,6 @@
 ---
 title: Why it matters?
-summary: The Funiki project has touches upon many different creative and technological problems. Here we summarise why we think it's an interesting and relevant project. 
+summary: The Funiki project has touches upon many different creative and technological problems. Here we summarise why we think it's an interesting and relevant project.
 draft: false
 permalink: /our-philosophy
 tags:
@@ -22,9 +22,9 @@ Without presence and participation, our personality withers, lost in a sea of ot
 
 ## How can we Reconnect?
 
-What kinds of activities might pull us away from our screens? 
+What kinds of activities might pull us away from our screens?
 
-*Moments of solitude. Moments of contemplation. Moments where our mind drifts away. Moments where we are present. Moments of play. Moments we share with others.*
+_Moments of solitude. Moments of contemplation. Moments where our mind drifts away. Moments where we are present. Moments of play. Moments we share with others._
 
 All these moments happen on a stage – the space we co-exist with. However, while our mind moves, our space remains static. A space with a single static design.
 
@@ -32,7 +32,7 @@ All these moments happen on a stage – the space we co-exist with. However, whi
 
 Screen-based experiences are a view into another world. They draw people away from participating and being present in their physical and social environment. Funiki isn't just something you look at, it's something you are a part of. It illuminates you and your activites. We hope that Funiki encourages people to get back into their spaces, into relationships where they have presence and significance.
 
----------
+---
 
 # Creation
 
@@ -42,19 +42,19 @@ Funiki differs from screen-based experiences. Rather than directing attention, i
 
 ## Literal > Suggestive
 
-What we are trying to do is **suggest** that events are taking place. That requires a level of physicality that is not typical with simple mood or abstract lighting. Take a flaming arrow as an example. Where is the arrow coming from? How bright is it? Where is it directed? The lighting has directionality and volume that indicates that events are taking place which is enhanced by sound cues. 
+What we are trying to do is **suggest** that events are taking place. That requires a level of physicality that is not typical with simple mood or abstract lighting. Take a flaming arrow as an example. Where is the arrow coming from? How bright is it? Where is it directed? The lighting has directionality and volume that indicates that events are taking place which is enhanced by sound cues.
 
 ## Diverse spaces, diverse hardware
 
-While screen and audio quality absolutely affects enjoyment of conventional media, even the most modest equipment imparts the literal intention of the creator. A cat is a cat, a person is a person. 
+While screen and audio quality absolutely affects enjoyment of conventional media, even the most modest equipment imparts the literal intention of the creator. A cat is a cat, a person is a person.
 
 With Funiki, scene are transferrable across different spaces and hardware. This potentially changes the experience. Not just the fidelity of the experience, but also comprehension of the events taking place. This offers an interesting creative challenge.
 
 ## Personal and public spaces become venues
 
-The basic technology changes what are otherwise static spaces into a dynamic stage to support various activities. While screens do this to some extent, such as hosting a movie night, watching a screen is a passive experience, while our focus is on supporting activities. What sorts of social activities might emerge from this new appropriation of public spaces? 
+The basic technology changes what are otherwise static spaces into a dynamic stage to support various activities. While screens do this to some extent, such as hosting a movie night, watching a screen is a passive experience, while our focus is on supporting activities. What sorts of social activities might emerge from this new appropriation of public spaces?
 
----------
+---
 
 # Technology
 
@@ -78,11 +78,10 @@ One way of creating an ambience is to start with a complete scene and gradually 
 
 While there are many resources in computer vision for generating images and video and methods for estimating lighting in computer graphics conveying this as an ambience that _feels right_ in a physical space is its own problem. The problem itself needs to be better understood and defined before building from existing solutions.
 
-### 
+###
+
 It motivates generation of paired sounds and lighting which I don't believe exists elsewhere. Moreover, the focus is on supporting creators, not generating complete final mixes, but controllable elements that can be controlled by creators.
-
-
 
 ### Paired Audio & Light Generation
 
-Some sources of light are a product of events that also generate sounds. Fireworks, gun fire, fireplaces, flickering neon lights, magic spells etc. As both signals reflect a singular event with dynamics that we are familar with as human beings, getting the sychronisation between the two modalities right adds physical plausibility to the events. Recent advances in paired video and sound generation opens the door to methods for open-ended sound + light generation. 
+Some sources of light are a product of events that also generate sounds. Fireworks, gun fire, fireplaces, flickering neon lights, magic spells etc. As both signals reflect a singular event with dynamics that we are familar with as human beings, getting the sychronisation between the two modalities right adds physical plausibility to the events. Recent advances in paired video and sound generation opens the door to methods for open-ended sound + light generation.

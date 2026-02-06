@@ -54,9 +54,7 @@ const createLightbox = async () => {
     link.dataset.noPopover = "true"
   })
 
-  const { default: PhotoSwipeLightbox } = await import(
-    /* @vite-ignore */ LIGHTBOX_MODULE_URL
-  )
+  const { default: PhotoSwipeLightbox } = await import(/* @vite-ignore */ LIGHTBOX_MODULE_URL)
 
   const lightbox = new PhotoSwipeLightbox({
     gallery: LIGHTBOX_SELECTOR,
@@ -103,4 +101,3 @@ const setup = () => {
 }
 
 setup()
-
