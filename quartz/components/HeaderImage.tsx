@@ -1,5 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
+import { isAbsoluteURL, joinSegments, pathToRoot } from "../util/path"
 
 const HeaderImage: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const headerImage = fileData.frontmatter?.headerImage
@@ -16,9 +17,14 @@ const HeaderImage: QuartzComponent = ({ fileData, displayClass }: QuartzComponen
         ? fallbackTitle
         : "Header image") ?? "Header image"
 
+  const headerImageSrc =
+    headerImage.startsWith("/") || headerImage.startsWith("data:") || isAbsoluteURL(headerImage)
+      ? headerImage
+      : joinSegments(pathToRoot(fileData.slug!), headerImage)
+
   return (
     <figure class={classNames(displayClass, "header-image")}>
-      <img src={headerImage} alt={altText} loading="eager" decoding="async" />
+      <img src={headerImageSrc} alt={altText} loading="eager" decoding="async" />
     </figure>
   )
 }

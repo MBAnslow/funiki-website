@@ -9,6 +9,7 @@ import { FileTrieNode } from "../util/fileTrie"
 import { resolveRelative, type FullSlug } from "../util/path"
 import OverflowListFactory from "./OverflowList"
 import { concatenateResources } from "../util/resources"
+import { primaryLandingSlug } from "../util/landing"
 
 type OrderEntries = "sort" | "filter" | "map"
 
@@ -56,8 +57,8 @@ export default ((userOpts?: Partial<Options>) => {
   const Explorer: QuartzComponent = ({ cfg, displayClass, fileData }: QuartzComponentProps) => {
     const id = `explorer-${numExplorers++}`
     const components = i18n(cfg.locale).components as Record<string, { title?: string }>
-    const currentSlug = (fileData.slug ?? ("index" as FullSlug)) as FullSlug
-    const homeHref = resolveRelative(currentSlug, "index" as FullSlug)
+    const currentSlug = (fileData.slug ?? primaryLandingSlug) as FullSlug
+    const homeHref = resolveRelative(currentSlug, primaryLandingSlug)
     const timelineHref = resolveRelative(currentSlug, "timeline" as FullSlug)
     const glossaryHref = resolveRelative(currentSlug, "glossary" as FullSlug)
     const resourcesHref = resolveRelative(currentSlug, "resources" as FullSlug)

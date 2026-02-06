@@ -20,6 +20,7 @@ import { write } from "./helpers"
 import { i18n, TRANSLATIONS } from "../../i18n"
 import { BuildCtx } from "../../util/ctx"
 import { StaticResources } from "../../util/resources"
+import { isLandingSlug } from "../../util/landing"
 interface FolderPageOptions extends FullPageLayout {
   sort?: (f1: QuartzPluginData, f2: QuartzPluginData) => number
 }
@@ -135,9 +136,14 @@ export const FolderPage: QuartzEmitterPlugin<Partial<FolderPageOptions>> = (user
       const folders: Set<SimpleSlug> = new Set(
         allFiles.flatMap((data) => {
           return data.slug
-            ? _getFolders(data.slug).filter(
-                (folderName) => folderName !== "." && folderName !== "tags",
-              )
+            ? _getFolders(data.slug).filter((folderName) => {
+                if (folderName === "." || folderName === "tags") {
+                  return false
+                }
+
+                const folderIndexSlug = joinSegments(folderName, "index") as FullSlug
+                return !isLandingSlug(folderIndexSlug)
+              })
             : []
         }),
       )

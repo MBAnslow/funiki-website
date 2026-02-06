@@ -113,16 +113,26 @@ export default ((opts?: Partial<FolderContentOptions>) => {
       )
     }
 
+    const summaryText = fileData.frontmatter?.summary
+    const folderSummary =
+      typeof summaryText === "string" && summaryText.trim().length > 0
+        ? summaryText.trim()
+        : undefined
+
     return (
       <div class="popover-hint">
         <article class={classes}>{content}</article>
         <div class="page-listing">
-          {options.showFolderCount && (
+          {folderSummary ? (
+            <p class="folder-summary">{folderSummary}</p>
+          ) : (
+            options.showFolderCount && (
             <p>
               {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
                 count: allPagesInFolder.length,
               })}
             </p>
+            )
           )}
           <div>
             <PageList {...listProps} />

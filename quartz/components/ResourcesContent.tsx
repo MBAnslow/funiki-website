@@ -2,7 +2,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { FullSlug, resolveRelative } from "../util/path"
 
 type ResourceEntry = {
-  type: "link" | "video"
+  type: "link" | "video" | "pdf"
   title: string
   desc?: string
   href?: string
@@ -48,6 +48,13 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
                         <span>{res.title}</span>
                       </div>
                     </a>
+                  ) : res.type === "pdf" && res.src ? (
+                    <a class="link-card__title resource-link" href={res.src}>
+                      <div class="resource-icon resource-icon--pdf"></div>
+                      <div class="resource-title-inner">
+                        <span>{res.title}</span>
+                      </div>
+                    </a>
                   ) : (
                     <>
                       <div class={`resource-icon resource-icon--${res.type}`}></div>
@@ -57,7 +64,7 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
                     </>
                   )}
                 </div>
-                {(res.desc || res.type === "video") && (
+                {(res.desc || res.type === "video" || res.type === "pdf") && (
                   <div class="resource-content">
                     {res.desc && <p>{res.desc}</p>}
                     {res.type === "video" && res.src && (
@@ -68,6 +75,11 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen={true}
                         ></iframe>
+                      </div>
+                    )}
+                    {res.type === "pdf" && res.src && (
+                      <div class="pdf-callout-embed">
+                        <iframe class="pdf" src={res.src} title={res.title}></iframe>
                       </div>
                     )}
                   </div>
