@@ -1,5 +1,5 @@
 ---
-title:  Overview
+title: Overview
 permalink: /the-lighthouse-overview
 summary: Overview of the lighthouse role playing demo.
 tags:

@@ -15,11 +15,11 @@ weight: 1
 
 ## What is the Funiki project?
 
-**Funiki (ふんいき)** in Japanese means atmosphere, mood, ambiance, aura, or feel. This word captures the spirit of the project. 
+**Funiki (ふんいき)** in Japanese means atmosphere, mood, ambiance, aura, or feel. This word captures the spirit of the project.
 
 The project focuses on creating dynamic immersive ambiences using lights and sounds that can be used to immerse people in activities such as: tabletop role playing games, social gatherings and moments of personal relaxation.
 
-Funiki is a long horizon research project. It doesn't have specific long-term goals or deliverables but rather a mission and an evolving direction with exploratory outputs along the way. 
+Funiki is a long horizon research project. It doesn't have specific long-term goals or deliverables but rather a mission and an evolving direction with exploratory outputs along the way.
 
 ## The Digital Garden
 

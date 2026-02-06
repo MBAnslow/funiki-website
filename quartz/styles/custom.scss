@@ -314,7 +314,6 @@ body[data-landing="true"] .landing-shell .orb-illuminated {
   color: hsl(var(--glow-orb-hue, 48) 90% 82%);
 }
 
-
 .text-highlight {
   border-radius: 0.75em;
   padding: 0.25rem 1rem;
@@ -323,10 +322,10 @@ body[data-landing="true"] .landing-shell .orb-illuminated {
 
 :root[saved-theme="light"] {
   .text-highlight {
-  color: var(--light);
-  background-color: var(--highlight);
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.65);
-}
+    color: var(--light);
+    background-color: var(--highlight);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.65);
+  }
 }
 
 :root[saved-theme="dark"] {

@@ -1,5 +1,5 @@
 ---
-title:  Feedback
+title: Feedback
 permalink: /Player-Feedback
 summary: Overview of the lighthouse role playing demo.
 tags:
@@ -10,7 +10,6 @@ tags:
 publishDate: 04/12/2025
 weight: 3
 ---
-
 
 <div class="pswp-gallery gallery-custom" id="lighthouse-feedback-gallery">
   <a

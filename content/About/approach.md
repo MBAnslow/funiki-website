@@ -12,12 +12,11 @@ weight: 2
 
 ## Research Creation
 
-The project carves out a creative space. Rather than working with literal representations like photographs or video, ambiences use interpretation and suggestion that are *felt* rather than captured.
+The project carves out a creative space. Rather than working with literal representations like photographs or video, ambiences use interpretation and suggestion that are _felt_ rather than captured.
 
 This subjective aspect is fundamental to our project. Carving out a niche **for creators, driven by creation**. Creation drives inquiry, raises technical challenges and necessitate solutions.
 
 This aligns well with the [reasearch-creation](methodology) methodology used in the project. Where creation serves as both a demonstration of understanding and a tool for generating artefacts to be understood.
-
 
 ## A System First Approach
 
@@ -31,6 +30,6 @@ This is opposed to isolated academic contexts where problems might not contribut
 
 Funiki is also partly a speculative project. It attempts to look into and shape a potential future as an exercise in foresight. A great way of doing that is through design fiction.
 
-Design fiction is a way of using speculative narratives and artefacts to think through the implications of technologies before they exist. Rather than predicting the future, it creates *plausible* futures. These might be mundane or fantastical, where systems are already embedded in everyday life. These futures are explored through stories, mock objects, advertisements, manuals, or interfaces that feel real enough to provoke reflection.
+Design fiction is a way of using speculative narratives and artefacts to think through the implications of technologies before they exist. Rather than predicting the future, it creates _plausible_ futures. These might be mundane or fantastical, where systems are already embedded in everyday life. These futures are explored through stories, mock objects, advertisements, manuals, or interfaces that feel real enough to provoke reflection.
 
 The value of design fiction lies in how it shifts discussion from abstract claims (_this technology will improve society_) to situated consequences (_what would it feel like to live with this?_).

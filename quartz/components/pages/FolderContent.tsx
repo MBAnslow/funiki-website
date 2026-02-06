@@ -127,11 +127,11 @@ export default ((opts?: Partial<FolderContentOptions>) => {
             <p class="folder-summary">{folderSummary}</p>
           ) : (
             options.showFolderCount && (
-            <p>
-              {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
-                count: allPagesInFolder.length,
-              })}
-            </p>
+              <p>
+                {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
+                  count: allPagesInFolder.length,
+                })}
+              </p>
             )
           )}
           <div>

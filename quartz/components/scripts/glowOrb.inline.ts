@@ -1078,10 +1078,11 @@ const scheduleOrbAnimation = (orb: HTMLElement) => {
   }
 
   if ("requestIdleCallback" in window) {
-    ;(window as typeof window & { requestIdleCallback: (cb: IdleRequestCallback, opts?: IdleRequestOptions) => void }).requestIdleCallback(
-      start,
-      { timeout: 500 },
-    )
+    ;(
+      window as typeof window & {
+        requestIdleCallback: (cb: IdleRequestCallback, opts?: IdleRequestOptions) => void
+      }
+    ).requestIdleCallback(start, { timeout: 500 })
     return
   }
 
@@ -1094,8 +1095,7 @@ const runOrbAnimations = () => {
   const isLandingPage = document.body.dataset.landing === "true"
   document.querySelectorAll<HTMLElement>(".glow-orb").forEach((orb) => {
     const isLanding = Boolean(orb.closest(".landing-shell"))
-    const shouldRun =
-      (isLanding && isLandingPage) || (!isLanding && (slug === "" || isLandingPage))
+    const shouldRun = (isLanding && isLandingPage) || (!isLanding && (slug === "" || isLandingPage))
     if (!shouldRun) return
     scheduleOrbAnimation(orb)
   })

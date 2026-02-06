@@ -31,4 +31,3 @@ export function landingDuplicateTargets(slug?: string | null): FullSlug[] {
     (target) => target as FullSlug,
   )
 }
-
