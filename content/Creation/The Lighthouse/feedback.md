@@ -9,6 +9,8 @@ tags:
   - feedback
 publishDate: 04/12/2025
 weight: 3
+headerImage: ./static/the-lighthouse/lighthouse-header.png
+headerImageAlt: Lighthouse shining in the night across the sea.
 ---
 
 <div class="pswp-gallery gallery-custom" id="lighthouse-feedback-gallery">

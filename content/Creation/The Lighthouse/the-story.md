@@ -9,6 +9,8 @@ tags:
   - light-house
 publishDate: 05/02/2026
 weight: 2
+headerImage: ./static/the-lighthouse/lighthouse-header.png
+headerImageAlt: Lighthouse shining in the night across the sea.
 ---
 
 The project focused on creating a tabletop roleplaying scenario in the form of a Scooby Doo-style mystery. Players travel to a lighthouse where a mysterious set of events occur.
