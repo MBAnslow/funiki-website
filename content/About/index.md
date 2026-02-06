@@ -1,7 +1,7 @@
 ---
 title: About
 draft: false
-permalink:
+permalink: /About
 aliases:
   - index
 tags:
