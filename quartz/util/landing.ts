@@ -1,9 +1,9 @@
 import { FullSlug } from "./path"
 
-const LANDING_SLUG_CANDIDATES = ["index", "about/index"] as const
+const LANDING_SLUG_CANDIDATES = ["index", "about", "about/index"] as const
 const LANDING_DUPLICATE_TARGETS = ["index"] as const
 
-export const primaryLandingSlug = "About/index" as FullSlug
+export const primaryLandingSlug = "About" as FullSlug
 const primaryLandingSlugNormalized = primaryLandingSlug.toLowerCase()
 
 export const landingSlugAliases = LANDING_SLUG_CANDIDATES
