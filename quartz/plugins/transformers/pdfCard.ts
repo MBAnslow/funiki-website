@@ -48,9 +48,12 @@ const buildCard = (attrs: Attrs, file: any): string | null => {
   const src = attrs.src?.trim()
   if (!title || !src) return null
   const hideDesc = attrs.hideDesc?.toLowerCase() === "true"
-  const resolvedSrc = resolveSrc(src, file)
   const safe = (v: string) => v.replace(/</g, "&lt;").replace(/>/g, "&gt;")
 
+  // Use resolveSrc only for the resources metadata; the HTML href/src
+  // are left unresolved so that CrawlLinks can resolve them once
+  // (avoiding a double pathToRoot that breaks subdirectory deploys).
+  const resolvedSrc = resolveSrc(src, file)
   const resources = (file.data.resources ??= [] as ResourceEntry[])
   resources.push({
     type: "pdf",
@@ -65,7 +68,7 @@ const buildCard = (attrs: Attrs, file: any): string | null => {
     <div class="resource-icon resource-icon--pdf"></div>
     <div class="resource-title-inner">
       <p>
-        <a class="link-card__title" href="${safe(resolvedSrc)}">
+        <a class="link-card__title" href="${safe(src)}">
           <span>${safe(title)}</span>
         </a>
       </p>
@@ -74,7 +77,7 @@ const buildCard = (attrs: Attrs, file: any): string | null => {
   <div class="resource-content">
     ${desc && !hideDesc ? `<p class="link-card__desc">${safe(desc)}</p>` : ""}
     <div class="pdf-callout-embed">
-      <iframe class="pdf" src="${safe(resolvedSrc)}" title="${safe(title)}"></iframe>
+      <iframe class="pdf" src="${safe(src)}" title="${safe(title)}"></iframe>
     </div>
   </div>
 </div>`
