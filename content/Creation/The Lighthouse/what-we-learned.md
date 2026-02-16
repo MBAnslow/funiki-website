@@ -1,5 +1,5 @@
 ---
-title: What we Learned
+title: What We Learned
 permalink: /the-lighthouse/what-we-learned
 summary: This summarisies what we learned from the project.
 tags:
