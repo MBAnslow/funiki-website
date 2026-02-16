@@ -24,7 +24,7 @@ On this website you can find out more about:
 4. Participant [feedback](/the-lighthouse/feedback)
 5. Our take-away [lessons](/the-lighthouse/what-we-learned)
 
-Here is a little taster from our two sessions. Most of the video and photo content is from the second session.
+Here is a little taster gallery from our two sessions. Most of the video and photo content we captured is from the second session.
 
 <div class="pswp-gallery gallery-custom" id="overview-gallery">
   <a
