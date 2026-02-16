@@ -109,6 +109,28 @@ function toggleFolder(evt: MouseEvent) {
   const isCollapsed = !childFolderContainer.classList.contains("open")
   setFolderState(childFolderContainer, isCollapsed)
 
+  // If a top-level folder was just opened, collapse all other top-level folders
+  const folderLi = folderContainer.closest("li") as MaybeHTMLElement
+  const isTopLevel = folderLi?.parentElement?.classList.contains("explorer-ul")
+  if (isTopLevel && !isCollapsed) {
+    const siblingFolders = folderLi!.parentElement!.querySelectorAll(
+      ":scope > li > .folder-outer.open",
+    )
+    for (const sibling of siblingFolders) {
+      if (sibling === childFolderContainer) continue
+      sibling.classList.remove("open")
+      setFolderState(sibling as HTMLElement, true)
+
+      const siblingPath = (sibling.previousElementSibling as HTMLElement)?.dataset?.folderpath
+      if (siblingPath) {
+        const siblingState = currentExplorerState.find((item) => item.path === siblingPath)
+        if (siblingState) {
+          siblingState.collapsed = true
+        }
+      }
+    }
+  }
+
   const currentFolderState = currentExplorerState.find(
     (item) => item.path === folderContainer.dataset.folderpath,
   )
@@ -132,7 +154,12 @@ function createFileNode(currentSlug: FullSlug, node: FileTrieNode): HTMLLIElemen
   const a = li.querySelector("a") as HTMLAnchorElement
   a.href = resolveRelative(currentSlug, node.slug)
   a.dataset.for = node.slug
-  a.textContent = node.displayName.replace(/^\d+_/, "")
+  const titleSpan = a.querySelector(".file-title") as HTMLElement
+  if (titleSpan) {
+    titleSpan.textContent = node.displayName.replace(/^\d+_/, "")
+  } else {
+    a.textContent = node.displayName.replace(/^\d+_/, "")
+  }
 
   if (currentSlug === node.slug) {
     a.classList.add("active")
@@ -298,10 +325,10 @@ async function setupExplorer(currentSlug: FullSlug) {
       }
     }
 
-    const folderIcons = explorer.getElementsByClassName(
-      "folder-icon",
+    const folderTypeIcons = explorer.getElementsByClassName(
+      "folder-type-icon",
     ) as HTMLCollectionOf<HTMLElement>
-    for (const icon of folderIcons) {
+    for (const icon of folderTypeIcons) {
       icon.addEventListener("click", toggleFolder)
       window.addCleanup(() => icon.removeEventListener("click", toggleFolder))
     }
