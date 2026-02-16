@@ -40,33 +40,35 @@ const ResourcesContent: QuartzComponent = ({ allFiles, fileData }: QuartzCompone
           <div class="resources-grid">
             {source.resources.map((res) => (
               <div class="resource" data-resource={res.type}>
-                <div class="resource-title">
+                <div class="resource-header">
                   {res.type === "link" && res.href ? (
-                    <a class="link-card__title resource-link" href={res.href}>
-                      <div class={`resource-icon resource-icon--${res.type}`}></div>
-                      <div class="resource-title-inner">
+                    <div class="resource-header-text">
+                      <span class={`resource-icon resource-icon--${res.type}`}></span>
+                      <a class="resource-title resource-link" href={res.href}>
                         <span>{res.title}</span>
-                      </div>
-                    </a>
+                      </a>
+                    </div>
                   ) : res.type === "pdf" && res.src ? (
-                    <a class="link-card__title resource-link" href={res.src}>
-                      <div class="resource-icon resource-icon--pdf"></div>
-                      <div class="resource-title-inner">
+                    <div class="resource-header-text">
+                      <span class="resource-icon resource-icon--pdf"></span>
+                      <a class="resource-title resource-link" href={res.src}>
                         <span>{res.title}</span>
-                      </div>
-                    </a>
+                      </a>
+                      {res.desc && <span class="resource-desc"> — {res.desc}</span>}
+                    </div>
                   ) : (
-                    <>
-                      <div class={`resource-icon resource-icon--${res.type}`}></div>
-                      <div class="resource-title-inner">
-                        <span>{res.title}</span>
-                      </div>
-                    </>
+                    <div class="resource-header-text">
+                      <span class={`resource-icon resource-icon--${res.type}`}></span>
+                      <span class="resource-title">{res.title}</span>
+                      {res.desc && <span class="resource-desc"> — {res.desc}</span>}
+                    </div>
                   )}
                 </div>
-                {(res.desc || res.type === "video" || res.type === "pdf") && (
+                {(res.type === "video" ||
+                  res.type === "pdf" ||
+                  (res.type === "link" && res.desc)) && (
                   <div class="resource-content">
-                    {res.desc && <p>{res.desc}</p>}
+                    {res.type === "link" && res.desc && <p class="resource-desc">{res.desc}</p>}
                     {res.type === "video" && res.src && (
                       <div class="video-callout-embed">
                         <iframe
@@ -127,7 +129,7 @@ ResourcesContent.css = `
   flex-direction: column;
   gap: 1rem;
 }
-.resource .resource-title-inner p {
+.resource .resource-header-text p {
   margin: 0;
 }
 `

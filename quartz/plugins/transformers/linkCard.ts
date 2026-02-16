@@ -51,23 +51,12 @@ const buildCard = (attrs: Attrs, file: any): string | null => {
   })
 
   return `<div class="resource" data-resource="link">
-  <div class="resource-title">
-    <div class="resource-icon resource-icon--link"></div>
-    <div class="resource-title-inner">
-      <p>
-        <a class="link-card__title" href="${hrefSafe}">
-          <span>${safe(title)}</span>
-        </a>
-      </p>
+  <div class="resource-header">
+    <div class="resource-header-text">
+      <span class="resource-icon resource-icon--link"></span><a class="resource-title" href="${hrefSafe}"><span>${safe(title)}</span></a>
     </div>
   </div>
-  ${
-    desc && !hideDesc
-      ? `<div class="resource-content">
-    <p class="link-card__desc">${safe(desc)}</p>
-  </div>`
-      : ""
-  }
+  ${desc && !hideDesc ? `<div class="resource-content"><p class="resource-desc">${safe(desc)}</p></div>` : ""}
 </div>`
 }
 
