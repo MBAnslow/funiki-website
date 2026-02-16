@@ -24,7 +24,7 @@ On this website you can find out more about:
 4. Participant [feedback](/the-lighthouse/feedback)
 5. Our take-away [lessons](/the-lighthouse/what-we-learned)
 
-We had two sessions with participants though most of the content is from the second session. 
+Here is a little taster from our two sessions. Most of the video and photo content is from the second session.
 
 <div class="pswp-gallery gallery-custom" id="overview-gallery">
   <a
@@ -81,7 +81,7 @@ We had two sessions with participants though most of the content is from the sec
     data-pswp-height="4000"
   >
     <img src="/static/the-lighthouse/overview-gallery/G-Puzzle.JPG" alt="Guillaume with puzzle" loading="lazy" />
-    <span class="thumb-caption">Guillaume with a riddle to solve on his screen.</span>
+    <span class="thumb-caption">Guillaume presenting a riddle to be solved.</span>
   </a>
   <a
     href="/static/the-lighthouse/overview-gallery/SpookyTime.JPG"
