@@ -3,8 +3,7 @@ import { FullSlug } from "./path"
 const LANDING_SLUG_CANDIDATES = ["index", "about", "about/index"] as const
 const LANDING_DUPLICATE_TARGETS = ["index"] as const
 
-export const primaryLandingSlug = "About" as FullSlug
-const primaryLandingSlugNormalized = primaryLandingSlug.toLowerCase()
+export const primaryLandingSlug = "About/" as FullSlug
 
 export const landingSlugAliases = LANDING_SLUG_CANDIDATES
 
@@ -18,15 +17,11 @@ export function isLandingSlug(slug?: string | null): boolean {
 }
 
 export function landingDuplicateTargets(slug?: string | null): FullSlug[] {
-  if (!slug) {
+  if (!slug || !isLandingSlug(slug)) {
     return []
   }
 
   const normalized = slug.toLowerCase()
-  if (normalized !== primaryLandingSlugNormalized) {
-    return []
-  }
-
   return LANDING_DUPLICATE_TARGETS.filter((target) => target !== normalized).map(
     (target) => target as FullSlug,
   )

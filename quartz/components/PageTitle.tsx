@@ -2,7 +2,7 @@ import { resolveRelative, type FullSlug } from "../util/path"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
-import { primaryLandingSlug } from "../util/landing"
+import { primaryLandingSlug, isLandingSlug } from "../util/landing"
 
 const HIGHLIGHT_TITLE = "funiki"
 
@@ -27,7 +27,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
   const currentSlug = (fileData.slug ?? primaryLandingSlug) as FullSlug
   const homeHref = resolveRelative(currentSlug, primaryLandingSlug)
-  const shouldGlow = (fileData.slug ?? "").toLowerCase() === primaryLandingSlug.toLowerCase()
+  const shouldGlow = isLandingSlug(fileData.slug)
 
   return (
     <h2 class={classNames(displayClass, "page-title")}>
