@@ -15,21 +15,23 @@ headerImageAlt: Lighthouse shining in the night across the sea.
 
 ## The Story
 
-As the adventurers step inside the lighthouse, they are met by the low, persistent hum of an aging electrical system. The sound is steady at first, the vibration of an overworked transformer and current moving through corroded copper wiring installed long ago. Overhead lamps flicker intermittently, their filaments reacting to subtle drops and surges in voltage as the system struggles to regulate power.
+> As the adventurers step inside the lighthouse, they are met by the low, persistent hum of an aging electrical system. The sound is steady at first, the vibration of an overworked transformer and current moving through corroded copper wiring installed long ago. Overhead lamps flicker intermittently, their filaments reacting to subtle drops and surges in voltage as the system struggles to regulate power.
+> 
+> The air seems tense. Each surge draws a sharper buzz from the fixtures. Each dip causes the light to dim, hesitate, and flare back. Somewhere within the walls, insulation has hardened with age, connections have oxidized, and the total load on the circuit exceeds what it was designed to carry. The fluctuations grow stronger. The hum deepens in pitch. The flickering accelerates into erratic pulses as voltage oscillates beyond safe limits.
+> 
+> Then comes a sudden metallic snap. A fuse ruptures under thermal stress, the circuit opens, and current ceases instantly. The humming stops. Darkness fills the chamber.
+> 
+> After a brief silence, one of the adventurers strikes flint to steel. A torch catches, its flame steady and chemical in its certainty. Unlike the strained electric light, the fire burns with stable convection and radiant heat. They advance by its warm glow, carrying that simple, reliable illumination with them as they continue deeper into the lighthouse.
 
-The air seems tense. Each surge draws a sharper buzz from the fixtures. Each dip causes the light to dim, hesitate, and flare back. Somewhere within the walls, insulation has hardened with age, connections have oxidized, and the total load on the circuit exceeds what it was designed to carry. The fluctuations grow stronger. The hum deepens in pitch. The flickering accelerates into erratic pulses as voltage oscillates beyond safe limits.
+# Lighting Effects
 
-Then comes a sudden metallic snap. A fuse ruptures under thermal stress, the circuit opens, and current ceases instantly. The humming stops. Darkness fills the chamber.
-
-After a brief silence, one of the adventurers strikes flint to steel. A torch catches, its flame steady and chemical in its certainty. Unlike the strained electric light, the fire burns with stable convection and radiant heat. They advance by its warm glow, carrying that simple, reliable illumination with them as they continue deeper into the lighthouse.
+In the following clip you can see the lights out scene along with additional footage with the torch from later in the story. The almost strobe-like effect of the lights going out was very effective in disorientating the players while the audio clues made it clear what the modulating lights represented. Before the lights out scene occured, a humming sound was playing ocassionaly and the lights would flicker, drawing attention to the lighting setup so that the later events, subtly priming players for a lighting transition that occurs.
 
 <VideoCard
   title="Lights Out Scene from The Lighthouse Demo."
   desc="The fuse box goes and our adventures use a torch to light their way."
   src="https://drive.google.com/file/d/1iDgLLykL3HFO-cEIKlLhuVPr2TTzXTWk/preview"
 />
-
-# Lighting Effects
 
 ## The Torch
 
