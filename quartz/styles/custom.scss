@@ -37,7 +37,7 @@
     display: inline-flex;
     flex-direction: column;
     overflow: hidden;
-    width: clamp(180px, 30vw, 280px);
+    width: calc((100% - 2 * 1.1rem) / 3);
     border-radius: 12px;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
     transition:
