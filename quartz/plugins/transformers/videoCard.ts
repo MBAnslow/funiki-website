@@ -49,26 +49,16 @@ const buildCard = (attrs: Attrs, file: any): string | null => {
   })
 
   return `<div class="resource" data-resource="video">
-  <div class="resource-title">
-    <div class="resource-icon resource-icon--video"${icon ? ` data-video-icon="${safe(icon)}"` : ""}></div>
-    <div class="resource-title-inner">
-      <p><span>${safe(title)}</span></p>
+  <div class="resource-header">
+    <div class="resource-header-text">
+      <span class="resource-icon resource-icon--video"${icon ? ` data-video-icon="${safe(icon)}"` : ""}></span><span class="resource-title">${safe(title)}</span>${desc && !hideDesc ? `<span class="resource-desc"> — ${safe(desc)}</span>` : ""}
     </div>
   </div>
-  ${
-    hideDesc && !desc
-      ? `<div class="resource-content">
+  <div class="resource-content">
     <div class="video-callout-embed">
       <iframe src="${safe(src)}" title="${safe(title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-  </div>`
-      : `<div class="resource-content">
-    ${desc && !hideDesc ? `<p class="link-card__desc">${safe(desc)}</p>` : ""}
-    <div class="video-callout-embed">
-      <iframe src="${safe(src)}" title="${safe(title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-  </div>`
-  }
+  </div>
 </div>`
 }
 

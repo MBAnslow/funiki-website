@@ -64,18 +64,12 @@ const buildCard = (attrs: Attrs, file: any): string | null => {
   })
 
   return `<div class="resource" data-resource="pdf">
-  <div class="resource-title">
-    <div class="resource-icon resource-icon--pdf"></div>
-    <div class="resource-title-inner">
-      <p>
-        <a class="link-card__title" href="${safe(src)}">
-          <span>${safe(title)}</span>
-        </a>
-      </p>
+  <div class="resource-header">
+    <div class="resource-header-text">
+      <span class="resource-icon resource-icon--pdf"></span><a class="resource-title" href="${safe(src)}"><span>${safe(title)}</span></a>${desc && !hideDesc ? `<span class="resource-desc"> — ${safe(desc)}</span>` : ""}
     </div>
   </div>
   <div class="resource-content">
-    ${desc && !hideDesc ? `<p class="link-card__desc">${safe(desc)}</p>` : ""}
     <div class="pdf-callout-embed">
       <iframe class="pdf" src="${safe(src)}" title="${safe(title)}"></iframe>
     </div>

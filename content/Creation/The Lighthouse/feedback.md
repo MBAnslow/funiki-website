@@ -1,6 +1,6 @@
 ---
 title: Feedback
-permalink: /Player-Feedback
+permalink: /the-lighthouse/feedback
 summary: Overview of the lighthouse role playing demo.
 tags:
   - funiki
