@@ -216,6 +216,10 @@ a {
   }
 }
 
+.article-title{
+  line-height: 3.7rem;
+}
+
 .page {
   max-width: calc(#{map.get($breakpoints, desktop)} + 300px);
   margin: 0 auto;
@@ -276,10 +280,10 @@ a {
     }
 
     @media all and not ($desktop) {
-      padding: 0 1rem;
+      // padding: 0 1rem;
     }
     @media all and ($mobile) {
-      margin: 0 auto;
+      // margin: 0 auto;
     }
 
     & .sidebar {
