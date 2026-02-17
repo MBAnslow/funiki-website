@@ -62,8 +62,10 @@ async function _navigate(url: URL, isBack: boolean = false) {
   isNavigating = true
   startLoading()
   p = p || new DOMParser()
+  let resolvedUrl = url
   const contents = await fetchCanonical(url)
-    .then((res) => {
+    .then(({ response: res, url: canonical }) => {
+      resolvedUrl = canonical
       const contentType = res.headers.get("content-type")
       if (contentType?.startsWith("text/html")) {
         return res.text()
@@ -86,7 +88,7 @@ async function _navigate(url: URL, isBack: boolean = false) {
   cleanupFns.clear()
 
   const html = p.parseFromString(contents, "text/html")
-  normalizeRelativeURLs(html, url)
+  normalizeRelativeURLs(html, resolvedUrl)
 
   let title = html.querySelector("title")?.textContent
   if (title) {
@@ -122,8 +124,9 @@ async function _navigate(url: URL, isBack: boolean = false) {
 
   // delay setting the url until now
   // at this point everything is loaded so changing the url should resolve to the correct addresses
+  // use resolvedUrl so that permalink/alias redirects update the address bar to the canonical URL
   if (!isBack) {
-    history.pushState({}, "", url)
+    history.pushState({}, "", resolvedUrl)
   }
 
   notifyNav(getFullSlug(window))

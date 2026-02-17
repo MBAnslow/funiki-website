@@ -13,7 +13,7 @@ const ArticleTitle: QuartzComponent = ({ fileData, displayClass }: QuartzCompone
 ArticleTitle.css = `
 .article-title {
   margin: -15px 0 0 0;
-  font-size: 3.8rem;
+  font-size: 4.5rem;
   line-height: 1.3;
 }
 
@@ -21,9 +21,8 @@ ArticleTitle.css = `
   .article-title {
     margin-top: 2rem;
     margin-bottom: 1rem;
-    
+    font-size: 3.4rem;
   }
-    
 }
 `
 
