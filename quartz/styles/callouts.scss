@@ -10,6 +10,11 @@
   overflow-y: hidden;
   box-sizing: border-box;
 
+  @media all and ($mobile) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   --icon-size: 30px;
 
   &[data-resource="link"] {
