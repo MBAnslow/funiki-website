@@ -373,8 +373,8 @@ a {
         margin-right: 0;
       }
       @media all and ($mobile) {
-        margin-right: 0.75rem;
-        margin-left: 0.75rem;
+        margin-right: 0rem;
+        margin-left: 0rem;
       }
     }
     & footer {
@@ -780,7 +780,7 @@ iframe.pdf {
   padding: 0.5rem 0.5rem;
 
   @media all and ($mobile) {
-    padding: 0.1rem;
+    padding: 0rem;
   }
 }
 
