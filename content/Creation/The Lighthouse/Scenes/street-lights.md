@@ -16,11 +16,11 @@ headerImageAlt: Lighthouse shining in the night across the sea.
 
 This is the first scene in _The Lighthouse_ demo. It gave the players space to feel each other out, to test their voices and their roles, while the world quietly set its tone around them.
 
-> *The road stretched ahead in darkness, a ribbon of asphalt swallowed by night. The taxi rolled forward with a steady hum, its engine a low mechanical heartbeat beneath the murmured conversation inside. Every so often, a street lamp loomed into view — a pale halo in the distance that swelled, washed the interior in sodium gold, then slipped behind them. In those brief floods of light, faces were revealed in fragments before the darkness reclaimed them, and only the rhythm of tires on tarmac remained.*
+> _The road stretched ahead in darkness, a ribbon of asphalt swallowed by night. The taxi rolled forward with a steady hum, its engine a low mechanical heartbeat beneath the murmured conversation inside. Every so often, a street lamp loomed into view — a pale halo in the distance that swelled, washed the interior in sodium gold, then slipped behind them. In those brief floods of light, faces were revealed in fragments before the darkness reclaimed them, and only the rhythm of tires on tarmac remained._
 >
-> *When the taxi finally slowed, its headlights cut hard beams through the night air, catching drifting dust and the faint mist rising from the roadside. The doors opened with a dull mechanical click. The players stepped out and found themselves standing in the glare — silhouettes at first, then fully exposed in the stark white light. The engine idled.*
+> _When the taxi finally slowed, its headlights cut hard beams through the night air, catching drifting dust and the faint mist rising from the roadside. The doors opened with a dull mechanical click. The players stepped out and found themselves standing in the glare — silhouettes at first, then fully exposed in the stark white light. The engine idled._
 >
-> *Then the taxi pulled away. The white beams vanished, replaced by the deep red glow of retreating brake lights. That red light washed over the group like the last warmth of a dying fire, staining clothes and skin in a quiet, unnatural hue. The engine noise dwindled, the lights shrank, and the glow faded into nothing. What remained was the cool blue of night — soft, enveloping, and vast.*
+> _Then the taxi pulled away. The white beams vanished, replaced by the deep red glow of retreating brake lights. That red light washed over the group like the last warmth of a dying fire, staining clothes and skin in a quiet, unnatural hue. The engine noise dwindled, the lights shrank, and the glow faded into nothing. What remained was the cool blue of night — soft, enveloping, and vast._
 
 # The Taxi Effects
 

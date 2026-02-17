@@ -36,88 +36,93 @@ There are a couple of important biases related to our participants to note here.
   </a>
 </div>
 
-
 # July 18
 
 ## General impressions
 
 We had very positive feedback in general. People appreciated the lights and sounds and had at least some moments they felt were memorable.
 
-> *I was very happy to discover a new atmosphere. Yeah, it was exciting each time. Yeah, true. Yeah, we wanted new atmospheres.*
+> _I was very happy to discover a new atmosphere. Yeah, it was exciting each time. Yeah, true. Yeah, we wanted new atmospheres._
+
 ---
-> *The atmosphere was, like, I was really in it. Yeah. Especially at the beginning, like, uh, with the lighthouse and everything and the rain, uh, it was very cool.*
+
+> _The atmosphere was, like, I was really in it. Yeah. Especially at the beginning, like, uh, with the lighthouse and everything and the rain, uh, it was very cool._
+
 ---
-> *And, uh, true thing is that when you have the sound, uh, synchronized with the light, it's really great. Yeah. That's cool.*
+
+> _And, uh, true thing is that when you have the sound, uh, synchronized with the light, it's really great. Yeah. That's cool._
+
 ---
-> *I was very happy to discover a new atmosphere, you know.*
+
+> _I was very happy to discover a new atmosphere, you know._
 >
-> *It was exciting each time.*
+> _It was exciting each time._
+
 ---
->*We were like immersed like yeah yeah the immersion really worked well.*
+
+> _We were like immersed like yeah yeah the immersion really worked well._
 
 ## Was it a novel experience?
 
->**Have you had simlar experiences like in a museum or an escape game?**
+> **Have you had simlar experiences like in a museum or an escape game?**
 >
->*I didn't have like 'wow' the lights were crazy and yeah and the light was just there to to light the room... but [with funiki] I like that the lights are like simulating things you know yeah and so it's cool because the thing is not here but we can like imagine it helps like imagine something so you can imagine everything  like reading a book like you can yeah that's true*
+> _I didn't have like 'wow' the lights were crazy and yeah and the light was just there to to light the room... but [with funiki] I like that the lights are like simulating things you know yeah and so it's cool because the thing is not here but we can like imagine it helps like imagine something so you can imagine everything like reading a book like you can yeah that's true_
 >
->*It's like helping you um imagine it in more details but like with more freedom than it would be with the true core like*
+> _It's like helping you um imagine it in more details but like with more freedom than it would be with the true core like_
 >
->*It's very powerful actually yeah and maybe even more than sound yeah*
+> _It's very powerful actually yeah and maybe even more than sound yeah_
 >
->*The powerful thing for the lights is that we're sort of generating this image from for ourselves but this is sort of as a condition or a clue for the generation yeah that's it i think it's it works pretty well yeah that's part of the philosophy it works well to not to not give you literal versions of the reality except for the sounds of course*
+> _The powerful thing for the lights is that we're sort of generating this image from for ourselves but this is sort of as a condition or a clue for the generation yeah that's it i think it's it works pretty well yeah that's part of the philosophy it works well to not to not give you literal versions of the reality except for the sounds of course_
 
 ### Sounds
 
-In general they wanted more sound effects and in particular, surround sound. 
+In general they wanted more sound effects and in particular, surround sound.
 
->"The sound was not, uh, loud enough, you know."
+> "The sound was not, uh, loud enough, you know."
 >
->"Suffices to put you in the experience"
+> "Suffices to put you in the experience"
 >
->"It's, it could be like crazy."
+> "It's, it could be like crazy."
 >
->"But with the surround sound."
+> "But with the surround sound."
 
 It's interesting though that their mind filled in missing sounds. In the lighthouse seen there was only the sound of waves but participants thought they heard rain and couldn't remember if they heard wind.
 
 > was there like rain? Was it raining?
 
-> Maybe in terms of sound, we could have had more. I don't remember if there was wind or not. Maybe we could have had some wind. 
+> Maybe in terms of sound, we could have had more. I don't remember if there was wind or not. Maybe we could have had some wind.
 
 ### Physicality
 
-One interesting aspect of the comments was trying to piece together the physicality of the scene. In particular, within the lighthouse the participants still the the lighthouse light spinning around but then they ask themselves, why are they seeing this from inside in a similar way to from outside the lighthouse. 
+One interesting aspect of the comments was trying to piece together the physicality of the scene. In particular, within the lighthouse the participants still the the lighthouse light spinning around but then they ask themselves, why are they seeing this from inside in a similar way to from outside the lighthouse.
 
 > Especially I love the lighthouse. Yeah, it's nice. The only thing with that is if we are inside the lighthouse, then why do we see it? Maybe because we only have one window and so we see the light when it comes on the side of the window. That's what I tried to do. I could have a little light of everything.
 
 Where are they located.
 
-> I wasn't really well able to know at which floor we were. That was one thing. Apart from that, uh, like when we knew, I could see the room and everything, but, uh, I wasn't always aware, uh, at which point of the lighthouse we were. 
-
+> I wasn't really well able to know at which floor we were. That was one thing. Apart from that, uh, like when we knew, I could see the room and everything, but, uh, I wasn't always aware, uh, at which point of the lighthouse we were.
 
 ### Literal vs Figurative
 
-> So were you imagining the space or were you sort of more focusing on the activities that you had to do? 
+> So were you imagining the space or were you sort of more focusing on the activities that you had to do?
 >
 > Imagine the space. Yeah, I really was imagining the space. I think I can draw every single place.
 
 > I don't know if you played Animal Crossing. At the beginning, for me, I was in the game. When you start the game, Animal Crossing, you're in a taxi, and it's raining, and it's dark, and it's the same lights. And so I was definitely in the same mood.
 
-Interestingly participants imagined a similar location for the village though there weren't many cues for the village itself. 
+Interestingly participants imagined a similar location for the village though there weren't many cues for the village itself.
 
->And then the village, I don't know how you... To me, it was really, like, one main street of the village.
+> And then the village, I don't know how you... To me, it was really, like, one main street of the village.
 >
 > Yeah. Yeah. Like, in Brittany. Yeah. And paved with stone, you know, a hole in stone. And with the lighthouse in the distance, yeah.
 >
->Maybe not the right, same direction as the street, but more, like, yeah, on the side, and you had to go through the whole desert street, and then going to more, yeah, a bit more wild terrain until the lighthouse and the sea that was in front of you.
+> Maybe not the right, same direction as the street, but more, like, yeah, on the side, and you had to go through the whole desert street, and then going to more, yeah, a bit more wild terrain until the lighthouse and the sea that was in front of you.
 
 The size of spaces came up which I think is very interesting. We're in a fixed size room and our lights can't change that too much, especially when fully illuminated. With candle light the borders of the room become dark which allows us to make it easier to imagine that the room is larger but ultimately individuals perceived very different sized rooms when the room was entirely lit.
 
->I feel like the living room is pretty large. It's like a castle. Now when I'm thinking, it's actually just like a lighthouse. To me, I really imagined that you had the lighthouse and you had like a very little house attached to the lighthouse and the living room was in this little house.
+> I feel like the living room is pretty large. It's like a castle. Now when I'm thinking, it's actually just like a lighthouse. To me, I really imagined that you had the lighthouse and you had like a very little house attached to the lighthouse and the living room was in this little house.
 
 > It's true that in my head the living room was very big. I don't know why I had that impression. To me too then. That's why I didn't think we were right inside the lighthouse but like next week. And then to go see the, we entered the stairs of the lighthouse. And then when the light goes out. The light goes out and then there was like the, the commences. Yeah, it was great. That was cool. That was scary actually.
-
 
 ## Events
 
@@ -127,7 +132,7 @@ Many of the comments were related to specific effects and scenes.
 
 > Um, I don't know if you played like Animal Crossing. Uh, yeah. At the beginning is like, for me, I was in the game, you know? Like, I don't know if you, when you start the game, Animal Crossing, you're in a taxi, and it's raining, and it's dark, and it's the same lights, and everything, and so I was definitely on the same mood, so, uh.
 
-One comment that was interesting was that it was hard to get the dynamics of the taxi because particpants were facing eachother rather than facing the direction of the taxi. It would have been relatively easy to rotate the effect but just as easy to ask particpants to re-orient themselves to more actively particpate in the role playing. 
+One comment that was interesting was that it was hard to get the dynamics of the taxi because particpants were facing eachother rather than facing the direction of the taxi. It would have been relatively easy to rotate the effect but just as easy to ask particpants to re-orient themselves to more actively particpate in the role playing.
 
 > The, the light was maybe a bit, like, uh, unpredictable, I don't know. But, because in the taxi, you would expect to have some, uh, reverber, uh, reverber, no, how do you say, uh, lens, you know, uh, on the side of the room, and I don't know sometimes. But maybe it was also because we had, like, other cars coming in front of us, uh, randomly. So, to me, it was pretty convincing
 
@@ -139,14 +144,13 @@ One comment that was interesting was that it was hard to get the dynamics of the
 >
 > Yeah, and the true thing is that when you have the sound synchronized with the lights, it's really great.
 
-### Lighthouse Room. 
+### Lighthouse Room.
 
->
 > "And I, especially, I love the lighthouse. Yeah. You know. It's nice."
-> 
-> "Not after that? Yes. I was, I was still inside into it. 
+>
+> "Not after that? Yes. I was, I was still inside into it.
 > There was maybe only the part with, uh, uh, living room, which was a bit less"
-> 
+>
 > "Maybe a, yeah, maybe a little, like, less white. A bit warmer. Yeah."
 
 ### Creature Attack
@@ -163,23 +167,21 @@ Yeah. Well, I agree. Because now the combat part is too peaceful. It's more like
 
 "Because now the combat part is too peaceful. It's more like a, like a verbal, you know, thing. It could be more intense in the sound and the light, I think"
 
-
 "The only thing with that is if we are inside the lighthouse, then why do we see, like, maybe because we only have one window. And so we see the light when it comes. Yeah. That's my guess. On the side of the window."
-
 
 > Yeah, it could be more erratic.
 >
 > Some lights and some sounds and just like…
-> 
+>
 > It could be more chaotic.
-> 
-> Simulate the fight. 
 >
->Because now the combat part is too peaceful. It's more like a… like a verbal, you know, thing. It could be more intense in the sound and the light, I think.
+> Simulate the fight.
 >
->More lights, yeah. Yeah. Even more…
+> Because now the combat part is too peaceful. It's more like a… like a verbal, you know, thing. It could be more intense in the sound and the light, I think.
 >
->More movements. You said more about movements. More movement. More movement.
+> More lights, yeah. Yeah. Even more…
+>
+> More movements. You said more about movements. More movement. More movement.
 
 ### Literal vs Figurative
 
@@ -204,7 +206,6 @@ Yeah. Well, I agree. Because now the combat part is too peaceful. It's more like
 "To me, I really imagined that you had the lighthouse and you had, like, a very little house. Really? Uh, close to it. Like, attached to it. Attached to the lighthouse. And the living room was in this little house. ""
 
 "In my head, the living room was very big. I don't know why I had that impression."
-
 
 "S00: [01:25:22] The light goes out. And then there was, like, the... Yeah, it was great. That was scary. That was..."
 
@@ -237,4 +238,3 @@ S00: [01:25:33] Yeah, in a way. Like, I was not, like... (...) Safely scary. But
 "Yeah, it works the best when you don't, when you are not looking specifically at the light. //S02: Yeah. Definitely.// So, yeah. I feel also, like, it was really great at putting atmosphere. //S02: Yeah.// But as the legend said, if there was more movement, it could, maybe it could even be, I don't know. (...) Like, for the taxi, it was very well, but the fact that the lighthouse was turning around, it was great. So, I feel like, yeah, movement could be even more, yeah."
 
 "I think if you add the sound, then it would be mind-blowing."
-
