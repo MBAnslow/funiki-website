@@ -1119,7 +1119,7 @@ body[data-landing="true"] .landing-shell .orb-debug-point {
 /* Mobile: smaller page title, center-align meta and tags */
 @media all and ($mobile) {
   .page > #quartz-body .center article > h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 3rem, 4rem);
   }
 
   .content-meta {

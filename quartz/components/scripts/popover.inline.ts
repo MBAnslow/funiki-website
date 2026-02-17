@@ -52,11 +52,12 @@ async function mouseEnterHandler(
     return
   }
 
-  const response = await fetchCanonical(targetUrl).catch((err) => {
+  const result = await fetchCanonical(targetUrl).catch((err) => {
     console.error(err)
   })
 
-  if (!response) return
+  if (!result) return
+  const { response, url: resolvedUrl } = result
   const [contentType] = response.headers.get("Content-Type")!.split(";")
   const [contentTypeCategory, typeInfo] = contentType.split("/")
 
@@ -90,7 +91,7 @@ async function mouseEnterHandler(
     default:
       const contents = await response.text()
       const html = p.parseFromString(contents, "text/html")
-      normalizeRelativeURLs(html, targetUrl)
+      normalizeRelativeURLs(html, resolvedUrl)
       // prepend all IDs inside popovers to prevent duplicates
       html.querySelectorAll("[id]").forEach((el) => {
         const targetID = `popover-internal-${el.id}`
