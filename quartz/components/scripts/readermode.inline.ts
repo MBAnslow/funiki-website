@@ -1,5 +1,6 @@
-// Default reader mode to on
-let isReaderMode = true
+// Default reader mode to on for desktop only
+const DESKTOP_BREAKPOINT = 1200
+let isReaderMode = window.innerWidth >= DESKTOP_BREAKPOINT
 
 const emitReaderModeChangeEvent = (mode: "on" | "off") => {
   const event: CustomEventMap["readermodechange"] = new CustomEvent("readermodechange", {

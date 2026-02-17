@@ -29,6 +29,21 @@
   }
 }
 
+@media all and ($tablet) {
+  .readermode {
+    display: none !important;
+  }
+}
+
+@media all and not ($desktop) {
+  :root[reader-mode="on"] {
+    & .sidebar.left,
+    & .sidebar.right {
+      opacity: unset;
+    }
+  }
+}
+
 :root[reader-mode="on"] {
   & .sidebar.left,
   & .sidebar.right {

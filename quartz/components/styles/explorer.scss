@@ -60,7 +60,7 @@
   @media all and ($mobile) {
     order: -1;
     height: initial;
-    overflow: hidden;
+    overflow: visible;
     flex-shrink: 0;
     align-self: flex-start;
     margin-top: auto;
@@ -321,7 +321,7 @@ li:has(> .folder-outer:not(.open)) > .folder-container > .folder-icon {
 .explorer {
   @media all and ($mobile) {
     &.collapsed {
-      flex: 0 0 34px;
+      flex: 0 0 128px;
 
       & > .explorer-content {
         transform: translateX(-100vw);
@@ -330,7 +330,7 @@ li:has(> .folder-outer:not(.open)) > .folder-container > .folder-icon {
     }
 
     &:not(.collapsed) {
-      flex: 0 0 34px;
+      flex: 0 0 58px;
 
       & > .explorer-content {
         transform: translateX(0);
@@ -363,10 +363,22 @@ li:has(> .folder-outer:not(.open)) > .folder-container > .folder-icon {
       margin: 0;
       padding: 5px;
       z-index: 101;
+      overflow: visible;
 
       .lucide-menu {
-        stroke: var(--darkgray);
+        width: 48px;
+        height: 48px;
+        stroke: var(--dark);
+        transition: opacity 0.2s ease;
       }
+    }
+
+    &.collapsed .mobile-explorer .lucide-menu {
+      opacity: 0.5;
+    }
+
+    &:not(.collapsed) .mobile-explorer .lucide-menu {
+      opacity: 1;
     }
   }
 }

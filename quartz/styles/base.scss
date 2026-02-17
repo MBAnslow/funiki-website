@@ -279,13 +279,7 @@ a {
       grid-template-areas: #{map.get($mobileGrid, templateAreas)};
     }
 
-    @media all and not ($desktop) {
-      // padding: 0 1rem;
-    }
-    @media all and ($mobile) {
-      // margin: 0 auto;
-    }
-
+  
     & .sidebar {
       gap: 1.2rem;
       top: 0;
@@ -305,7 +299,11 @@ a {
       grid-area: grid-sidebar-left;
       flex-direction: column;
       padding-right: 0;
-      padding-left: 12vw;
+      padding-left: clamp(2rem, 15vw, 20vw);
+
+      @media all and ($tablet) {
+        padding-left: clamp(2rem, 8vw, 10vw);
+      }
       @media all and ($mobile) {
         gap: 0;
         align-items: center;
@@ -376,8 +374,8 @@ a {
         margin-right: 0;
       }
       @media all and ($mobile) {
-        margin-right: 0;
-        margin-left: 0;
+        margin-right: 0.75rem;
+        margin-left: 0.75rem;
       }
     }
     & footer {
