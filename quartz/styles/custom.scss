@@ -76,6 +76,10 @@
     white-space: normal;
     word-break: break-word;
     overflow-wrap: anywhere;
+
+    @media all and ($mobile) {
+      font-size: 0.7rem;
+    }
   }
 
   :root[saved-theme="dark"] .gallery-custom .thumb-caption {
