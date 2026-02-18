@@ -11,8 +11,8 @@
   box-sizing: border-box;
 
   @media all and ($mobile) {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
   }
 
   --icon-size: 30px;
