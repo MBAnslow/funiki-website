@@ -36,7 +36,7 @@ It's worth broadly characterising our participants first. Most participants hadn
   </a>
 </div>
 
-As this feedback is informal and at an initial stage of the project this feedback mostly serves to provide general impressions about the project rather than a definitive statement on it. I've also chosen not to attribute the quotes to the participants in particular. 
+As this feedback is informal and at an initial stage of the project this feedback mostly serves to provide general impressions about the project rather than a definitive statement on it. I've also chosen not to attribute the quotes to the participants in particular.
 
 # 18th July 2025
 
@@ -45,8 +45,9 @@ As this feedback is informal and at an initial stage of the project this feedbac
 We had very positive feedback in general. Participants appreciated the ambience provided by lights and sounds and had at least some moments they felt were particularly memorable.
 
 > _I was very happy to discover a new atmosphere._
-> 
+>
 > _Yeah, it was exciting each time._
+
 ---
 
 > _The atmosphere was, like, I was really in it. Yeah. Especially at the beginning, like, uh, with the lighthouse and everything and the rain, uh, it was very cool._
@@ -65,7 +66,7 @@ We had very positive feedback in general. Participants appreciated the ambience 
 
 > _We were like immersed like yeah yeah the immersion really worked well._
 >
-> _now i can't play any more role play games without lights_ 
+> _now i can't play any more role play games without lights_
 
 ## Was it a novel experience?
 
@@ -109,11 +110,11 @@ In the discussion it was clear that participants were trying to piece together t
 
 ### Placement on a map
 
-This topic also came up within the lighthouse where they questioned which floor they were on. 
+This topic also came up within the lighthouse where they questioned which floor they were on.
 
 > I wasn't really well able to know at which floor we were. That was one thing. Apart from that, uh, like when we knew, I could see the room and everything, but, uh, I wasn't always aware, uh, at which point of the lighthouse we were.
 
-Which is interesting. 
+Which is interesting.
 
 Exposed to a generic location like a lighthouse, it's easy to imagine yourself at that location. There is also probably only one door one would imagine (the front door) which anchors the imagination of participants. But when it comes to building a finer-grained map, more precision is required.
 
@@ -132,7 +133,9 @@ In our physical space were were in a fixed size room and our lights can't change
 > **So were you imagining the space or were you sort of more focusing on the activities that you had to do?**
 >
 > Imagining the space. Yeah, I really was imagining the space. I think I can draw every single place.
+
 ---
+
 > I don't know if you played Animal Crossing. At the beginning, for me, I was in the game. When you start the game, Animal Crossing, you're in a taxi, and it's raining, and it's dark, and it's the same lights. And so I was definitely in the same mood.
 
 Interestingly participants imagined a similar location for the village though there weren't many cues for the village itself.
@@ -165,7 +168,6 @@ One comment that was interesting was that it was hard to get the dynamics of the
 >
 > _so if you imagine yourself in the in one big street even without saying it you act like it yeah yeah maybe_
 
-
 ### Candles
 
 > _Yeah, the candles was great. The candles was cool. Like with the sound and everything._
@@ -180,7 +182,7 @@ One comment that was interesting was that it was hard to get the dynamics of the
 
 > _the fact that the lighthouse was turning around it was great so i feel like yeah movement could be even more_
 
->_The next was when we knock on the door, I think. That was cool. The door cracked up. Yeah, yeah, yeah. And I like the fact that you said, yeah, yeah, I knock on the door and then the sound comes._
+> _The next was when we knock on the door, I think. That was cool. The door cracked up. Yeah, yeah, yeah. And I like the fact that you said, yeah, yeah, I knock on the door and then the sound comes._
 
 ### Lighthouse Room
 
@@ -209,7 +211,7 @@ One comment that was interesting was that it was hard to get the dynamics of the
 Yeah, yeah, yeah. When, yeah, that's true. Like, when the creature attacks us, maybe, like, do some lights and some sounds and just, like, yeah. //S06: It could be more chaotic. Simulate the fight. (.)//
 
 > _Because now the combat part is too peaceful. It's more like a, like a verbal, you know, thing. It could be more intense in the sound and the light, I think._
-> 
+>
 > _Yeah, it could be more erratic._
 >
 > _It could be more chaotic. Simulate the fight._
@@ -223,7 +225,6 @@ Yeah, yeah, yeah. When, yeah, that's true. Like, when the creature attacks us, m
 > _Once once you said that it went from a window to another it was more it was really clear yeah but that's true that for the first fight it was really oh it's here now._
 
 > _I don't know it could be a good idea like to to to represent the the creature as like a light like the room is dark and then the lights move and then it's here oh it's here and then oh it's here you know i don't know._
-
 
 ### On Top of the Lighthouse
 
