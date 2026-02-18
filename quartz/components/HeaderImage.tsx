@@ -40,6 +40,7 @@ HeaderImage.css = `
   border-radius: 0.75rem;
   display: block;
   object-fit: cover;
+  opacity: 0.8;
 }
 `
 

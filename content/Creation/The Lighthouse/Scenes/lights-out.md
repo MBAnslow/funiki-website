@@ -30,7 +30,7 @@ In the following clip you can see the lights out scene along with additional foo
 <VideoCard
   title="Lights Out Scene from The Lighthouse Demo."
   desc="The fuse box goes and our adventures use a torch to light their way."
-  src="https://drive.google.com/file/d/1iDgLLykL3HFO-cEIKlLhuVPr2TTzXTWk/preview"
+  src="https://drive.google.com/file/d/1iDgLLykL3HFO-cEIKlLhuVPr2TTzXTWk/preview?usp=drivesdk"
 />
 
 ## The Torch

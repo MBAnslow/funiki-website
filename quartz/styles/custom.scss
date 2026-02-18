@@ -763,28 +763,24 @@ body.explorer-overlay-open {
     background: var(--light);
     width: 100%;
     max-width: 520px;
-    margin: 0 auto;
+    margin: 0;
   }
 
   body.explorer-overlay-open .sidebar.left .explorer .explorer-content {
     display: block;
     max-height: calc(100vh - 8rem);
-    text-align: center;
+    text-align: left;
+    padding-left: 6rem;
+    padding-top: 6rem;
   }
 
   body.explorer-overlay-open .sidebar.left .explorer .explorer-content ul {
-    text-align: center;
-    font-size: 1.8rem;
+    text-align: left;
+    font-size: 1.3rem;
   }
 
   body.explorer-overlay-open .sidebar.left .explorer .explorer-content .folder-container {
-    justify-content: center;
-  }
-
-  body.explorer-overlay-open .sidebar.left .explorer .explorer-content .folder-outer > ul {
-    margin-left: 0;
-    padding-left: 0;
-    border-left: none;
+    justify-content: flex-start;
   }
 
   body.explorer-overlay-open .folder-type-icon,
