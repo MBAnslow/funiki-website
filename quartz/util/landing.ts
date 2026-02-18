@@ -1,7 +1,7 @@
 import { FullSlug } from "./path"
 
 const LANDING_SLUG_CANDIDATES = ["index", "about", "about/index"] as const
-const LANDING_DUPLICATE_TARGETS = ["index"] as const
+const LANDING_DUPLICATE_TARGETS = [] as const
 
 export const primaryLandingSlug = "About/" as FullSlug
 
