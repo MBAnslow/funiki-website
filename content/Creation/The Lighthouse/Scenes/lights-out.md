@@ -8,7 +8,7 @@ tags:
   - flickering
   - demo
 publishDate: 10/02/2026
-weight: 2
+weight: 3
 headerImage: ./static/the-lighthouse/lighthouse-header.png
 headerImageAlt: Lighthouse shining in the night across the sea.
 ---
