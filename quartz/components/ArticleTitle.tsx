@@ -22,6 +22,7 @@ ArticleTitle.css = `
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-size: 3.4rem;
+    text-align: center;
   }
 }
 `
