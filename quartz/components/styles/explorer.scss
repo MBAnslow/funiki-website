@@ -83,6 +83,17 @@
   }
 
   @media all and ($mobile) {
+    .explorer-ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-nav-bottom {
+      order: 99;
+    }
+  }
+
+  @media all and ($mobile) {
     button.mobile-explorer {
       display: flex;
     }

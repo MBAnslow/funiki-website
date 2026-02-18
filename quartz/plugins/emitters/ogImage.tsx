@@ -117,6 +117,7 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
 
       for (const [_tree, vfile] of content) {
         if (vfile.data.frontmatter?.socialImage !== undefined) continue
+        if (typeof vfile.data.frontmatter?.headerImage === "string") continue
         yield processOgImage(ctx, vfile.data, fonts, fullOptions)
       }
     },
@@ -130,6 +131,7 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
       for (const changeEvent of changeEvents) {
         if (!changeEvent.file) continue
         if (changeEvent.file.data.frontmatter?.socialImage !== undefined) continue
+        if (typeof changeEvent.file.data.frontmatter?.headerImage === "string") continue
         if (changeEvent.type === "add" || changeEvent.type === "change") {
           yield processOgImage(ctx, changeEvent.file.data, fonts, fullOptions)
         }
@@ -153,15 +155,34 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
                 : `https://${baseUrl}/static/${userDefinedOgImagePath}`
             }
 
+            let headerImagePath: string | undefined
+            const headerImage = pageData.frontmatter?.headerImage
+            if (typeof headerImage === "string" && headerImage.length > 0) {
+              if (isAbsoluteURL(headerImage)) {
+                headerImagePath = headerImage
+              } else if (headerImage.startsWith("/")) {
+                headerImagePath = `https://${baseUrl}${headerImage}`
+              } else {
+                const slugDir = pageData.slug!.includes("/")
+                  ? pageData.slug!.slice(0, pageData.slug!.lastIndexOf("/"))
+                  : ""
+                headerImagePath = `https://${baseUrl}/${slugDir ? slugDir + "/" : ""}${headerImage}`
+              }
+            }
+
             const generatedOgImagePath = isRealFile
               ? `https://${baseUrl}/${pageData.slug!}-og-image.webp`
               : undefined
             const defaultOgImagePath = `https://${baseUrl}/static/og-image.png`
-            const ogImagePath = userDefinedOgImagePath ?? generatedOgImagePath ?? defaultOgImagePath
+            const ogImagePath =
+              userDefinedOgImagePath ??
+              headerImagePath ??
+              generatedOgImagePath ??
+              defaultOgImagePath
             const ogImageMimeType = `image/${getFileExtension(ogImagePath) ?? "png"}`
             return (
               <>
-                {!userDefinedOgImagePath && (
+                {!userDefinedOgImagePath && !headerImagePath && (
                   <>
                     <meta property="og:image:width" content={fullOptions.width.toString()} />
                     <meta property="og:image:height" content={fullOptions.height.toString()} />

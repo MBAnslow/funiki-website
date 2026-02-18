@@ -1,6 +1,7 @@
 ---
 title: About
 draft: false
+summary: Supporting audio-visual ambient experiences for everyone, in everyday spaces. A project at Sony CSL Paris.
 permalink: landing-page
 aliases:
   - index
