@@ -16,6 +16,10 @@
     object-fit: cover;
     display: block;
     margin: 0;
+
+    @media all and ($mobile) {
+      height: clamp(100px, 18vw, 210px);
+    }
   }
 
   .gallery-custom {
