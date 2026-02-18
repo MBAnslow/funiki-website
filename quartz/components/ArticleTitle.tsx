@@ -19,7 +19,7 @@ ArticleTitle.css = `
 
 @media all and (max-width: 640px) {
   .article-title {
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     font-size: 3.4rem;
     text-align: center;
