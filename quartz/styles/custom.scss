@@ -18,7 +18,7 @@
     margin: 0;
 
     @media all and ($mobile) {
-      height: clamp(100px, 18vw, 210px);
+      height: clamp(140px, 30vw, 220px);
     }
   }
 
@@ -54,6 +54,10 @@
       linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent),
       linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent);
     mask-composite: intersect;
+
+    @media all and ($mobile) {
+      width: calc((100% - 1.1rem) / 2);
+    }
   }
 
   .gallery-custom a img {
