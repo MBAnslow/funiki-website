@@ -10,7 +10,7 @@ tags:
 weight: 4
 ---
 
-## Simulating lighting & Sounds
+## Simulating Lights & Sounds
 
 We use Godot as our game engine. Godot is a free, open-source game engine for building 2D and 3D interactive applications such as games, simulations, and visualisations, offering a unified editor, modern real-time rendering, and cross-platform deployment. It has a scene and node based design composing complex behaviour small, reusable components encouraging modular and system-level thinking.
 

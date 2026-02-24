@@ -8,6 +8,26 @@
     position: relative;
   }
 
+  /* Grainy edges on standalone content images */
+  article img {
+    filter: url(#edge-grain-lg);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent),
+      linear-gradient(to bottom, transparent, black 24px, black calc(100% - 24px), transparent);
+    -webkit-mask-composite: destination-in;
+    mask-image:
+      linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent),
+      linear-gradient(to bottom, transparent, black 24px, black calc(100% - 24px), transparent);
+    mask-composite: intersect;
+  }
+
+  /* Gallery images: grain comes from parent <a>, not the img itself */
+  .gallery-custom img {
+    filter: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
   /* Passenger gallery thumbnail sizing */
   .gallery-custom img {
     width: 100%;
