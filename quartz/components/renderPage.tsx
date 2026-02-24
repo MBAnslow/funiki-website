@@ -333,10 +333,25 @@ export function renderPage(
           <filter id="edge-grain-lg" x="-2%" y="-2%" width="104%" height="104%">
             <feMorphology in="SourceAlpha" operator="erode" radius="20" result="shrunk" />
             <feGaussianBlur in="shrunk" stdDeviation="20" result="soft" />
-            <feTurbulence type="fractalNoise" baseFrequency="0.40" numOctaves="6" stitchTiles="stitch" result="noise" />
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.40"
+              numOctaves="6"
+              stitchTiles="stitch"
+              result="noise"
+            />
             <feColorMatrix in="noise" type="luminanceToAlpha" result="noiseAlpha" />
             <feComposite in="noiseAlpha" in2="SourceAlpha" operator="in" result="grainBounded" />
-            <feComposite in="soft" in2="grainBounded" operator="arithmetic" k1="0" k2="1" k3="1" k4="-0.3" result="finalMask" />
+            <feComposite
+              in="soft"
+              in2="grainBounded"
+              operator="arithmetic"
+              k1="0"
+              k2="1"
+              k3="1"
+              k4="-0.3"
+              result="finalMask"
+            />
             <feComposite in="SourceGraphic" in2="finalMask" operator="in" />
           </filter>
         </svg>

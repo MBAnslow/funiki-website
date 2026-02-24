@@ -23,7 +23,9 @@ headerImageAlt: Lighthouse shining in the night across the sea.
 
 There are lights distributed around the central sphere as well as a single light above the sphere. The light above is white, representing moonlight, while the other lights are a dark blue, representing the night. A keyframe animation changes the lights to white periodically, using staggered start times so that the light feels like it moves across the space like a beam of light. Guillaume chose an abstract sound to represent this beam shining on people to give it its own sort of personality and also to hint at something mysterious about the lighthouse.
 
-In the following video we show a video of the effect from our second demo. The light tethering graph is not identical to the one used in the demo but the keyframe animations are the same. We've grouped the outputs to the left (the signals sent to the lights) and the inputs to the right (views on the central sphere) from upper to lower and from left to right so you can see how the spatial effect propogates across the scene. 
+In the following video we show a video of the effect from our second demo. You will see two rotations of the lighthouse followed by the door opening on the right and a final rotation of the lighthouse light.
+
+The light tethering graph is not identical to the one used in the demo but the keyframe animations are the same. We've grouped the outputs to the left (the signals sent to the lights) and the inputs to the right (views on the central sphere) from upper to lower and from left to right so you can see how the spatial effect propogates across the scene. There are no lights mapped to the back of the sphere in this example.
 
 <VideoCard
   title="Lighthouse Light and Door Opening."

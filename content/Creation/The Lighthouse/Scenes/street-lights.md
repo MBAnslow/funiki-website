@@ -41,8 +41,10 @@ You can see what this looks like in the following video:
 
 The taxi scene uses very simple lighting elements. A single faint directional overhead light and 2 lights periodically passing by. You can see what is captured from the virtual scene on the right and which lighting information is sent to the lights on the left.
 
+This is shown in the following clip. It doesn't use the same lighting configuration as the video but has the same keyframe animations. I've grouped the inputs and outputs and arranged them from upper to lower and left to right so the spatial dynamics are easier to see. There are no lights tethered behind the sphere in this example so you see the lights come from the front (centre) and then pass along either side (left and right).
+
 <VideoCard
   title="Taxi Scene Light Tethering."
   desc="Street lights are just spotlights passing by. There is a single omni light above the adventurers. "
-  src="https://drive.google.com/file/d/18nYsYsE9tNca-CTLhdRFUTD1ju0JX27w/preview"
+  src="https://drive.google.com/file/d/1x33zqI9j947S8majF7qwKZO22rt01vwZ/preview"
 />
