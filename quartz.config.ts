@@ -36,7 +36,7 @@ const config: QuartzConfig = {
           darkgray: "rgba(78, 78, 78, 1)",
           dark: "rgba(43, 43, 43, 1)",
           secondary: "rgba(40, 75, 99, 1)",
-          tertiary: "rgba(132, 165, 157, 1)",
+          tertiary: "rgba(113, 143, 164, 1)",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "rgba(255, 242, 54, 0.53)",
           tableHeader: "rgba(143, 159, 169, 0.15)",

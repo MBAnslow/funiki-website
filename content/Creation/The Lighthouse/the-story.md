@@ -21,15 +21,15 @@ There is some variation in what players see depending on the actions that they t
 2. They **approach the lighthouse** and go inside.
 3. The **lights black out** and they have to rely on **candle light** to light their way.
 4. When they try to turn the lights back on a **strange red light** turns on instead of the previous lighthouse light.
-5. The party is **attacked by some sort of spirit**.
+5. The party is **attacked by some sort of spirit** which they defeat.
 6. They find and **open the cursed chest**.
 7. The players go back to the **police station** and are explained everything that happens.
 
-We describe how we created the lighting effects in some of these [scenes](/the-lighthouse/scenes) and also detail the story a little more.
+We describe how we created the lighting effects in some of these [scenes](/the-lighthouse/scenes) and also go into more detail about the story elements in those scenes.
 
 ## The Characters
 
-There were two sessions features 4 players and 3 players filling particular roles such as the adventurer, collector, librarian etc.
+There were two sessions features 4 players and 3 players filling particular roles such as the adventurer, collector, librarian etc. Here are the player cards from both sessions.
 
 <div class="pswp-gallery gallery-custom" id="lighthouse-feedback-gallery">
   <a

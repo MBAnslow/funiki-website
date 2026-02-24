@@ -16,11 +16,11 @@ headerImageAlt: Lighthouse shining in the night across the sea.
 
 This is the first scene in _The Lighthouse_ demo. It gave the players space to feel each other out, to test their voices and their roles, while the world quietly set its tone around them.
 
-> _The road stretched ahead in darkness, a ribbon of asphalt swallowed by night. The taxi rolled forward with a steady hum, its engine a low mechanical heartbeat beneath the murmured conversation inside. Every so often, a street lamp loomed into view — a pale halo in the distance that swelled, washed the interior in sodium gold, then slipped behind them. In those brief floods of light, faces were revealed in fragments before the darkness reclaimed them, and only the rhythm of tires on tarmac remained._
+> _The road stretched ahead in darkness, a ribbon of asphalt swallowed by night. The taxi rolled forward with a steady hum, its engine a low mechanical heartbeat beneath the murmured conversation inside. Every so often, a street lamp loomed into view, a pale halo in the distance that swelled, washed the interior in sodium gold, then slipped behind them. In those brief floods of light, faces were revealed in fragments before the darkness reclaimed them, and only the rhythm of tires on tarmac remained._
 >
-> _When the taxi finally slowed, its headlights cut hard beams through the night air, catching drifting dust and the faint mist rising from the roadside. The doors opened with a dull mechanical click. The players stepped out and found themselves standing in the glare — silhouettes at first, then fully exposed in the stark white light. The engine idled._
+> _When the taxi finally slowed, its headlights cut hard beams through the night air, catching drifting dust and the faint mist rising from the roadside. The doors opened with a dull mechanical click. The players stepped out and found themselves standing in the glare, silhouettes at first, then fully exposed in the stark white light. The engine idled._
 >
-> _Then the taxi pulled away. The white beams vanished, replaced by the deep red glow of retreating brake lights. That red light washed over the group like the last warmth of a dying fire, staining clothes and skin in a quiet, unnatural hue. The engine noise dwindled, the lights shrank, and the glow faded into nothing. What remained was the cool blue of night — soft, enveloping, and vast._
+> _Then the taxi pulled away. The white beams vanished, replaced by the deep red glow of retreating brake lights. That red light washed over the group like the last warmth of a dying fire, staining clothes and skin in a quiet, unnatural hue. The engine noise dwindled, the lights shrank, and the glow faded into nothing. What remained was the cool blue of night, soft, enveloping, and vast._
 
 # The Taxi Effects
 
@@ -41,8 +41,10 @@ You can see what this looks like in the following video:
 
 The taxi scene uses very simple lighting elements. A single faint directional overhead light and 2 lights periodically passing by. You can see what is captured from the virtual scene on the right and which lighting information is sent to the lights on the left.
 
+This is shown in the following clip. It doesn't use the same lighting configuration as the video but has the same keyframe animations. I've grouped the inputs and outputs and arranged them from upper to lower and left to right so the spatial dynamics are easier to see. There are no lights tethered behind the sphere in this example so you see the lights come from the front (centre) and then pass along either side (left and right).
+
 <VideoCard
   title="Taxi Scene Light Tethering."
   desc="Street lights are just spotlights passing by. There is a single omni light above the adventurers. "
-  src="https://drive.google.com/file/d/18nYsYsE9tNca-CTLhdRFUTD1ju0JX27w/preview"
+  src="https://drive.google.com/file/d/1x33zqI9j947S8majF7qwKZO22rt01vwZ/preview"
 />

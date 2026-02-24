@@ -20,7 +20,7 @@ On this website you can find out more about:
 
 1. The [story and setting](/the-lighthouse/the-story)
 2. Our [setup](/the-lighthouse/the-setup)
-3. How we implemented specific [scenes](/the-lighthouse/scenes) with video & tethering footage.
+3. How we implemented specific [scenes](/the-lighthouse/scenes) with video & tethering footage
 4. Detailed participant [feedback](/the-lighthouse/feedback)
 5. Our take-away [lessons](/the-lighthouse/what-we-learned)
 
