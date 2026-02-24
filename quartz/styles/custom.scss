@@ -16,6 +16,15 @@
     object-fit: cover;
     display: block;
     margin: 0;
+    filter: url(#edge-grain);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent),
+      linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent);
+    -webkit-mask-composite: destination-in;
+    mask-image:
+      linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent),
+      linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent);
+    mask-composite: intersect;
 
     @media all and ($mobile) {
       height: clamp(100px, 18vw, 210px);
@@ -43,7 +52,7 @@
     overflow: hidden;
     width: calc((100% - 2 * 1.1rem) / 3);
     border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    // box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease;
@@ -64,9 +73,12 @@
   .gallery-custom .thumb-caption {
     position: relative;
     display: block;
-    width: 100%;
-    padding: 0.6rem 0.85rem;
-    color: var(--dark);
+    width: 94%;
+    margin-left: 3%;
+    margin-top: -12px;
+    height: 60px;
+    padding: 0.8rem 0.85rem 1rem;
+    color: rgba(250, 248, 248, 1);
     font-size: 0.9rem;
     line-height: 1.4;
     border-bottom-left-radius: 12px;
@@ -76,14 +88,26 @@
     white-space: normal;
     word-break: break-word;
     overflow-wrap: anywhere;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    background: transparent;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 3px,
+      black calc(100% - 3px),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 3px,
+      black calc(100% - 3px),
+      transparent
+    );
 
     @media all and ($mobile) {
       font-size: 0.7rem;
     }
-  }
-
-  :root[saved-theme="dark"] .gallery-custom .thumb-caption {
-    color: var(--light);
   }
 
   #control-buttons {
@@ -947,7 +971,7 @@ body[data-landing="true"] .landing-link {
   padding: 0.85rem 1.75rem;
   border-radius: 999px;
   border: 2px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
+  color: rgba(250, 248, 248, 1);
   background-color: rgba(83, 83, 83, 0.2);
   text-decoration: none;
   font-family: var(--bodyFont);

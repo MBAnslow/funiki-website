@@ -265,6 +265,38 @@ export function renderPage(
     <html lang={lang} dir={direction}>
       <Head {...componentData} />
       <body data-slug={slug} data-landing={isLandingPage ? "true" : undefined}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="0"
+          height="0"
+          style={{ position: "absolute" }}
+          aria-hidden="true"
+        >
+          <filter id="edge-grain" x="-2%" y="-2%" width="104%" height="104%">
+            <feMorphology in="SourceAlpha" operator="erode" radius="8" result="shrunk" />
+            <feGaussianBlur in="shrunk" stdDeviation="4" result="soft" />
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.40"
+              numOctaves="6"
+              stitchTiles="stitch"
+              result="noise"
+            />
+            <feColorMatrix in="noise" type="luminanceToAlpha" result="noiseAlpha" />
+            <feComposite in="noiseAlpha" in2="SourceAlpha" operator="in" result="grainBounded" />
+            <feComposite
+              in="soft"
+              in2="grainBounded"
+              operator="arithmetic"
+              k1="0"
+              k2="1"
+              k3="1"
+              k4="-0.3"
+              result="finalMask"
+            />
+            <feComposite in="SourceGraphic" in2="finalMask" operator="in" />
+          </filter>
+        </svg>
         <div id="quartz-root" class="page">
           <Body {...componentData}>
             {LeftComponent}

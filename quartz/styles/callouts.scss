@@ -41,10 +41,10 @@
   .resource-header {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
-    padding-top: 0.2rem;
+    padding-top: 0.4rem;
     padding-bottom: 0.15rem;
     margin: 0;
-    background: color-mix(in srgb, var(--light) 40%, var(--secondary) 60%);
+    background: color-mix(in srgb, var(--light) 50%, var(--secondary) 50%);
     border-bottom: 1px solid var(--border);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -67,15 +67,14 @@
 
   .resource-icon {
     display: inline-block;
-    width: var(--icon-size);
-    height: var(--icon-size);
+    width: 25px;
+    height: 25px;
     background-color: var(--color);
-    mask-size: var(--icon-size) var(--icon-size);
+    mask-size: 25px 25px;
     mask-repeat: no-repeat;
     mask-position: center;
     vertical-align: middle;
     margin-right: 0.75rem;
-    margin-bottom: 0.3rem;
   }
 
   .resource-icon--link {
@@ -129,6 +128,8 @@
 
     p {
       margin: 0.4rem 0;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
       line-height: 1.4;
     }
   }

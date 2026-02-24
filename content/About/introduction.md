@@ -22,6 +22,8 @@ The project focuses on creating dynamic immersive ambiences using lights and sou
 
 Funiki is a long horizon research project. It doesn't have specific long-term goals or deliverables but rather a mission and an evolving direction with exploratory outputs along the way.
 
+You can find examples of exploratory outputs on the website. We recommend you start with [The Lighthouse](/the-lighthouse/overview) demo which explores the use of Funiki in a role playing game setting.
+
 ## The Digital Garden
 
 This is the companion website for the Funiki project. A research project at [Sony CSL Paris](https://csl.sony.fr/projects/funiki/) lead by [Michael Anslow](https://csl.sony.fr/people/michael-anslow/). This site is a [digital garden](/Notes/digital-garden): a living collection of ideas, sketches, experiments, and reflections. The idea is to share the project as it matures rather than only presenting complete outputs.
