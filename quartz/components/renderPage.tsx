@@ -273,8 +273,42 @@ export function renderPage(
           aria-hidden="true"
         >
           <filter id="edge-grain" x="-2%" y="-2%" width="104%" height="104%">
-            <feMorphology in="SourceAlpha" operator="erode" radius="8" result="shrunk" />
-            <feGaussianBlur in="shrunk" stdDeviation="4" result="soft" />
+            {/* Large erode for top and sides */}
+            <feMorphology in="SourceAlpha" operator="erode" radius="8" result="shrunkLg" />
+            <feGaussianBlur in="shrunkLg" stdDeviation="4" result="softLg" />
+            {/* Small erode for bottom */}
+            <feMorphology in="SourceAlpha" operator="erode" radius="1" result="shrunkSm" />
+            <feGaussianBlur in="shrunkSm" stdDeviation="1" result="softSm" />
+            {/* Gradient to blend: white=top (large grain), black=bottom (small grain) */}
+            <feImage
+              href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0.6' stop-color='white'/%3E%3Cstop offset='1' stop-color='black'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E"
+              preserveAspectRatio="none"
+              result="blend"
+            />
+            {/* softLg where gradient is white, softSm where gradient is black */}
+            <feComposite in="softLg" in2="blend" operator="in" result="topSoft" />
+            <feComposite
+              in="blend"
+              in2="blend"
+              operator="arithmetic"
+              k1="-1"
+              k2="0"
+              k3="0"
+              k4="1"
+              result="blendInv"
+            />
+            <feComposite in="softSm" in2="blendInv" operator="in" result="botSoft" />
+            <feComposite
+              in="topSoft"
+              in2="botSoft"
+              operator="arithmetic"
+              k1="0"
+              k2="1"
+              k3="1"
+              k4="0"
+              result="soft"
+            />
+            {/* Grain texture */}
             <feTurbulence
               type="fractalNoise"
               baseFrequency="0.40"

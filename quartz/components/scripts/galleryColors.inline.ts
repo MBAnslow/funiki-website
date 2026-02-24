@@ -66,7 +66,7 @@ function applyGradients() {
       if (!img.naturalWidth) return
       const [dark, mid, light] = extractThreeColors(img)
       const rgba = (c: RGB, a: number) => `rgba(${c[0]},${c[1]},${c[2]},${a})`
-      caption.style.background = `linear-gradient(to bottom, ${rgba(dark, 0.8)} 0%, ${rgba(dark, 0.65)} 20%, ${rgba(mid, 0.7)} 40%, ${rgba(light, 0.5)} 80%, ${rgba(light, 0.1)} 95%, ${rgba(light, 0.0)} 100%)`
+      caption.style.background = `linear-gradient(to bottom, ${rgb(dark)} 0%, ${rgb(mid)} 50%, ${rgba(light, 0)} 100%)`
     }
 
     if (img.complete && img.naturalWidth) {
@@ -77,7 +77,7 @@ function applyGradients() {
   })
 }
 
-const setup = () => {
+const setupGalleryColors = () => {
   if (typeof window === "undefined" || typeof document === "undefined") return
 
   const handleNav = () => applyGradients()
@@ -91,4 +91,4 @@ const setup = () => {
   applyGradients()
 }
 
-setup()
+setupGalleryColors()
