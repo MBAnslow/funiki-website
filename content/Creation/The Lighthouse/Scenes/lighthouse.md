@@ -19,8 +19,12 @@ headerImageAlt: Lighthouse shining in the night across the sea.
 >
 > _They approached the heavy wooden door and knocked, the sound dull and resonant against the stone. For a heartbeat, nothing answered but the wind. Then a warm seam of light appeared along the edges of the door, thin at first, then widening as it slowly creaked inward. The golden interior glow spilled out across the ground and over their faces, softening the harsh lines left by the rotating beacon. For a moment the two lights overlapped — the cold, sweeping brilliance of the lighthouse beam crossing the steady amber from within — bathing them in shifting layers of white and gold. Hinges groaned. The sea roared again. And as the door opened fully, the boundary between the vast, indifferent night and whatever waited inside began to dissolve._
 
+# Lighting Effects
+
+There are lights distributed around the central sphere as well as a single light above representing the moonlight. The lights are a dark blue representing the night and a keyframe animation changes the lights to white periodically. These turn on an off in a staggared way so that the light feels like it moves across the space like a beam of light. Guillaume chose an abstract sound to represent this beam shining on people to give it more character and also hint at something mysterious.
+
 <VideoCard
   title="Lighthouse Light and Door Opening."
-  desc="The lighthouse lights pass by periodically until the partipants knock on the door and the light from it illuminates them as it opens."
-  src="https://drive.google.com/file/d/1PSyc9vSIRXQsV6kTq_xAtWdOa7bPhdyG/preview"
+  desc="The lighthouse lights pass by periodically until the partipants knock on the door and the light from it illuminates them as it opens. I've kept the light outputs grouped on the left and the tethering grouped on the right. "
+  src="https://drive.google.com/file/d/1lJlm7FLotH5myG4u1Efm3aoVnlsJEBA9/preview"
 />

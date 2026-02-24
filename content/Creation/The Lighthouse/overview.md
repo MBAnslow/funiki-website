@@ -1,6 +1,6 @@
 ---
 title: Overview
-permalink: /the-lighthouse-overview
+permalink: /the-lighthouse/overview
 summary: Overview of the lighthouse role playing demo.
 tags:
   - funiki
@@ -20,8 +20,8 @@ On this website you can find out more about:
 
 1. The [story and setting](/the-lighthouse/the-story)
 2. Our [setup](/the-lighthouse/the-setup)
-3. How we implemented specific [scenes](/the-lighthouse/scenes)
-4. Participant [feedback](/the-lighthouse/feedback)
+3. How we implemented specific [scenes](/the-lighthouse/scenes) with video & tethering footage.
+4. Detailed participant [feedback](/the-lighthouse/feedback)
 5. Our take-away [lessons](/the-lighthouse/what-we-learned)
 
 Here is a little taster gallery from our two sessions. Most of the video and photo content we captured is from the second session.

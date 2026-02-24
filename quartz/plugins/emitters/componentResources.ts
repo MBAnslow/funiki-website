@@ -7,6 +7,8 @@ import spaRouterScript from "../../components/scripts/spa.inline"
 import popoverScript from "../../components/scripts/popover.inline"
 // @ts-ignore
 import photoSwipeScript from "../../components/scripts/photoswipe.inline"
+// @ts-ignore
+import galleryColorsScript from "../../components/scripts/galleryColors.inline"
 import styles from "../../styles/custom.scss"
 import popoverStyle from "../../components/styles/popover.scss"
 import { BuildCtx } from "../../util/ctx"
@@ -82,6 +84,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   const cfg = ctx.cfg.configuration
 
   componentResources.afterDOMLoaded.push(photoSwipeScript)
+  componentResources.afterDOMLoaded.push(galleryColorsScript)
 
   // popovers
   if (cfg.enablePopovers) {

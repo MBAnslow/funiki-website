@@ -43,11 +43,17 @@
     overflow: hidden;
     width: calc((100% - 2 * 1.1rem) / 3);
     border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
     text-decoration: none;
+    filter: url(#edge-grain);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent),
+      linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent);
+    -webkit-mask-composite: destination-in;
+    mask-image:
+      linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent),
+      linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent);
+    mask-composite: intersect;
   }
 
   .gallery-custom a img {
@@ -57,33 +63,31 @@
   }
 
   .gallery-custom a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+    transform: translateY(-4px) scale(1.03);
   }
 
   .gallery-custom .thumb-caption {
     position: relative;
     display: block;
     width: 100%;
-    padding: 0.6rem 0.85rem;
-    color: var(--dark);
+    height: 60px;
+    padding: 0.8rem 0.85rem 1rem;
+    color: rgba(250, 248, 248, 1);
     font-size: 0.9rem;
     line-height: 1.4;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    box-sizing: border-box;
+    // box-sizing: border-box;
     text-overflow: ellipsis;
     white-space: normal;
     word-break: break-word;
     overflow-wrap: anywhere;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    background: transparent;
 
     @media all and ($mobile) {
       font-size: 0.7rem;
     }
-  }
-
-  :root[saved-theme="dark"] .gallery-custom .thumb-caption {
-    color: var(--light);
   }
 
   #control-buttons {
@@ -947,7 +951,7 @@ body[data-landing="true"] .landing-link {
   padding: 0.85rem 1.75rem;
   border-radius: 999px;
   border: 2px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
+  color: rgba(250, 248, 248, 1);
   background-color: rgba(83, 83, 83, 0.2);
   text-decoration: none;
   font-family: var(--bodyFont);
